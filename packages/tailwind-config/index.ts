@@ -1,0 +1,1 @@
+export { tailwindPreset } from './my-preset'

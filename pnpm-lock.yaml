@@ -122,6 +122,15 @@ importers:
         specifier: 7.28.0
         version: 7.28.0(eslint@7.32.0)
 
+  packages/tailwind-config:
+    devDependencies:
+      eslint:
+        specifier: ^8.43.0
+        version: 8.43.0
+      tailwindcss:
+        specifier: 3.3.2
+        version: 3.3.2
+
   packages/tsconfig: {}
 
   packages/ui:

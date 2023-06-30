@@ -1,0 +1,21 @@
+{
+  "name": "tailwind-config",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "index.ts",
+  "types": "index.ts",
+  "description": "Tailwind config",
+  "keywords": [
+    "tailwind",
+    "config"
+  ],
+  "author": {
+    "name": "Alex I.",
+    "email": "ailushyk@gmail.com"
+  },
+  "devDependencies": {
+    "eslint": "^8.43.0",
+    "eslint-config-custom": "workspace:*",
+    "tailwindcss": "3.3.2"
+  }
+}
