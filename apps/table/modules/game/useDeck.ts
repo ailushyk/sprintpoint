@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
-import { AllResultsValue } from '../../types'
-import { DeckHook, TypeValue } from './types'
+import { AllResultsValue } from '@/types'
+
 import { DeckScaleType, getDeck } from './deck'
+import { DeckHook, TypeValue } from './types'
 
 const defaultState = {
   risk: null,

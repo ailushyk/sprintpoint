@@ -1,6 +1,8 @@
 import React, { FC } from 'react'
-import { Deck } from '../../../components/Deck'
-import { Card } from '../../../components/Card'
+
+import { Card } from '@/components/Card'
+import { Deck } from '@/components/Deck'
+
 import { DeckComponent } from '../types'
 
 export const ProDeck: FC<DeckComponent> = ({

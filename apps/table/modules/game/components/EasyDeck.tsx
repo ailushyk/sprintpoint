@@ -1,8 +1,10 @@
 import React, { FC } from 'react'
+
+import { Card } from '@/components/Card'
+import { Deck } from '@/components/Deck'
+import { DeckRowTitle } from '@/components/DeckRowTitle'
+
 import { types } from '../constants'
-import { DeckRowTitle } from '../../../components/DeckRowTitle'
-import { Deck } from '../../../components/Deck'
-import { Card } from '../../../components/Card'
 import { DeckComponent } from '../types'
 
 export const EasyDeck: FC<DeckComponent> = ({

@@ -8,9 +8,5 @@ export default function SinglePage() {
   const { data } = usePlayer()
   const deck = useDeck(data?.deck)
 
-  return (
-    <div>
-      <PlayTable title="Single player" {...deck} />
-    </div>
-  )
+  return <PlayTable title="Single player" {...deck} />
 }
