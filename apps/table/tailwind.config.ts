@@ -2,13 +2,17 @@ import { easyPreset } from 'tailwind-config'
 
 /** @type {import('tailwindcss').Config} */
 const tailwindConfig = {
-  presets: [easyPreset],
+  // presets: [easyPreset],
   content: [
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
+      colors: {
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

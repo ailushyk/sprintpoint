@@ -17,5 +17,9 @@
     "eslint": "^8.43.0",
     "eslint-config-custom": "workspace:*",
     "tailwindcss": "3.3.2"
+  },
+  "dependencies": {
+    "clsx": "^1.2.1",
+    "tailwind-merge": "^1.13.2"
   }
 }
