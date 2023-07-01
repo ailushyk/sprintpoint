@@ -1,1 +1,1 @@
-export { tailwindPreset } from './my-preset'
+export { easyPreset } from './easy-preset'
