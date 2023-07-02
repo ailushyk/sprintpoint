@@ -9,17 +9,21 @@
     "generate:component": "turbo gen react-component"
   },
   "dependencies": {
-    "tailwindcss": "3.3.2",
+    "@radix-ui/react-slot": "^1.0.2",
+    "class-variance-authority": "^0.6.1",
     "clsx": "^1.2.1",
+    "lucide-react": "latest",
+    "next-themes": "^0.2.1",
     "tailwind-merge": "^1.13.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
-    "eslint": "^7.32.0",
+    "eslint": "8.44.0",
     "eslint-config-custom": "workspace:*",
+    "tailwindcss": "3.3.2",
     "tsconfig": "workspace:*",
-    "typescript": "^4.5.2"
+    "typescript": "^5.1.6"
   },
   "peerDependencies": {
     "react": "latest",

@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['ui', '@easypoker/utils'],
+  transpilePackages: ['@easypoker/ui', '@easypoker/utils'],
 }
 
 module.exports = nextConfig

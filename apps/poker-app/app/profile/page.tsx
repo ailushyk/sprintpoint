@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { decksMap } from '@/modules/game/deck'
 import { PlayerStoreType, usePlayer } from '@/modules/game/usePlayer'
+import { ModeToggle } from '@easypoker/ui'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 
 import { Button } from '@/components/Button/Button'
@@ -97,6 +98,8 @@ const ProfilePage = () => {
           )
         }}
       </Formik>
+
+      <ModeToggle />
     </div>
   )
 }
