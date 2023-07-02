@@ -1,4 +1,4 @@
-import { tailwindPreset } from '@easypoker/ui/lib/tailwind-preset'
+import { tailwindPreset } from '@easypoker/ui/src/lib/tailwind-preset'
 
 /** @type {import('tailwindcss').Config} */
 const tailwindConfig = {
@@ -6,15 +6,10 @@ const tailwindConfig = {
   content: [
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/@easypoker/ui/components/**/*.{js,ts,jsx,tsx}',
-    './node_modules/@easypoker/ui/theme/**/*.{js,ts,jsx,tsx}',
+    './node_modules/@easypoker/ui/src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
-      colors: {
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
-      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

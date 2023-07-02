@@ -7,8 +7,11 @@ export const saveToLocalStorage = (key: string, value: string): void => {
 }
 
 export const getJsonFromLocalStorage = (key: string) => {
-  const saved = localStorage.getItem(key) || 'null'
-  return JSON.parse(saved)
+  // check if code run in browser
+  if (typeof window !== 'undefined') {
+    const saved = localStorage.getItem(key) || 'null'
+    return JSON.parse(saved)
+  }
 }
 
 export const saveJsonToLocalStorage = (key: string, value: object): void => {

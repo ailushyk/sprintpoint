@@ -1,10 +1,11 @@
 // ui provider
-export * from './theme/ModeToggle'
-export * from './theme/UIProvider'
+export * from './src/theme/ModeToggle'
+export * from './src/theme/UIProvider'
 
 // component exports
-export * from './components/Button'
-export * from './components/Header'
+export * from './src/components/Button'
+export * from './src/components/Header'
 
 // lib exports
-export * from './lib/cn'
+export * from './src/lib/cn'
+export * from './src/lib/tailwind-preset'
