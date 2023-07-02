@@ -1,4 +1,4 @@
-import { Button } from 'ui'
+import { Button } from '@easypoker/ui'
 
 import LinkBlock from '@/components/Button/LinkBlock'
 import { Welcome } from '@/components/Welcome'

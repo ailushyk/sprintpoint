@@ -1,5 +1,5 @@
 {
-  "name": "ui",
+  "name": "@easypoker/ui",
   "version": "0.0.0",
   "main": "./index.tsx",
   "types": "./index.tsx",
@@ -8,13 +8,21 @@
     "lint": "eslint \"**/*.ts*\"",
     "generate:component": "turbo gen react-component"
   },
+  "dependencies": {
+    "tailwindcss": "3.3.2",
+    "clsx": "^1.2.1",
+    "tailwind-merge": "^1.13.2"
+  },
   "devDependencies": {
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "eslint": "^7.32.0",
     "eslint-config-custom": "workspace:*",
-    "react": "^17.0.2",
     "tsconfig": "workspace:*",
     "typescript": "^4.5.2"
+  },
+  "peerDependencies": {
+    "react": "latest",
+    "react-dom": "latest"
   }
 }
