@@ -2,15 +2,16 @@
 export * from './theme/ModeToggle'
 export * from './theme/UIProvider'
 
-// component exports
-export * from './components/Header'
+// ui components exports
 export * from './components/ui/alert'
 export * from './components/ui/button'
 export * from './components/ui/dialog'
 export * from './components/ui/input'
 export * from './components/ui/label'
-// export * from './components/ui'
+
+// component exports
+export { Icons } from './components/Icons'
 
 // lib exports
-export * from './lib/utils'
-export * from './lib/tailwind-preset'
+export { cn } from './lib/utils'
+export { tailwindPreset } from './lib/tailwind-preset'
