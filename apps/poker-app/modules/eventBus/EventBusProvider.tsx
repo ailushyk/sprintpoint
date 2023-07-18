@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useState } from 'react'
+
+import { EventBusContext } from './EventBusContext'
 import socketio from './socket/socketio'
 import { EventBusContextType, EventBusType } from './types'
-import { EventBusContext } from './EventBusContext'
 
 /**
  * gunjs

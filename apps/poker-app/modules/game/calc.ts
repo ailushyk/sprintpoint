@@ -1,5 +1,5 @@
-import { PlayerType } from './types'
 import { deck as deckMap } from './deck'
+import { PlayerType } from './types'
 
 export const calc = (players: PlayerType[]) => {
   let counter = 0

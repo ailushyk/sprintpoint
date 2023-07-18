@@ -1,7 +1,8 @@
-import { PlayerType, TableType } from './types'
 import { useEffect, useState } from 'react'
+
 import { useEventBus } from '../eventBus/useEventBus'
 import { calc } from './calc'
+import { PlayerType, TableType } from './types'
 
 export const useTable = (enable = false): TableType => {
   const { provider } = useEventBus()

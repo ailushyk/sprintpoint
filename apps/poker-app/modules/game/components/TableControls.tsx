@@ -1,6 +1,7 @@
-import { TableType } from '../types'
-import { Button } from '../../../components/Button/Button'
 import React from 'react'
+
+import { Button } from '../../../components/Button/Button'
+import { TableType } from '../types'
 
 export const TableControls = ({ table }: { table: TableType }) => {
   return (
