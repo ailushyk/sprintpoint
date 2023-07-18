@@ -1,27 +1,37 @@
 'use client'
 
 import { useDeck } from '@/modules/game/useDeck'
-import { Button } from '@easypoker/ui'
+import { Label, RadioGroup, RadioGroupItem, Toggle } from '@easypoker/ui'
 
 const estimateParams = ['risk', 'complexity', 'unfamiliar']
 export const Deck = () => {
   const { deck } = useDeck('standard')
 
   return (
-    <div className="grid grid-cols-3 md:grid-cols-1 md:gap-6 place-items-center">
+    <div className="grid grid-cols-3 place-items-center md:grid-cols-1 md:gap-6">
       {estimateParams.map((param) => (
         <section
           key={param}
-          className="flex items-center md:items-start flex-col gap-1"
+          className="flex flex-col items-center gap-1 md:items-start"
         >
           <h2 className="font-semibold capitalize">{param}</h2>
-          <div className="flex-col md:flex-row  flex gap-3">
+
+          <RadioGroup className="flex flex-col  gap-3 md:flex-row">
             {deck.map((card) => (
-              <Button key={card} className="inline-block w-14 h-14 text-xl p-0">
+              <Label
+                key={`${param}-${card}`}
+                htmlFor={`${param}-${card}`}
+                className="border-muted bg-popover hover:bg-accent hover:text-accent-foreground [&:has([data-state=checked])]:border-primary flex h-14 w-14 cursor-pointer flex-col items-center justify-center rounded-md border-2 p-4 text-xl"
+              >
+                <RadioGroupItem
+                  id={`${param}-${card}`}
+                  value={card.toString()}
+                  className="sr-only"
+                />
                 {card}
-              </Button>
+              </Label>
             ))}
-          </div>
+          </RadioGroup>
         </section>
       ))}
     </div>
