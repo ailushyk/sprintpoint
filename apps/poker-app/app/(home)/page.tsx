@@ -23,20 +23,21 @@ export default function Home() {
           </p>
         </section>
 
-        <nav className="container gap-3 flex flex-col items-center justify-center">
+        <div className="container gap-3 flex flex-col items-center justify-center">
+          {/*<CreateRoom />*/}
+          {/*<Link*/}
+          {/*  href="/room/join"*/}
+          {/*  className={cn(buttonVariants({ variant: 'outline' }), 'w-32')}*/}
+          {/*>*/}
+          {/*  Join Room*/}
+          {/*</Link>*/}
           <Link
-            href="/room/create"
-            className={cn(buttonVariants({ variant: 'default' }))}
+            href="/room/offline"
+            className={cn(buttonVariants({ variant: 'outline' }), 'w-32')}
           >
-            Create Room
+            Offline
           </Link>
-          <Link
-            href="/room/join"
-            className={cn(buttonVariants({ variant: 'link' }))}
-          >
-            Join Room
-          </Link>
-        </nav>
+        </div>
 
         <section className="space-y-1">
           <h2 className="text-2xl font-bold">Your rooms</h2>
