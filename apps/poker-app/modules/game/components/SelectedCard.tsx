@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { cn } from 'tailwind-config'
+import { cn } from '@easypoker/ui'
 
 interface Props {
   sp: number | null

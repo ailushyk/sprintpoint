@@ -1,4 +1,4 @@
-import { tailwindPreset } from '@easypoker/ui/src/lib/tailwind-preset'
+import { tailwindPreset } from '@easypoker/ui/lib/tailwind-preset'
 
 /** @type {import('tailwindcss').Config} */
 const tailwindConfig = {

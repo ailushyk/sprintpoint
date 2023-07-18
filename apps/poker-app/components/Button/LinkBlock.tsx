@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { cn } from 'tailwind-config'
+import { cn } from '@easypoker/ui'
 
 interface Props {
   children: React.ReactNode
