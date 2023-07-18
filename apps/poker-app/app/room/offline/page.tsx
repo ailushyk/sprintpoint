@@ -1,7 +1,10 @@
-export default function OfflinePage() {
+import { RoomLayout } from '@/components/RoomLayout'
+
+export default async function OfflinePage() {
   return (
-    <div className="flex flex-col items-center">
+    <RoomLayout>
       <h1>Offline</h1>
-    </div>
+      <main className="container flex-1">Deck</main>
+    </RoomLayout>
   )
 }
