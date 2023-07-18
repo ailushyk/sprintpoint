@@ -10,11 +10,11 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
-    "class-variance-authority": "^0.6.1",
-    "clsx": "^1.2.1",
+    "class-variance-authority": "0.7.0",
+    "clsx": "2.0.0",
     "lucide-react": "latest",
     "next-themes": "^0.2.1",
-    "tailwind-merge": "^1.13.2"
+    "tailwind-merge": "1.14.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.14",

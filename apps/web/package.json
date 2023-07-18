@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port=3000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "next": "13.4.7",
-    "postcss": "8.4.24",
+    "postcss": "8.4.26",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "@easypoker/ui": "workspace:*"
