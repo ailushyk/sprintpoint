@@ -4,8 +4,6 @@ import React from 'react'
 import { Inter } from 'next/font/google'
 import { UIProvider } from '@easypoker/ui'
 
-import { MainLayout } from '@/components/MainLayout'
-
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -21,9 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <UIProvider>
-          <MainLayout>{children}</MainLayout>
-        </UIProvider>
+        <UIProvider>{children}</UIProvider>
       </body>
     </html>
   )

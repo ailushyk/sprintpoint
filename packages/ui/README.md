@@ -5,18 +5,17 @@ This package contains the Tailwind CSS configuration for EasyPoker.
 ## Installation
 
 ```bash
-yarn add @easypoker/tailwind-config
+pnpm add @easypoker/ui
 ```
 
 ## Usage
 
 ```js
 // tailwind.config.js
-const sharedConfig = require('tailwind-config/tailwind.config.js')
+const sharedConfig = require('@easypoker/ui/lib/tailwind-preset.ts')
 
 module.exports = {
-  presets: [sharedConfig], 
+  presets: [sharedConfig],
   // Your customizations here
 }
-
 ```

@@ -1,5 +1,5 @@
+import { cn } from '@easypoker/ui'
 import { Switch } from '@headlessui/react'
-import { cn } from 'tailwind-config'
 
 interface Props {
   enabled: boolean

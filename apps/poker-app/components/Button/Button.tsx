@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { cn } from 'tailwind-config'
+import { cn } from '@easypoker/ui'
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
