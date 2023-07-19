@@ -25,9 +25,9 @@ const ThemeToggle = React.forwardRef<
         {isDark ? (
           <motion.span
             key="moon"
-            initial={{ opacity: 0, x: 12, y: 4, rotate: 45 }}
-            animate={{ opacity: 1, x: 0, y: 0, rotate: 0 }}
-            exit={{ opacity: 0, x: 12, y: 4, rotate: 45 }}
+            initial={{ opacity: 0, x: 12, rotate: 30 }}
+            animate={{ opacity: 1, x: 0, rotate: 0 }}
+            exit={{ opacity: 0, x: 12, rotate: 30 }}
             transition={{ duration: 0.7 }}
           >
             <Icons.moon />
@@ -35,9 +35,9 @@ const ThemeToggle = React.forwardRef<
         ) : (
           <motion.span
             key="sun"
-            initial={{ opacity: 0, x: -12, y: 4, rotate: -45 }}
-            animate={{ opacity: 1, x: 0, y: 0, rotate: 0 }}
-            exit={{ opacity: 0, x: -12, y: 4, rotate: -45 }}
+            initial={{ opacity: 0, x: -12, rotate: -30 }}
+            animate={{ opacity: 1, x: 0, rotate: 0 }}
+            exit={{ opacity: 0, x: -12, rotate: -30 }}
             transition={{ duration: 0.7 }}
           >
             <Icons.sun />
