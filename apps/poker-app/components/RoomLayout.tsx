@@ -1,3 +1,7 @@
 export const RoomLayout = ({ children }: { children: React.ReactNode }) => {
-  return <div className="h-screen flex flex-col items-center">{children}</div>
+  return (
+    <div className="flex min-h-screen flex-col items-center gap-8">
+      {children}
+    </div>
+  )
 }

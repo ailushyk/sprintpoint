@@ -19,4 +19,5 @@ export { Icons } from './components/Icons'
 
 // lib exports
 export { cn } from './lib/utils'
+export { useTheme } from './hooks/theme'
 export { tailwindPreset } from './lib/tailwind-preset'
