@@ -1,3 +1,5 @@
+import { getDeck } from '@/api/deck'
+
 export const api = () => ({
   user: {
     info: () => {
@@ -19,5 +21,8 @@ export const api = () => ({
     updatePhone: '/api/user/updatePhone',
     updateNickname: '/api/user/updateNickname',
     updateSignature: '/api/user/updateSignature',
+  },
+  deck: {
+    get: getDeck,
   },
 })
