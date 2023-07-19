@@ -12,6 +12,7 @@
     "@easypoker/ui": "workspace:*",
     "@easypoker/utils": "workspace:*",
     "@headlessui/react": "^1.7.15",
+    "@hookform/resolvers": "^3.1.1",
     "@types/node": "20.3.3",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
@@ -24,9 +25,11 @@
     "postcss": "8.4.24",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.45.2",
     "socket.io-client": "^4.7.1",
     "tailwindcss": "3.3.2",
     "tsconfig": "workspace:*",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "zod": "^3.21.4"
   }
 }
