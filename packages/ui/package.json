@@ -34,8 +34,9 @@
     "typescript": "^5.1.6"
   },
   "peerDependencies": {
+    "framer-motion": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "framer-motion": "latest"
+    "react-hook-form": "latest"
   }
 }
