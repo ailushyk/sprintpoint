@@ -1,5 +1,4 @@
 type ColorCardType = 'green' | 'cyan' | 'blue' | 'yellow' | 'purple' | 'red'
-type CardType = string | ColorCardType | 'no-value'
 
 type SimpleCard = {
   title: string
@@ -10,7 +9,7 @@ type SimpleCard = {
 type ColorCard = {
   title: ColorCardType
   type: 'color'
-  hex: string
+  hex: string // used for display color
   value: number
 }
 
@@ -22,14 +21,14 @@ type NoValueCard = {
 
 type Card = SimpleCard | ColorCard | NoValueCard
 
-type Deck = {
+type DeckValue = {
   id: string
   name: string
   description?: string
   cards: Card[]
 }
 
-const standardDeck: Deck = {
+const standardDeck: DeckValue = {
   id: 'standard',
   name: 'Standard',
   cards: [
@@ -101,7 +100,7 @@ const standardDeck: Deck = {
   ],
 }
 
-function getDeck(name: string): { data: Deck } {
+function getDeck(name: string): { data: DeckValue } {
   let deck
 
   switch (name) {

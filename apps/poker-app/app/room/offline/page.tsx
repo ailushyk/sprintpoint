@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Button } from '@easypoker/ui'
 
 import { RoomLayout } from '@/components/RoomLayout'
-import { Deck } from '@/app/room/_components/Deck'
+import { Deck } from '@/app/room/_components/deck/Deck'
 import { UserNav } from '@/app/room/_components/UserNav'
 
 export default async function OfflinePage() {

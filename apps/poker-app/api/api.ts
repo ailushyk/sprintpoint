@@ -1,4 +1,4 @@
-import { getDeck } from '@/api/deck'
+import { getDeck } from '@/app/room/_components/deck/deck.api'
 
 export const api = () => ({
   user: {

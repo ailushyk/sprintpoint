@@ -3,12 +3,35 @@
 import React from 'react'
 import { api } from '@/api/api'
 import { Label, RadioGroup, RadioGroupItem } from '@easypoker/ui'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 const estimateParams = ['risk', 'complexity', 'unfamiliar']
 
-export const Deck = () => {
-  const [vote, setVote] = React.useState<number | null>(null)
+const formSchema = z.object({
+  risk: z.string(),
+  complexity: z.string(),
+  unfamiliar: z.string(),
+})
+
+type FormProps = z.infer<typeof formSchema>
+
+export const Deck = ({ onPick }: { onPick: (vote: string) => void }) => {
   const { data } = api().deck.get('standard')
+  const form = useForm<FormProps>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      risk: '',
+      complexity: '',
+      unfamiliar: '',
+    },
+  })
+
+  const onSubmit = (data: FormProps) => {
+    console.log(data)
+    onPick('1')
+  }
 
   return (
     <div className="flex flex-col items-center">
