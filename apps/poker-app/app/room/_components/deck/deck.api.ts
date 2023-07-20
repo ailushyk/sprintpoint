@@ -1,20 +1,18 @@
-type ColorCardType = 'green' | 'cyan' | 'blue' | 'yellow' | 'purple' | 'red'
-
 type SimpleCard = {
-  title: string
+  name: string
   type: 'simple'
   value: number
 }
 
 type ColorCard = {
-  title: ColorCardType
+  name: string
   type: 'color'
   hex: string // used for display color
   value: number
 }
 
 type NoValueCard = {
-  title: string
+  name: string
   type: 'no-value'
   value: null
 }
@@ -33,67 +31,67 @@ const standardDeck: DeckValue = {
   name: 'Standard',
   cards: [
     {
-      title: '0',
+      name: '0',
       type: 'simple',
       value: 0,
     },
     {
-      title: '1/2',
+      name: '1/2',
       type: 'simple',
       value: 0.5,
     },
     {
-      title: '1',
+      name: '1',
       type: 'simple',
       value: 1,
     },
     {
-      title: '2',
+      name: '2',
       type: 'simple',
       value: 2,
     },
     {
-      title: '3',
+      name: '3',
       type: 'simple',
       value: 3,
     },
     {
-      title: '5',
+      name: '5',
       type: 'simple',
       value: 5,
     },
     {
-      title: '8',
+      name: '8',
       type: 'simple',
       value: 8,
     },
     {
-      title: '13',
+      name: '13',
       type: 'simple',
       value: 13,
     },
     {
-      title: '20',
+      name: '20',
       type: 'simple',
       value: 20,
     },
     {
-      title: '40',
+      name: '40',
       type: 'simple',
       value: 40,
     },
     {
-      title: '100',
+      name: '100',
       type: 'simple',
       value: 100,
     },
     {
-      title: '?',
+      name: '?',
       type: 'no-value',
       value: null,
     },
     {
-      title: '☕',
+      name: '☕',
       type: 'no-value',
       value: null,
     },
