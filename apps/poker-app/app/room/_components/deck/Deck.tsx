@@ -68,19 +68,20 @@ export const Deck = () => {
   )
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center gap-8">
       <div>
-        <div>Vote</div>
         <PickedCard control={form.control} deck={deck.data} />
       </div>
 
       <Form {...form}>
         <form
-          className="grid grid-cols-3 place-items-center gap-3 md:grid-cols-1 md:gap-9"
+          className="grid grid-cols-3 place-items-center gap-9 md:grid-cols-1"
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <div className="col-span-3 md:col-span-full">
-            <Button type="submit">confirm</Button>
+            <Button type="submit" className="w-40">
+              confirm
+            </Button>
           </div>
 
           {estimateParams.map((PART_OF_VALUE) => (
@@ -129,6 +130,7 @@ export const Deck = () => {
               type="reset"
               onClick={() => form.reset(defaultValues)}
               variant="outline"
+              className="w-40"
             >
               Reset
             </Button>
