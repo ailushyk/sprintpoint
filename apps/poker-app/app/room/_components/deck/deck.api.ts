@@ -13,17 +13,17 @@ type ColorCard = {
 
 type NoValueCard = {
   name: string
-  type: 'no-value'
+  type: 'non-value'
   value: null
 }
 
-type Card = SimpleCard | ColorCard | NoValueCard
+type CardValue = SimpleCard | ColorCard | NoValueCard
 
 type DeckValue = {
   id: string
   name: string
   description?: string
-  cards: Card[]
+  cards: CardValue[]
 }
 
 const standardDeck: DeckValue = {
@@ -87,12 +87,12 @@ const standardDeck: DeckValue = {
     },
     {
       name: '?',
-      type: 'no-value',
+      type: 'non-value',
       value: null,
     },
     {
       name: '☕',
-      type: 'no-value',
+      type: 'non-value',
       value: null,
     },
   ],
@@ -112,4 +112,12 @@ function getDeck(name: string): { data: DeckValue } {
   return { data: deck }
 }
 
-export { getDeck }
+function getDeckWithoutNonValueCards(name: string): { data: DeckValue } {
+  const { data: deck } = getDeck(name)
+  const cards = deck.cards.filter((card) => card.type !== 'non-value')
+  return { data: { ...deck, cards } }
+}
+
+export { getDeck, getDeckWithoutNonValueCards }
+
+export type { CardValue, DeckValue }

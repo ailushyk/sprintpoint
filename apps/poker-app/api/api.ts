@@ -1,4 +1,7 @@
-import { getDeck } from '@/app/room/_components/deck/deck.api'
+import {
+  getDeck,
+  getDeckWithoutNonValueCards,
+} from '@/app/room/_components/deck/deck.api'
 
 export const api = () => ({
   user: {
@@ -24,5 +27,6 @@ export const api = () => ({
   },
   deck: {
     get: getDeck,
+    getAdvanced: getDeckWithoutNonValueCards,
   },
 })
