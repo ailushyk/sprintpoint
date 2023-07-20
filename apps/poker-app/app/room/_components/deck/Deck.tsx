@@ -78,7 +78,7 @@ export const Deck = () => {
           className="grid grid-cols-3 place-items-center gap-9 md:grid-cols-1"
           onSubmit={form.handleSubmit(onSubmit)}
         >
-          <div className="col-span-3 md:col-span-full">
+          <div className="col-span-3 hidden md:col-span-full">
             <Button type="submit" className="w-40">
               confirm
             </Button>
@@ -92,9 +92,6 @@ export const Deck = () => {
               render={({ field }) => (
                 <FormItem className="flex flex-col items-center justify-center md:items-start">
                   <FormLabel className="capitalize">{PART_OF_VALUE}</FormLabel>
-                  <FormDescription className="hidden md:block md:max-w-xl">
-                    {planingPokerVariablesDescription[PART_OF_VALUE]}
-                  </FormDescription>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
@@ -111,14 +108,16 @@ export const Deck = () => {
                               className="peer sr-only"
                             />
                           </FormControl>
-                          <FormLabel className="peer-checked:border-primary peer-checked:bg-accent border-muted bg-popover hover:bg-accent hover:text-accent-foreground flex h-14 w-14 cursor-pointer flex-col items-center justify-center rounded-md border-2 p-4 text-xl">
+                          <FormLabel className="peer-checked:border-primary peer-checked:bg-accent border-muted bg-popover hover:bg-accent hover:text-accent-foreground flex h-14 w-14 cursor-pointer flex-col items-center justify-center rounded-md border-2 p-4 text-xl transition">
                             {card.name}
                           </FormLabel>
                         </FormItem>
                       ))}
                     </RadioGroup>
                   </FormControl>
-
+                  <FormDescription className="hidden md:block md:max-w-xl">
+                    {planingPokerVariablesDescription[PART_OF_VALUE]}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
