@@ -1,7 +1,10 @@
 'use client'
 
 import React from 'react'
-import { api } from '@/api/api'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+
 import {
   Button,
   Form,
@@ -13,10 +16,8 @@ import {
   FormMessage,
   RadioGroup,
 } from '@easypoker/ui'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 
+import { api } from '@/lib/api'
 import { PickedCard } from '@/app/room/_components/deck/PickedCard'
 
 const DECK_NAME = 'standard'

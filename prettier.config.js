@@ -23,6 +23,8 @@ module.exports = {
     '^(next/(.*)$)|^(next$)',
     '<THIRD_PARTY_MODULES>',
     '',
+    '^@easypoker/(.*)$',
+    '',
     '^types$',
     '^@/types/(.*)$',
     '^@/config/(.*)$',

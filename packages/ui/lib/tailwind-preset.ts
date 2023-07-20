@@ -1,6 +1,6 @@
 import { Config } from 'tailwindcss'
 // @ts-ignore
-// import animatePlugin from 'tailwindcss-animate'
+import animatePlugin from 'tailwindcss-animate'
 import plugin from 'tailwindcss/plugin'
 
 const easyPlugin = plugin(
@@ -138,7 +138,7 @@ export const tailwindPreset = {
   // this is required to prevent a warning but is overridden in the app
   content: [
     // add next line in the app tailwind.config.js
-    // './node_modules/@easypoker/ui/src/**/*.{js,ts,jsx,tsx}',
+    // './node_modules/@easypoker/ui/**/*.{js,ts,jsx,tsx}',
   ],
-  plugins: [easyPlugin],
+  plugins: [easyPlugin, animatePlugin],
 } satisfies Config
