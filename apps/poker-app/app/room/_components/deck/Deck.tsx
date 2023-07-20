@@ -12,7 +12,6 @@ import {
   FormLabel,
   FormMessage,
   RadioGroup,
-  RadioGroupItem,
 } from '@easypoker/ui'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -103,13 +102,15 @@ export const Deck = () => {
                     >
                       {deck.data.cards.map((card) => (
                         <FormItem key={`${PART_OF_VALUE}-${card.name}`}>
-                          <FormLabel className="border-muted bg-popover hover:bg-accent hover:text-accent-foreground [&:has([data-state=checked])]:border-primary flex h-14 w-14 cursor-pointer flex-col items-center justify-center rounded-md border-2 p-4 text-xl">
-                            <FormControl>
-                              <RadioGroupItem
-                                value={card.name}
-                                className="sr-only"
-                              />
-                            </FormControl>
+                          <FormControl>
+                            <input
+                              type="radio"
+                              {...form.register(PART_OF_VALUE)}
+                              value={card.name}
+                              className="peer sr-only"
+                            />
+                          </FormControl>
+                          <FormLabel className="peer-checked:border-primary peer-checked:bg-accent border-muted bg-popover hover:bg-accent hover:text-accent-foreground flex h-14 w-14 cursor-pointer flex-col items-center justify-center rounded-md border-2 p-4 text-xl">
                             {card.name}
                           </FormLabel>
                         </FormItem>
@@ -125,7 +126,7 @@ export const Deck = () => {
 
           <div className="col-span-3 md:col-span-full">
             <Button
-              type="button"
+              type="reset"
               onClick={() => form.reset(defaultValues)}
               variant="outline"
             >
