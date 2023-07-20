@@ -20,6 +20,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { PickedCard } from '@/app/room/_components/deck/PickedCard'
+
 const DECK_NAME = 'standard'
 const estimateParams = ['risk', 'complexity', 'unfamiliar'] as const
 
@@ -29,11 +31,11 @@ const formSchema = z.object({
   unfamiliar: z.string(),
 })
 
-type FormProps = z.infer<typeof formSchema>
+export type FormDeckProps = z.infer<typeof formSchema>
 
 export const Deck = () => {
   const { data } = api().deck.get(DECK_NAME)
-  const form = useForm<FormProps>({
+  const form = useForm<FormDeckProps>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       risk: '',
@@ -42,16 +44,25 @@ export const Deck = () => {
     },
   })
 
-  const onSubmit = (data: FormProps) => {
+  const onSubmit = (data: FormDeckProps) => {
     console.log(data)
     // onPick('1', DECK_NAME)
   }
+
+  const onChange = (value, { name, type }) => {
+    console.log(value, name, type)
+  }
+
+  React.useEffect(() => {
+    const subscription = form.watch(onChange)
+    return () => subscription.unsubscribe()
+  }, [form.watch])
 
   return (
     <div className="flex flex-col items-center">
       <div>
         <div>Vote</div>
-        <div>?</div>
+        <PickedCard control={form.control} />
       </div>
       <Form {...form}>
         <form
