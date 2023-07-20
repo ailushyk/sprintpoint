@@ -11,8 +11,6 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  Input,
-  Label,
   RadioGroup,
   RadioGroupItem,
 } from '@easypoker/ui'
@@ -40,20 +38,20 @@ const formSchema = z.object({
 
 export type FormDeckProps = z.infer<typeof formSchema>
 
+let defaultValues = {
+  risk: '',
+  complexity: '',
+  unfamiliar: '',
+}
 export const Deck = () => {
   const deck = api().deck.getAdvanced(DECK_NAME)
-  const [pickedCard, setPickedCard] = React.useState<string>('')
   const form = useForm<FormDeckProps>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      risk: '',
-      complexity: '',
-      unfamiliar: '',
-    },
+    defaultValues,
   })
 
   const onSubmit = (data: FormDeckProps) => {
-    // console.log(data)
+    console.log('Submit:', data)
     // onPick('1', DECK_NAME)
   }
 
@@ -76,6 +74,7 @@ export const Deck = () => {
         <div>Vote</div>
         <PickedCard control={form.control} deck={deck.data} />
       </div>
+
       <Form {...form}>
         <form
           className="grid grid-cols-3 place-items-center gap-3 md:grid-cols-1 md:gap-9"
@@ -123,6 +122,16 @@ export const Deck = () => {
               )}
             />
           ))}
+
+          <div className="col-span-3 md:col-span-full">
+            <Button
+              type="button"
+              onClick={() => form.reset(defaultValues)}
+              variant="outline"
+            >
+              Reset
+            </Button>
+          </div>
         </form>
       </Form>
     </div>
