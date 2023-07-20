@@ -1,17 +1,20 @@
 import Link from 'next/link'
+
 import { buttonVariants, cn } from '@easypoker/ui'
+
+import { CreateRoomDialog } from '@/app/(home)/_components/create-room-dialog'
 
 export default function Home() {
   return (
-    <div className="h-screen flex flex-col items-center">
-      <header className="p-8 container text-center space-y-1">
+    <div className="flex h-screen flex-col items-center">
+      <header className="container space-y-1 p-8 text-center">
         <h1 className="text-4xl font-bold">Easy Poker</h1>
         <p className="text-center">
           Easy Poker is a simple way to plan work with your friends online.
         </p>
       </header>
 
-      <div className="container space-y-8 flex-1">
+      <div className="container flex-1 space-y-8">
         <section className="space-y-1">
           <h2 className="text-2xl font-bold">How it works</h2>
           <p className="">
@@ -23,14 +26,14 @@ export default function Home() {
           </p>
         </section>
 
-        <div className="container gap-3 flex flex-col items-center justify-center">
-          {/*<CreateRoom />*/}
-          {/*<Link*/}
-          {/*  href="/room/join"*/}
-          {/*  className={cn(buttonVariants({ variant: 'outline' }), 'w-32')}*/}
-          {/*>*/}
-          {/*  Join Room*/}
-          {/*</Link>*/}
+        <div className="container flex flex-col items-center justify-center gap-3">
+          <CreateRoomDialog />
+          <Link
+            href="/room/join"
+            className={cn(buttonVariants({ variant: 'outline' }), 'w-32')}
+          >
+            Join Room
+          </Link>
           <Link
             href="/room/offline"
             className={cn(buttonVariants({ variant: 'outline' }), 'w-32')}
