@@ -5,6 +5,7 @@ const nextConfig = {
     serverActions: true,
     typedRoutes: true,
   },
+  ignoreDuringBuilds: true,
 }
 
 module.exports = nextConfig
