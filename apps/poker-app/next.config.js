@@ -3,7 +3,7 @@ const nextConfig = {
   transpilePackages: ['@easypoker/ui', '@easypoker/utils'],
   experimental: {
     serverActions: true,
-    typedRoutes: true,
+    typedRoutes: false,
   },
   ignoreDuringBuilds: true,
 }

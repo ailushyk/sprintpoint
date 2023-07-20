@@ -14,12 +14,12 @@ function LinkBlock({ to, className, children, dark = false }: Props) {
     <Link
       href={to}
       className={cn([
-        'flex justify-center items-center w-64 h-12 mb-4 px-4 active:pt-1',
+        'mb-4 flex h-12 w-64 items-center justify-center px-4 active:pt-1',
         'text-xl font-semibold uppercase',
-        'active:shadow-inner  border',
+        'border  active:shadow-inner',
         {
-          'text-zinc-100 bg-zinc-700 hover:bg-zinc-800': dark,
-          'text-zinc-800 bg-zinc-100 hover:bg-zinc-200': !dark,
+          'bg-zinc-700 text-zinc-100 hover:bg-zinc-800': dark,
+          'bg-zinc-100 text-zinc-800 hover:bg-zinc-200': !dark,
         },
         className,
       ])}
