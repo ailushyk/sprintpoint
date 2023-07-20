@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { TableType } from '../types'
 
 interface Props {

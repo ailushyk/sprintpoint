@@ -1,4 +1,5 @@
 import io from 'socket.io-client'
+
 import { EventBusType } from '../types'
 
 const SERVER = process.env.REACT_APP_SOCKET_SERVER

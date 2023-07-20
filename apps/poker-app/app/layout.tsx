@@ -4,6 +4,8 @@ import React from 'react'
 import { Inter } from 'next/font/google'
 import { UIProvider } from '@easypoker/ui'
 
+import { GlobalKeyboardEvents } from '@/components/GlobalKeyboardEvents'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -20,6 +22,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <UIProvider>{children}</UIProvider>
+        <GlobalKeyboardEvents />
       </body>
     </html>
   )

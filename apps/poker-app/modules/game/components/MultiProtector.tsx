@@ -1,6 +1,7 @@
 import React from 'react'
-import { usePlayer } from '../usePlayer'
 import { Navigate } from 'react-router-dom'
+
+import { usePlayer } from '../usePlayer'
 
 const MultiProtector = ({ children }: { children: JSX.Element }) => {
   const { data } = usePlayer()
