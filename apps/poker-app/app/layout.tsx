@@ -2,7 +2,8 @@ import './globals.css'
 
 import React from 'react'
 import { Inter } from 'next/font/google'
-import { UIProvider } from '@easypoker/ui'
+
+import { Toaster, UIProvider } from '@easypoker/ui'
 
 import { GlobalKeyboardEvents } from '@/components/GlobalKeyboardEvents'
 
@@ -21,8 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <UIProvider>{children}</UIProvider>
-        <GlobalKeyboardEvents />
+        <UIProvider>
+          {children}
+
+          <Toaster />
+          <GlobalKeyboardEvents />
+        </UIProvider>
       </body>
     </html>
   )
