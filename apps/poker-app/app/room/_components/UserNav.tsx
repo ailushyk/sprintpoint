@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { api } from '@/api/api'
 import {
   Avatar,
   AvatarFallback,
@@ -16,6 +15,7 @@ import {
   ModeToggle,
 } from '@easypoker/ui'
 
+import { api } from '@/lib/api'
 import { ThemeToggle } from '@/app/room/_components/ThemeToggle'
 
 export function UserNav() {
