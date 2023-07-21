@@ -1,4 +1,5 @@
 import Link from 'next/link'
+
 import {
   Avatar,
   AvatarFallback,
@@ -12,7 +13,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-  ModeToggle,
 } from '@easypoker/ui'
 
 import { api } from '@/lib/api'
