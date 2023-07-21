@@ -1,7 +1,9 @@
+import { AppLayout } from '@/components/AppLayout'
+
 export default function RoomLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return AppLayout({ children })
 }

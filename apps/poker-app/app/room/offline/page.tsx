@@ -1,13 +1,11 @@
 import Link from 'next/link'
-import { Button } from '@easypoker/ui'
 
-import { RoomLayout } from '@/components/RoomLayout'
 import { Deck } from '@/app/room/_components/deck/Deck'
 import { UserNav } from '@/app/room/_components/UserNav'
 
 export default async function OfflinePage() {
   return (
-    <RoomLayout>
+    <>
       <header className="supports-backdrop-blur:bg-background/60 bg-background/95 sticky top-0 z-40 w-full border-b backdrop-blur">
         <div className="container flex h-14 items-center justify-between">
           <div>
@@ -26,6 +24,6 @@ export default async function OfflinePage() {
 
         <Deck />
       </main>
-    </RoomLayout>
+    </>
   )
 }
