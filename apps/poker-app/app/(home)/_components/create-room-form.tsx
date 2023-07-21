@@ -111,11 +111,11 @@ export const CreateRoomForm = () => {
                 </SelectContent>
               </Select>
               <FormDescription>
-                <p>
-                  The deck is a set of cards that you will use to estimate the
-                  complexity of the tasks.
-                </p>
-                <p>Coming soon: custom decks and deck&apos;s settings.</p>
+                The deck is a set of cards that you will use to estimate the
+                complexity of the tasks.
+              </FormDescription>
+              <FormDescription>
+                Coming soon: custom decks and deck&apos;s settings.
               </FormDescription>
               <FormMessage />
             </FormItem>
