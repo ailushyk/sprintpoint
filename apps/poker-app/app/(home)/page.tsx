@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import { buttonVariants, cn } from '@easypoker/ui'
 
-import { CreateRoomDialog } from '@/app/(home)/_components/create-room-dialog'
+import { PlayGameButton } from '@/app/(home)/_components/play-game-button'
 
 export default function Home() {
   return (
@@ -27,9 +27,10 @@ export default function Home() {
         </section>
 
         <div className="container flex flex-col items-center justify-center gap-3">
+          <PlayGameButton />
           <Link
             href="/room/create"
-            className={cn(buttonVariants({ variant: 'default' }), 'w-32')}
+            className={cn(buttonVariants({ variant: 'outline' }), 'w-32')}
           >
             Create Room
           </Link>
