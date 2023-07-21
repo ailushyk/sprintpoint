@@ -27,7 +27,12 @@ export default function Home() {
         </section>
 
         <div className="container flex flex-col items-center justify-center gap-3">
-          <CreateRoomDialog />
+          <Link
+            href="/room/create"
+            className={cn(buttonVariants({ variant: 'default' }), 'w-32')}
+          >
+            Create Room
+          </Link>
           <Link
             href="/room/join"
             className={cn(buttonVariants({ variant: 'outline' }), 'w-32')}
