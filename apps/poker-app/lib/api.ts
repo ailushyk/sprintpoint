@@ -1,3 +1,6 @@
+import 'server-only'
+
+import { getUserInfo, setUserInfo } from '@/lib/user'
 import {
   getDeck,
   getDeckWithoutNonValueCards,
@@ -5,15 +8,8 @@ import {
 
 export const api = () => ({
   user: {
-    info: () => {
-      return {
-        fullName: 'John Doe',
-        email: 'john@test.com',
-        phone: '123456789',
-        username: '@john',
-        avatar: '', //https://i.pravatar.cc/60',
-      }
-    },
+    get: getUserInfo,
+    set: setUserInfo,
     login: '/api/user/login',
     logout: '/api/user/logout',
     register: '/api/user/register',

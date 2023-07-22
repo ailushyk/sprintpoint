@@ -18,6 +18,7 @@ import {
 } from '@easypoker/ui'
 
 import { api } from '@/lib/api'
+import { DeckValue } from '@/app/room/_components/deck/deck.api'
 import { PickedCard } from '@/app/room/_components/deck/PickedCard'
 
 const DECK_NAME = 'standard'
@@ -43,8 +44,7 @@ let defaultValues = {
   complexity: '',
   unfamiliar: '',
 }
-export const Deck = () => {
-  const deck = api().deck.getAdvanced(DECK_NAME)
+export const Deck = ({ deck }: { deck: DeckValue }) => {
   const form = useForm<FormDeckProps>({
     resolver: zodResolver(formSchema),
     defaultValues,
@@ -71,7 +71,7 @@ export const Deck = () => {
   return (
     <div className="flex flex-col items-center gap-8">
       <div>
-        <PickedCard control={form.control} deck={deck.data} />
+        <PickedCard control={form.control} deck={deck} />
       </div>
 
       <Form {...form}>
@@ -99,7 +99,7 @@ export const Deck = () => {
                       defaultValue={field.value}
                       className="flex flex-col gap-3 md:flex-row"
                     >
-                      {deck.data.cards.map((card) => (
+                      {deck.cards.map((card) => (
                         <FormItem key={`${PART_OF_VALUE}-${card.name}`}>
                           <FormControl>
                             <input
