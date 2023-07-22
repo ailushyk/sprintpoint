@@ -16,16 +16,11 @@ import {
   FormMessage,
   Icons,
   Input,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
   toast,
 } from '@easypoker/ui'
 
-import { createRoomAction } from '@/app/(home)/_components/create-room-actions'
-import { saveUsername } from '@/app/playActions'
+import { updateUserInfoAction } from '@/lib/actions'
+import { UserProfileValues } from '@/lib/user/user'
 
 const usernameFormSchema = z.object({
   username: z
@@ -37,11 +32,11 @@ const usernameFormSchema = z.object({
 
 export type UsernameFormValues = z.infer<typeof usernameFormSchema>
 
-const defaultValues = {
-  username: '',
-}
-
-export const SetUsernameForm = () => {
+export const SetUsernameForm = ({
+  defaultValues,
+}: {
+  defaultValues: UserProfileValues
+}) => {
   let [isPending, startTransition] = useTransition()
   const form = useForm<UsernameFormValues>({
     resolver: zodResolver(usernameFormSchema),
@@ -49,10 +44,23 @@ export const SetUsernameForm = () => {
   })
 
   const onSubmit = (data: UsernameFormValues) => {
+    console.log('submit', data)
     startTransition(async () => {
-      await saveUsername(data)
+      try {
+        await updateUserInfoAction(data)
 
-      form.reset()
+        form.reset()
+        toast({
+          title: 'Username saved!',
+          description: 'You can change it anytime in the settings.',
+        })
+      } catch (error) {
+        console.error(error)
+        toast({
+          title: 'Ups!',
+          description: 'Something went wrong. Please try again later.',
+        })
+      }
     })
   }
 

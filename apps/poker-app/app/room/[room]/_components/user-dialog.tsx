@@ -4,39 +4,42 @@ import React, { useEffect, useTransition } from 'react'
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@easypoker/ui'
 
-import { getUsername } from '@/app/playActions'
+import { UserProfileValues } from '@/lib/user/user'
 import { SetUsernameForm } from '@/app/room/[room]/_components/set-username-form'
 
-export const UserDialog = () => {
-  const [openDialog, setOpenDialog] = React.useState(false)
-  const [isPending, startTransition] = useTransition()
-  const [username, setUsername] = React.useState('')
-  const checkUsername = async () => {
-    const username = await getUsername()
-    if (!username) {
-      setOpenDialog(true)
-    } else {
-      setUsername(username.value)
+export const UserDialog = ({
+  defaultValues,
+}: {
+  defaultValues: UserProfileValues
+}) => {
+  const [openDialog, setOpenDialog] = React.useState('idle')
+  const checkUsername = () => {
+    if (
+      defaultValues.type === 'incognito' &&
+      defaultValues.username === 'guest'
+    ) {
+      setOpenDialog('open')
     }
   }
 
   useEffect(() => {
-    startTransition(async () => {
-      await checkUsername()
-    })
+    if (openDialog === 'idle') {
+      checkUsername()
+    }
   }, [openDialog])
 
   return (
     <Dialog
-      open={openDialog}
+      open={openDialog === 'open'}
       onOpenChange={(open) => {
-        !open && setOpenDialog(false)
+        !open && setOpenDialog('close')
       }}
     >
       <DialogContent className="abc sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>User info</DialogTitle>
         </DialogHeader>
+
         <SetUsernameForm />
       </DialogContent>
     </Dialog>
