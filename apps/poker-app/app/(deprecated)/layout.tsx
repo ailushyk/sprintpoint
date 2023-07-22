@@ -1,4 +1,4 @@
-import { MainLayout } from '@/components/MainLayout'
+import { MainLayout } from '@/components_next/MainLayout'
 
 export default function DeprecatedLayout({
   children,

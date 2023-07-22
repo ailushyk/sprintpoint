@@ -1,5 +1,5 @@
-import { FormDeckProps } from '@/app/room/_components/deck/Deck'
-import { CardValue } from '@/app/room/_components/deck/deck.api'
+import { FormDeckProps } from '@/components_next/deck/Deck'
+import { CardValue } from '@/components_next/deck/deck.api'
 
 const getCardValueByName = (cardName: string, cards: CardValue[]) => {
   return cards.find((c) => c.name === cardName)?.value

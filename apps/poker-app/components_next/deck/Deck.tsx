@@ -1,6 +1,8 @@
 'use client'
 
 import React from 'react'
+import { DeckValue } from '@/components_next/deck/deck.api'
+import { PickedCard } from '@/components_next/deck/PickedCard'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -17,11 +19,6 @@ import {
   RadioGroup,
 } from '@easypoker/ui'
 
-import { api } from '@/lib/api'
-import { DeckValue } from '@/app/room/_components/deck/deck.api'
-import { PickedCard } from '@/app/room/_components/deck/PickedCard'
-
-const DECK_NAME = 'standard'
 const estimateParams = ['risk', 'complexity', 'unfamiliar'] as const
 const planingPokerVariablesDescription = {
   risk: 'Risk is the chance that something will go wrong. The higher the risk, the more likely it is that something will go wrong.',

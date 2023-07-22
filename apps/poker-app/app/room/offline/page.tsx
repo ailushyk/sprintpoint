@@ -1,6 +1,7 @@
+import { AppHeader } from '@/components_next/app-header/app-header'
+import { Deck } from '@/components_next/deck/Deck'
+
 import { api } from '@/lib/api'
-import { AppHeader } from '@/app/room/_components/app-header'
-import { Deck } from '@/app/room/_components/deck/Deck'
 
 export default async function OfflinePage() {
   const deck = api().deck.getAdvanced('standard')

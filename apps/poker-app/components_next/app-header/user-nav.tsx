@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { ThemeToggle } from '@/components_next/app-header/ThemeToggle'
 
 import {
   Avatar,
@@ -17,7 +18,6 @@ import {
 
 import { api } from '@/lib/api'
 import { getInitials } from '@/lib/utils'
-import { ThemeToggle } from '@/app/room/_components/ThemeToggle'
 
 export async function UserNav() {
   const user = await api().user.get()

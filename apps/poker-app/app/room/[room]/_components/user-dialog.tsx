@@ -5,7 +5,7 @@ import React, { useEffect, useTransition } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@easypoker/ui'
 
 import { getUsername } from '@/app/playActions'
-import { SetUsernameForm } from '@/app/room/_components/set-username-form'
+import { SetUsernameForm } from '@/app/room/[room]/_components/set-username-form'
 
 export const UserDialog = () => {
   const [openDialog, setOpenDialog] = React.useState(false)
