@@ -16,17 +16,11 @@ import {
 } from '@easypoker/ui'
 
 import { api } from '@/lib/api'
+import { getInitials } from '@/lib/utils'
 import { ThemeToggle } from '@/app/room/_components/ThemeToggle'
 
-export function UserNav() {
-  const user = api().user.info()
-
-  // function for get user initials
-  function getInitials(name: string) {
-    const nameSplit = name.split(' ')
-    const initials = nameSplit[0].charAt(0) + nameSplit[1].charAt(0)
-    return initials.toUpperCase()
-  }
+export async function UserNav() {
+  const user = await api().user.get()
 
   return (
     <DropdownMenu>
@@ -55,13 +49,7 @@ export function UserNav() {
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link href="/profile">
-              Billing
-              <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild disabled>
             <Link href="/profile">
               Settings
               <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
@@ -75,10 +63,18 @@ export function UserNav() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Log out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
+
+        {user.type === 'incognito' ? (
+          <DropdownMenuItem disabled>
+            Sign In
+            <DropdownMenuShortcut>Coming Soon</DropdownMenuShortcut>
+          </DropdownMenuItem>
+        ) : (
+          <DropdownMenuItem>
+            Log out
+            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   )

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { UserNav } from '@/app/room/_components/UserNav'
+import { UserNav } from '@/app/room/_components/user-nav'
 
 export function AppHeader() {
   return (
