@@ -1,9 +1,9 @@
 import React from 'react'
+import { AppHeader } from '@/components_next/app-header/app-header'
+import { Deck } from '@/components_next/deck/Deck'
 
 import { api } from '@/lib/api'
-import { AppHeader } from '@/app/room/_components/app-header'
-import { Deck } from '@/app/room/_components/deck/Deck'
-import { UserDialog } from '@/app/room/[room]/user-dialog'
+import { UserDialog } from '@/app/room/[room]/_components/user-dialog'
 
 export default function PlayRoomPage({ params }: { params: { room: string } }) {
   const deck = api().deck.getAdvanced('standard')

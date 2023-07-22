@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react'
-import { cn } from '@easypoker/ui'
+import { FormDeckProps } from '@/components_next/deck/Deck'
+import { type DeckValue } from '@/components_next/deck/deck.api'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Control, useWatch } from 'react-hook-form'
 
+import { cn } from '@easypoker/ui'
+
 import { getAverageCardValue } from '@/lib/deck-utils'
 import { getClosest } from '@/lib/math'
-import { FormDeckProps } from '@/app/room/_components/deck/Deck'
-import { type DeckValue } from '@/app/room/_components/deck/deck.api'
 
 export const PickedCard = ({
   control,

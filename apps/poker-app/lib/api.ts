@@ -1,10 +1,11 @@
 import 'server-only'
 
-import { getUserInfo, setUserInfo } from '@/lib/user'
 import {
   getDeck,
   getDeckWithoutNonValueCards,
-} from '@/app/room/_components/deck/deck.api'
+} from '@/components_next/deck/deck.api'
+
+import { getUserInfo, setUserInfo } from '@/lib/user'
 
 export const api = () => ({
   user: {

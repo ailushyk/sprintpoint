@@ -1,5 +1,6 @@
+import { AppHeader } from '@/components_next/app-header/app-header'
+
 import { CreateRoomForm } from '@/app/(home)/_components/create-room-form'
-import { AppHeader } from '@/app/room/_components/app-header'
 
 export default function CreateRoomPage() {
   return (

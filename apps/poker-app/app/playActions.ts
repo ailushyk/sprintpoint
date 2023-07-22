@@ -5,7 +5,7 @@ import { cookies } from 'next/headers'
 import { toast } from '@easypoker/ui'
 
 import { generateUniqueHash } from '@/lib/utils'
-import { UsernameFormValues } from '@/app/room/_components/set-username-form'
+import { UsernameFormValues } from '@/app/room/[room]/_components/set-username-form'
 
 export const createRoom = async () => {
   return generateUniqueHash()
