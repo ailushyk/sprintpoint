@@ -1,4 +1,5 @@
 import {
+  ChevronDownIcon,
   GitHubLogoIcon,
   LaptopIcon,
   MoonIcon,
@@ -14,6 +15,7 @@ export const Icons = {
   laptop: LaptopIcon,
   spinner: Loader2,
   gitHub: GitHubLogoIcon,
+  ChevronDown: ChevronDownIcon,
   // gitHub: (props: LucideProps) => (
   //   <svg viewBox="0 0 438.549 438.549" {...props}>
   //     <path

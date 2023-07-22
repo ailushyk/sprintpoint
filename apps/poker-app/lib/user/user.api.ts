@@ -1,6 +1,5 @@
-'use server'
+import 'server-only'
 
-import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 
 import { profileFormSchema, ProfileValues } from '@/lib/user/user'

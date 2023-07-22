@@ -8,16 +8,15 @@ export const profileFormSchema = z.object({
     })
     .optional()
     .default('guest'),
-  fullName: z
-    .string()
-    .min(2, {
-      message: 'Full name must be at least 2 characters.',
-    })
-    .optional()
-    .default('Player'),
+  fullName: z.string().optional().default('Player'),
   avatar: z.string().optional(),
   lastRoom: z.string().optional(),
-  theme: z.string().optional().default('dark'),
+  theme: z
+    .enum(['light', 'dark'], {
+      required_error: 'Please select a theme.',
+    })
+    .optional()
+    .default('dark'),
   type: z.enum(['incognito', 'user']).default('incognito'),
 })
 

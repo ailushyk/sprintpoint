@@ -17,8 +17,8 @@ import {
   toast,
 } from '@easypoker/ui'
 
+import { updateUserInfoAction } from '@/lib/actions'
 import { profileFormSchema, ProfileValues } from '@/lib/user/user'
-import { setUserInfo } from '@/lib/user/user-actions'
 
 export function ProfileForm({
   defaultValues,
@@ -34,7 +34,7 @@ export function ProfileForm({
 
   function onSubmit(data: ProfileValues) {
     startTransition(async () => {
-      await setUserInfo(data)
+      await updateUserInfoAction(data)
       toast({
         title: 'You submitted the following values:',
         description: (
@@ -51,6 +51,20 @@ export function ProfileForm({
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
+          name="fullName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Full Name</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
           name="username"
           render={({ field }) => (
             <FormItem>
@@ -62,20 +76,6 @@ export function ProfileForm({
                 This is your public display name. It can be your real name or a
                 pseudonym.
               </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="fullName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Full Name</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
               <FormMessage />
             </FormItem>
           )}

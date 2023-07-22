@@ -1,11 +1,9 @@
-import 'server-only'
-
 import {
   getDeck,
   getDeckWithoutNonValueCards,
 } from '@/components_next/deck/deck.api'
 
-import { getUserInfo, setUserInfo } from '@/lib/user/user-actions'
+import { getUserInfo, setUserInfo } from '@/lib/user/user.api'
 
 export const api = () => ({
   user: {
