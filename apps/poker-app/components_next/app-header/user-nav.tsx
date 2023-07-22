@@ -28,7 +28,9 @@ export async function UserNav() {
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-9 w-9">
             <AvatarImage src={user.avatar} alt={user.username} />
-            <AvatarFallback>{getInitials(user.fullName)}</AvatarFallback>
+            <AvatarFallback>
+              {getInitials(user.fullName || user.username)}
+            </AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>

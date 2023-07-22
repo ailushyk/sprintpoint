@@ -8,7 +8,7 @@ export const profileFormSchema = z.object({
     })
     .optional()
     .default('guest'),
-  fullName: z.string().optional().default('Player'),
+  fullName: z.string().optional(),
   avatar: z.string().optional(),
   lastRoom: z.string().optional(),
   theme: z
@@ -20,4 +20,4 @@ export const profileFormSchema = z.object({
   type: z.enum(['incognito', 'user']).default('incognito'),
 })
 
-export type ProfileValues = z.infer<typeof profileFormSchema>
+export type UserProfileValues = z.infer<typeof profileFormSchema>

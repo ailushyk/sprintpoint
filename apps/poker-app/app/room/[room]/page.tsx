@@ -6,6 +6,7 @@ import { api } from '@/lib/api'
 import { UserDialog } from '@/app/room/[room]/_components/user-dialog'
 
 export default function PlayRoomPage({ params }: { params: { room: string } }) {
+  const user = api().user.get()
   const deck = api().deck.getAdvanced('standard')
 
   return (
@@ -21,7 +22,7 @@ export default function PlayRoomPage({ params }: { params: { room: string } }) {
         <Deck deck={deck.data} />
       </main>
 
-      <UserDialog />
+      <UserDialog defaultValues={user} />
     </>
   )
 }

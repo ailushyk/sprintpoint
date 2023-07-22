@@ -18,21 +18,21 @@ import {
 } from '@easypoker/ui'
 
 import { updateUserInfoAction } from '@/lib/actions'
-import { profileFormSchema, ProfileValues } from '@/lib/user/user'
+import { profileFormSchema, UserProfileValues } from '@/lib/user/user'
 
 export function ProfileForm({
   defaultValues,
 }: {
-  defaultValues: Partial<ProfileValues>
+  defaultValues: Partial<UserProfileValues>
 }) {
   const [isPending, startTransition] = useTransition()
-  const form = useForm<ProfileValues>({
+  const form = useForm<UserProfileValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
     mode: 'onChange',
   })
 
-  function onSubmit(data: ProfileValues) {
+  function onSubmit(data: UserProfileValues) {
     startTransition(async () => {
       await updateUserInfoAction(data)
       toast({
@@ -81,7 +81,9 @@ export function ProfileForm({
           )}
         />
 
-        <Button type="submit">Update profile</Button>
+        <Button type="submit" disabled={!form.formState.isDirty}>
+          Update profile
+        </Button>
       </form>
     </Form>
   )
