@@ -5,7 +5,7 @@ import {
   getDeckWithoutNonValueCards,
 } from '@/components_next/deck/deck.api'
 
-import { getUserInfo, setUserInfo } from '@/lib/user'
+import { getUserInfo, setUserInfo } from '@/lib/user/user-actions'
 
 export const api = () => ({
   user: {
