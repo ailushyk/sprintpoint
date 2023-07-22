@@ -1,106 +1,26 @@
-'use client'
-
 import React from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { decksMap } from '@/modules/game/deck'
-import { PlayerStoreType, usePlayer } from '@/modules/game/usePlayer'
-import { ModeToggle } from '@easypoker/ui'
-import { ErrorMessage, Field, Form, Formik } from 'formik'
 
-import { Button } from '@/components/Button/Button'
+import { Separator } from '@easypoker/ui'
 
-const ProfilePage = () => {
-  const { data, setPlayer } = usePlayer()
-  const navigate = useRouter()
+import { api } from '@/lib/api'
+import { ProfileForm } from '@/app/profile/_components/profile-form'
 
-  const onSubmit = (values: PlayerStoreType) => {
-    setPlayer(values)
-    navigate.back()
-  }
-
+const ProfilePage = async () => {
+  const user = api().user.get()
   return (
-    <div className="flex flex-col items-center">
-      <Formik initialValues={data} onSubmit={onSubmit}>
-        {({ values }) => {
-          return (
-            <Form className="max-w-xl">
-              <fieldset className="mb-8 flex flex-col items-center">
-                <label
-                  htmlFor="username"
-                  className="mb-2 text-sm font-semibold"
-                >
-                  Setup your username
-                </label>
-                <Field
-                  id="username"
-                  type="username"
-                  name="username"
-                  placeholder="username"
-                  className="w-64 p-2 border"
-                />
-                <ErrorMessage
-                  name="username"
-                  component="div"
-                  className="text-red-700 font-semibold"
-                />
-              </fieldset>
+    <main className="container flex-1">
+      <div className="space-y-6">
+        <div>
+          <h3 className="text-lg font-medium">Profile</h3>
+          <p className="text-muted-foreground text-sm">
+            This is how others will see you on the site.
+          </p>
+        </div>
+        <Separator />
 
-              <fieldset className="mb-8 flex flex-col items-center">
-                <label htmlFor="deck" className="mb-2 text-sm font-semibold">
-                  Choose your deck
-                </label>
-                <Field
-                  id="deck"
-                  as="select"
-                  name="deck"
-                  className="w-64 p-2 border"
-                >
-                  {Array.from(decksMap).map(([_, value]) => {
-                    return (
-                      <option key={value.slug} value={value.slug}>
-                        {value.name}
-                      </option>
-                    )
-                  })}
-                </Field>
-                <div className="text-center mt-2 underline">
-                  <Link href="/profile/decks">All decks</Link>
-                </div>
-              </fieldset>
-
-              {values.deck ? (
-                <div className="text-sm">
-                  <div className="mb-8 px-8 overflow-auto text-center">
-                    <div>
-                      <b>Scale:</b>
-                    </div>
-                    <div>{decksMap.get(values.deck)?.deck.join(', ')}</div>
-                  </div>
-                  <div className="mb-8 px-4 overflow-auto text-center">
-                    <div>
-                      <b>Description:</b>
-                    </div>
-                    <div>
-                      {decksMap.get(values.deck)?.name}:{' '}
-                      {decksMap.get(values.deck)?.desc}
-                    </div>
-                  </div>
-                </div>
-              ) : null}
-
-              <div className="mt-8 py-6 text-center">
-                <Button type="submit" dark>
-                  Save
-                </Button>
-              </div>
-            </Form>
-          )
-        }}
-      </Formik>
-
-      <ModeToggle />
-    </div>
+        <ProfileForm defaultValues={user} />
+      </div>
+    </main>
   )
 }
 

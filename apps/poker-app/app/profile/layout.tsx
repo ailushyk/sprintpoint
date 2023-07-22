@@ -3,19 +3,16 @@ import { AppHeader } from '@/components_next/app-header/app-header'
 
 import { AppLayout } from '@/components/AppLayout'
 
-export default function HomeLayout({
+export default function ProfileLayout({
   children,
-  modal,
 }: {
   children: React.ReactNode
-  modal: React.ReactNode
 }) {
   return (
     <AppLayout>
       <AppHeader />
 
       {children}
-      {modal}
     </AppLayout>
   )
 }
