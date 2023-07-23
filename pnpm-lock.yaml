@@ -66,6 +66,9 @@ importers:
 
   apps/poker-app:
     dependencies:
+      '@easypoker/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       '@easypoker/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -135,6 +138,9 @@ importers:
 
   apps/server:
     dependencies:
+      '@easypoker/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       cookie-session:
         specifier: ^2.0.0
         version: 2.0.0
@@ -224,6 +230,21 @@ importers:
       next:
         specifier: latest
         version: 13.4.12(@babel/core@7.22.5)(react-dom@18.2.0)(react@18.2.0)
+
+  packages/shared:
+    devDependencies:
+      eslint:
+        specifier: 8.45.0
+        version: 8.45.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^5.1.6
+        version: 5.1.6
 
   packages/tsconfig: {}
 
