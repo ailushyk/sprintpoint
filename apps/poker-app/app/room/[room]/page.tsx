@@ -3,7 +3,9 @@ import { AppHeader } from '@/components_next/app-header/app-header'
 import { Deck } from '@/components_next/deck/Deck'
 
 import { api } from '@/lib/api'
-import { UserDialog } from '@/app/room/[room]/_components/user-dialog'
+import { VerifyUsername } from '@/app/room/[room]/_components/verify-username'
+
+export const revalidate = 0
 
 export default function PlayRoomPage({ params }: { params: { room: string } }) {
   const user = api().user.get()
@@ -11,18 +13,17 @@ export default function PlayRoomPage({ params }: { params: { room: string } }) {
 
   return (
     <>
+      <VerifyUsername user={user} />
+
       <AppHeader />
 
       <main className="container flex-1">
-        <div className="flex items-center">
+        <div className="flex items-center justify-between">
           <h1>room: {params.room}</h1>
-          {/*{isPending && <Icons.spinner className="ml-2 h-4 w-4 animate-spin" />}*/}
         </div>
 
         <Deck deck={deck.data} />
       </main>
-
-      <UserDialog defaultValues={user} />
     </>
   )
 }
