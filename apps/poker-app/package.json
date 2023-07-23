@@ -13,6 +13,7 @@
     "@easypoker/utils": "workspace:*",
     "@headlessui/react": "^1.7.15",
     "@hookform/resolvers": "^3.1.1",
+    "@easypoker/shared": "workspace:*",
     "@types/node": "20.3.3",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
