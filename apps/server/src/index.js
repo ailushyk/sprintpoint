@@ -3,7 +3,7 @@ import { createServer } from 'http'
 import { Server } from 'socket.io'
 import { ping } from './ping.js'
 import { APP_PORT, CORS_ORIGIN } from '../config.js'
-import { multiplayer } from './multiplayer/index.js'
+import { multiplayer } from './multiplayer.js'
 
 const app = express()
 const httpServer = createServer(app)

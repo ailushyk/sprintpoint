@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useTransition } from 'react'
+import React from 'react'
 import { useRouter } from 'next/navigation'
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@easypoker/ui'
