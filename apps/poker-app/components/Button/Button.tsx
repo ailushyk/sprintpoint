@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+
 import { cn } from '@easypoker/ui'
 
 export interface ButtonProps
@@ -19,11 +20,11 @@ export const Button: FC<ButtonProps> = ({
   return (
     <button
       className={cn([
-        'w-64 h-12 px-4 border active:pt-1 active:shadow-inner text-xl font-semibold uppercase',
+        'h-12 w-64 border px-4 text-xl font-semibold uppercase active:pt-1 active:shadow-inner',
         className,
         {
-          'text-zinc-100 bg-zinc-700 hover:bg-zinc-800': dark,
-          'text-zinc-800 bg-zinc-100 hover:bg-zinc-200': !dark,
+          'bg-zinc-700 text-zinc-100 hover:bg-zinc-800': dark,
+          'bg-zinc-100 text-zinc-800 hover:bg-zinc-200': !dark,
         },
         {
           'opacity-40': disabled,

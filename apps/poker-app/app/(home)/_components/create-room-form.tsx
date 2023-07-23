@@ -125,7 +125,7 @@ export const CreateRoomForm = () => {
         <div className="text-right">
           <Button type="submit" className="w-40">
             {isPending ? (
-              <span className="text-muted flex items-center">
+              <span className="flex items-center text-muted">
                 <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                 <span>Creating...</span>
               </span>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+
 import { cn } from '@easypoker/ui'
 
 import { Toggle } from '@/components/Toggle'
@@ -26,11 +27,11 @@ const PlayTable = ({ title, sp, ...deck }: Props) => {
 
   return (
     <div>
-      <h2 className="mb-1 text-sm text-zinc-600 text-center font-semibold capitalize">
+      <h2 className="mb-1 text-center text-sm font-semibold capitalize text-zinc-600">
         {title}
       </h2>
 
-      <div className="flex justify-center mb-2">
+      <div className="mb-2 flex justify-center">
         <SelectedCard
           sp={sp}
           onClick={(value) => {
@@ -39,17 +40,17 @@ const PlayTable = ({ title, sp, ...deck }: Props) => {
         />
       </div>
 
-      <div className="flex justify-center space-x-2 mb-4">
+      <div className="mb-4 flex justify-center space-x-2">
         <Toggle enabled={mode} onChange={setProMode} />
       </div>
 
       <div className="relative -mx-6 overflow-hidden">
-        <div className="relative px-6 md:px-4 mx-auto ">
+        <div className="relative mx-auto px-6 md:px-4 ">
           {mode ? <ProDeck {...deck} /> : <EasyDeck {...deck} />}
         </div>
         <div
           className={cn([
-            'absolute bg-zinc-100 inset-x-0 top-0 bottom-12 border transition',
+            'absolute inset-x-0 bottom-12 top-0 border bg-zinc-100 transition',
             {
               'translate-x-0': state === 'hide',
               'translate-x-full': state === 'idle',
@@ -58,10 +59,10 @@ const PlayTable = ({ title, sp, ...deck }: Props) => {
         >
           <div
             className={cn([
-              'flex items-center justify-center w-full h-full text-9xl font-bold ',
+              'flex h-full w-full items-center justify-center text-9xl font-bold ',
               {
                 'opacity-0': state === 'hide' || state === 'idle',
-                'transition opacity-100': state === 'show',
+                'opacity-100 transition': state === 'show',
               },
             ])}
           >

@@ -38,7 +38,8 @@ module.exports = {
     '^[./]',
   ],
   importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
-  tailwindFunctions: ['clsx'],
+  tailwindConfig: './packages/ui/tailwind.config.ts',
+  tailwindFunctions: ['clsx', 'cva'],
   plugins: [
     '@ianvs/prettier-plugin-sort-imports',
     'prettier-plugin-tailwindcss',

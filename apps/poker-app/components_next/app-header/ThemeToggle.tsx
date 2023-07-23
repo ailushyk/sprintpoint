@@ -1,8 +1,9 @@
 'use client'
 
 import React from 'react'
-import { Button, Icons, useTheme } from '@easypoker/ui'
 import { AnimatePresence, motion } from 'framer-motion'
+
+import { Button, Icons, useTheme } from '@easypoker/ui'
 
 const ThemeToggle = React.forwardRef<
   React.ElementRef<typeof Button>,

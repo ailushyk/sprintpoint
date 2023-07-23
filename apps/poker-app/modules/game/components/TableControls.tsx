@@ -5,7 +5,7 @@ import { TableType } from '../types'
 
 export const TableControls = ({ table }: { table: TableType }) => {
   return (
-    <div className="flex flex-col items-center justify-center space-y-4 mb-8">
+    <div className="mb-8 flex flex-col items-center justify-center space-y-4">
       <Button
         onClick={() => {
           table.onCheck(true)

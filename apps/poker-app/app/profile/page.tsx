@@ -13,7 +13,7 @@ const ProfilePage = async () => {
       <div className="space-y-6">
         <div>
           <h3 className="text-lg font-medium">Profile</h3>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-sm text-muted-foreground">
             This is how others will see you on the site.
           </p>
         </div>
@@ -25,7 +25,7 @@ const ProfilePage = async () => {
       <div className="space-y-6">
         <div>
           <h3 className="text-lg font-medium">Appearance</h3>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-sm text-muted-foreground">
             Customize the appearance of the app. Automatically switch between
             day and night themes.
           </p>

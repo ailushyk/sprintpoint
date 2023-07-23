@@ -27,8 +27,8 @@ export const PickedCard = ({
   return (
     <div
       className={cn(
-        'border-muted bg-popover flex h-20 w-20 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md border-2 p-4 text-4xl transition',
-        sp ? 'text-primary border-primary' : 'text-muted border-muted'
+        'flex h-20 w-20 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md border-2 border-muted bg-popover p-4 text-4xl transition',
+        sp ? 'border-primary text-primary' : 'border-muted text-muted'
       )}
     >
       <AnimatePresence mode="wait">

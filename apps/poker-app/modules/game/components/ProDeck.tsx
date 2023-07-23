@@ -12,7 +12,7 @@ export const ProDeck: FC<DeckComponent> = ({
   onSelect,
 }) => {
   return (
-    <div className="w-64 mb-16 mx-auto pl-3">
+    <div className="mx-auto mb-16 w-64 pl-3">
       <Deck className="justify-center-center flex-wrap">
         {deck.map((card) => (
           <div key={`${card}`} className="m-2">

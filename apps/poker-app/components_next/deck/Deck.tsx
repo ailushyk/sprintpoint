@@ -106,7 +106,7 @@ export const Deck = ({ deck }: { deck: DeckValue }) => {
                               className="peer sr-only"
                             />
                           </FormControl>
-                          <FormLabel className="peer-checked:border-primary peer-checked:bg-accent border-muted bg-popover hover:bg-accent hover:text-accent-foreground flex h-14 w-14 cursor-pointer flex-col items-center justify-center rounded-md border-2 p-4 text-xl transition">
+                          <FormLabel className="flex h-14 w-14 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 text-xl transition hover:bg-accent hover:text-accent-foreground peer-checked:border-primary peer-checked:bg-accent">
                             {card.name}
                           </FormLabel>
                         </FormItem>
