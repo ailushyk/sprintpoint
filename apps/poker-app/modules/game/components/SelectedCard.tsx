@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+
 import { cn } from '@easypoker/ui'
 
 interface Props {
@@ -18,12 +19,12 @@ export function SelectedCard({ sp, onClick }: Props) {
     <button onClick={onAction}>
       <div
         className={cn([
-          'flex justify-center items-center w-24 h-24',
-          'font-semibold text-4xl',
-          'transition rounded',
+          'flex h-24 w-24 items-center justify-center',
+          'text-4xl font-semibold',
+          'rounded transition',
           {
-            'text-zinc-100 bg-zinc-800 border-transparent': sp !== null,
-            'text-zinc-400 bg-zinc-100 border-2 border-zinc-200': sp === null,
+            'border-transparent bg-zinc-800 text-zinc-100': sp !== null,
+            'border-2 border-zinc-200 bg-zinc-100 text-zinc-400': sp === null,
           },
         ])}
       >

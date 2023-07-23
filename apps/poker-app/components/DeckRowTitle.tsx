@@ -5,5 +5,5 @@ interface DeckRowTitleProps {
 }
 
 export const DeckRowTitle: FC<DeckRowTitleProps> = ({ children }) => {
-  return <div className="flex-shrink-0 w-24 mb-1 capitalize">{children}</div>
+  return <div className="mb-1 w-24 flex-shrink-0 capitalize">{children}</div>
 }

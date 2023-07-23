@@ -1,5 +1,6 @@
-import { cn } from '@easypoker/ui'
 import { Switch } from '@headlessui/react'
+
+import { cn } from '@easypoker/ui'
 
 interface Props {
   enabled: boolean
@@ -9,8 +10,8 @@ interface Props {
 export const Toggle = ({ enabled, onChange }: Props) => {
   return (
     <Switch.Group>
-      <div className="flex justify-center items-center space-x-2">
-        <Switch.Label className="text-gray-600 font-light">easy</Switch.Label>
+      <div className="flex items-center justify-center space-x-2">
+        <Switch.Label className="font-light text-gray-600">easy</Switch.Label>
         <Switch
           checked={enabled}
           onChange={onChange}
@@ -26,7 +27,7 @@ export const Toggle = ({ enabled, onChange }: Props) => {
           <span
             className={cn([
               'inline-block h-4 w-4 transform rounded-full bg-white',
-              'transform transition ease-in-out duration-200',
+              'transform transition duration-200 ease-in-out',
               {
                 'translate-x-6': enabled,
                 'translate-x-1': !enabled,
@@ -34,7 +35,7 @@ export const Toggle = ({ enabled, onChange }: Props) => {
             ])}
           />
         </Switch>
-        <Switch.Label className="text-gray-600 font-light">pro</Switch.Label>
+        <Switch.Label className="font-light text-gray-600">pro</Switch.Label>
       </div>
     </Switch.Group>
   )

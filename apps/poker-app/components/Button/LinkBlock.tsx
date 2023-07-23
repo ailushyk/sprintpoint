@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+
 import { cn } from '@easypoker/ui'
 
 interface Props {

@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+
 import { cn } from '@easypoker/ui'
 
 interface DeckProps {
@@ -8,7 +9,7 @@ interface DeckProps {
 
 export const Deck: FC<DeckProps> = ({ className, children }) => {
   return (
-    <div className={cn(['flex pb-4 overflow-x-auto', className])}>
+    <div className={cn(['flex overflow-x-auto pb-4', className])}>
       {children}
     </div>
   )

@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+
 import { cn } from '@easypoker/ui'
 
 interface CardProps {
@@ -17,15 +18,15 @@ export const Card: FC<CardProps> = ({
   return (
     <div
       className={cn([
-        'flex flex-shrink-0 justify-center items-center w-14 h-14 md:w-16 md:h-16',
-        'text-2xl font-semibold cursor-pointer',
+        'flex h-14 w-14 flex-shrink-0 items-center justify-center md:h-16 md:w-16',
+        'cursor-pointer text-2xl font-semibold',
         ' rounded',
-        'active:pt-1 active:shadow-inner shadow',
+        'shadow active:pt-1 active:shadow-inner',
         'transition duration-100',
         {
-          'text-zinc-100 bg-zinc-500': isActive,
-          'text-zinc-900 bg-zinc-100 hover:bg-zinc-200': !isActive && !disabled,
-          'text-zinc-100 bg-zinc-100 hover:bg-zinc-200': disabled && !isActive,
+          'bg-zinc-500 text-zinc-100': isActive,
+          'bg-zinc-100 text-zinc-900 hover:bg-zinc-200': !isActive && !disabled,
+          'bg-zinc-100 text-zinc-100 hover:bg-zinc-200': disabled && !isActive,
         },
       ])}
       onClick={onClick}
