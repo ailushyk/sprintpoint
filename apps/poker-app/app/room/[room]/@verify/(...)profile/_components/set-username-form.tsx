@@ -1,6 +1,7 @@
 'use client'
 
 import { useTransition } from 'react'
+import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -12,7 +13,6 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
   Icons,
   Input,
@@ -38,18 +38,18 @@ export const SetUsernameForm = ({
   defaultValues: UserProfileValues
 }) => {
   let [isPending, startTransition] = useTransition()
+  const router = useRouter()
   const form = useForm<UsernameFormValues>({
     resolver: zodResolver(usernameFormSchema),
     defaultValues,
   })
 
   const onSubmit = (data: UsernameFormValues) => {
-    console.log('submit', data)
     startTransition(async () => {
       try {
         await updateUserInfoAction(data)
+        router.back()
 
-        form.reset()
         toast({
           title: 'Username saved!',
           description: 'You can change it anytime in the settings.',
@@ -75,7 +75,6 @@ export const SetUsernameForm = ({
           control={form.control}
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Username</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
