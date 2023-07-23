@@ -3,6 +3,7 @@ import { AppHeader } from '@/components_next/app-header/app-header'
 import { Deck } from '@/components_next/deck/Deck'
 
 import { api } from '@/lib/api'
+import { SocketRoomComponent } from '@/app/room/[room]/_components/socket'
 import { VerifyUsername } from '@/app/room/[room]/_components/verify-username'
 
 export const revalidate = 0
@@ -14,6 +15,7 @@ export default function PlayRoomPage({ params }: { params: { room: string } }) {
   return (
     <>
       <VerifyUsername user={user} />
+      <SocketRoomComponent room={params.room} />
 
       <AppHeader />
 
