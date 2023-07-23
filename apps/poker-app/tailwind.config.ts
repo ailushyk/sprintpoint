@@ -1,6 +1,7 @@
+import { Config } from 'tailwindcss'
+
 import { tailwindPreset } from '@easypoker/ui/lib/tailwind-preset'
 
-/** @type {import('tailwindcss').Config} */
 const tailwindConfig = {
   presets: [tailwindPreset],
   content: [
@@ -10,6 +11,6 @@ const tailwindConfig = {
     './node_modules/@easypoker/ui/components/**/*.{js,ts,jsx,tsx}',
     './node_modules/@easypoker/ui/theme/**/*.{js,ts,jsx,tsx}',
   ],
-}
+} satisfies Config
 
 export default tailwindConfig
