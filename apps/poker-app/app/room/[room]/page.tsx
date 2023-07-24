@@ -8,8 +8,6 @@ import { WaitOnPromise } from '@/components_next/wait-on-promise'
 import { api } from '@/lib/api'
 import { PlayArea } from '@/app/room/[room]/_components/play-area'
 
-export const revalidate = 0
-
 export default async function PlayRoomPage({
   params,
 }: {
@@ -26,7 +24,7 @@ export default async function PlayRoomPage({
       <AppHeader />
 
       <main className="container flex-1">
-        <PlayArea user={user}>
+        <PlayArea user={user} room={room}>
           <Suspense fallback={<Loading />}>
             <WaitOnPromise promise={deckPromise}>
               {({ data }: { data: DeckValue }) => <Deck deck={data} />}
