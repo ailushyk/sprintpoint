@@ -3,6 +3,7 @@ import {
   getDeckWithoutNonValueCards,
 } from '@/components_next/deck/deck.api'
 
+import { getRoom } from '@/lib/room'
 import { getUserInfo, setUserInfo } from '@/lib/user/user.api'
 
 export const api = () => ({
@@ -23,5 +24,8 @@ export const api = () => ({
   deck: {
     get: getDeck,
     getAdvanced: getDeckWithoutNonValueCards,
+  },
+  room: {
+    get: getRoom,
   },
 })
