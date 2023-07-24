@@ -4,7 +4,6 @@ import express from 'express'
 import { Server } from 'socket.io'
 
 import { APP_PORT, CORS_ORIGIN } from '../config.js'
-import { multiplayer } from './multiplayer.js'
 import { ping } from './ping.js'
 
 const app = express()
@@ -29,9 +28,27 @@ const io = new Server(httpServer, {
 //   mode: 'development',
 // })
 
+io.use((socket, next) => {
+  const username = socket.handshake.auth.username
+  if (!username) {
+    return next(new Error('invalid username'))
+  }
+  socket.username = username
+  next()
+})
+
 const onConnection = (socket) => {
   ping(io, socket)
-  multiplayer(io, socket)
+  // multiplayer(io, socket)
+
+  const users = []
+  for (let [id, socket] of io.of('/').sockets) {
+    users.push({
+      userID: id,
+      username: socket.username,
+    })
+  }
+  socket.emit('users', users)
 }
 
 io.on('connect', onConnection)
