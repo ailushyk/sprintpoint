@@ -112,10 +112,12 @@ function getDeck(name: string): { data: DeckValue } {
   return { data: deck }
 }
 
-function getDeckWithoutNonValueCards(name: string): { data: DeckValue } {
+async function getDeckWithoutNonValueCards(
+  name: string
+): Promise<{ data: DeckValue }> {
   const { data: deck } = getDeck(name)
   const cards = deck.cards.filter((card) => card.type !== 'non-value')
-  return { data: { ...deck, cards } }
+  return Promise.resolve({ data: { ...deck, cards } })
 }
 
 export { getDeck, getDeckWithoutNonValueCards }
