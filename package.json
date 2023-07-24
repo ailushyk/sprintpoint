@@ -4,7 +4,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "dev:app": "turbo run dev --filter=poker-app",
-    "dev:server": "turbo run dev --filter=easy-poker-server",
+    "dev:server": "turbo run dev --filter=server",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\" --cache"
   },

@@ -4,15 +4,18 @@ import React, { useEffect, useState } from 'react'
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@easypoker/ui'
 
-import { socket } from '@/lib/socket'
+import { RoomValue } from '@/lib/room'
+import { socket } from '@/lib/socket-client'
 import { UserProfileValues } from '@/lib/user/user'
 import { SetUsernameForm } from '@/app/room/[room]/_components/set-username-form'
 
 export const PlayArea = ({
   user,
+  room,
   children,
 }: {
   user: UserProfileValues
+  room: RoomValue
   children: React.ReactNode
 }) => {
   const [open, setOpen] = useState(() => false)
@@ -25,28 +28,24 @@ export const PlayArea = ({
    * Check if user has username. Open form in modal if not
    */
   useEffect(() => {
-    if (!user?.username) setOpen(true)
-  }, [user.username])
-
-  useEffect(() => {
-    // client-side
-    socket.on('connect', () => {
-      console.log('socket connected')
-      console.log(socket.id)
-    })
-
-    socket.on('disconnect', () => {
-      console.log('socket disconnected')
-    })
+    if (user?.username) {
+      socket.auth = { username: user.username }
+      socket.connect()
+    } else {
+      setOpen(true)
+    }
 
     return () => {
-      // cleanup the socket connection when the component unmounts
-      socket.disconnect()
+      user.username && socket.disconnect()
     }
-  }, [])
+  }, [user.username])
 
   return (
     <div>
+      <div className="flex items-center justify-between">
+        <h1>room: {room.name ?? room.id}</h1>
+      </div>
+
       {children}
 
       <Dialog defaultOpen open={open} onOpenChange={(open) => null}>

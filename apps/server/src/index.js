@@ -1,9 +1,11 @@
-import express from 'express'
 import { createServer } from 'http'
+// import { instrument } from '@socket.io/admin-ui'
+import express from 'express'
 import { Server } from 'socket.io'
-import { ping } from './ping.js'
+
 import { APP_PORT, CORS_ORIGIN } from '../config.js'
 import { multiplayer } from './multiplayer.js'
+import { ping } from './ping.js'
 
 const app = express()
 const httpServer = createServer(app)
@@ -21,6 +23,11 @@ const io = new Server(httpServer, {
     sameSite: 'lax',
   },
 })
+
+// instrument(io, {
+//   auth: false,
+//   mode: 'development',
+// })
 
 const onConnection = (socket) => {
   ping(io, socket)
