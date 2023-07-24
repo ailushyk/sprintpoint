@@ -41,6 +41,7 @@ let defaultValues = {
   complexity: '',
   unfamiliar: '',
 }
+
 export const Deck = ({ deck }: { deck: DeckValue }) => {
   const form = useForm<FormDeckProps>({
     resolver: zodResolver(formSchema),

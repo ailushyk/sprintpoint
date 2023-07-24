@@ -3,8 +3,7 @@ import { AppHeader } from '@/components_next/app-header/app-header'
 import { Deck } from '@/components_next/deck/Deck'
 
 import { api } from '@/lib/api'
-import { SocketRoomComponent } from '@/app/room/[room]/_components/socket'
-import { VerifyUsername } from '@/app/room/[room]/_components/verify-username'
+import { PlayArea } from '@/app/room/[room]/_components/play-area'
 
 export const revalidate = 0
 
@@ -14,9 +13,6 @@ export default function PlayRoomPage({ params }: { params: { room: string } }) {
 
   return (
     <>
-      <VerifyUsername user={user} />
-      <SocketRoomComponent room={params.room} />
-
       <AppHeader />
 
       <main className="container flex-1">
@@ -24,7 +20,9 @@ export default function PlayRoomPage({ params }: { params: { room: string } }) {
           <h1>room: {params.room}</h1>
         </div>
 
-        <Deck deck={deck.data} />
+        <PlayArea user={user}>
+          <Deck deck={deck.data} />
+        </PlayArea>
       </main>
     </>
   )

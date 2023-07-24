@@ -14,8 +14,20 @@ export const setUserInfo = (user: UserProfileValues) => {
     httpOnly: true,
   })
 }
-export const getUserInfo = (): undefined | UserProfileValues => {
+export const getUserInfo = () => {
   const cookie = cookies().get(USER_COOKIE)
-  const user = cookie ? JSON.parse(cookie?.value) : {}
-  return profileFormSchema.parse(user)
+  const user = cookie ? JSON.parse(cookie?.value) : null
+  const parsedUser = profileFormSchema.safeParse(user)
+  if (parsedUser.success) {
+    return parsedUser.data
+  }
+
+  return {
+    username: '',
+    fullName: '',
+    avatar: '',
+    lastRoom: '',
+    theme: 'dark' as const,
+    type: 'incognito' as const,
+  }
 }
