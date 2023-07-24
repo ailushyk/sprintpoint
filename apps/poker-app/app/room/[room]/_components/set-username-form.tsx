@@ -1,10 +1,6 @@
-'use client'
-
 import { useTransition } from 'react'
-import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 
 import {
   Button,
@@ -20,42 +16,32 @@ import {
 } from '@easypoker/ui'
 
 import { updateUserInfoAction } from '@/lib/actions'
-import { UserProfileValues } from '@/lib/user/user'
-
-const usernameFormSchema = z.object({
-  username: z
-    .string({
-      required_error: 'Username is required',
-    })
-    .nonempty(),
-})
-
-export type UsernameFormValues = z.infer<typeof usernameFormSchema>
+import { profileFormSchema, UserProfileValues } from '@/lib/user/user'
 
 export const SetUsernameForm = ({
   defaultValues,
+  afterSuccess,
 }: {
   defaultValues: UserProfileValues
+  afterSuccess: (data: UserProfileValues) => void
 }) => {
   let [isPending, startTransition] = useTransition()
-  const router = useRouter()
-  const form = useForm<UsernameFormValues>({
-    resolver: zodResolver(usernameFormSchema),
+  const form = useForm<UserProfileValues>({
+    resolver: zodResolver(profileFormSchema),
     defaultValues,
   })
 
-  const onSubmit = (data: UsernameFormValues) => {
+  const onSubmit = (data: UserProfileValues) => {
     startTransition(async () => {
       try {
         await updateUserInfoAction(data)
-        router.back()
+        afterSuccess?.(data)
 
         toast({
           title: 'Username saved!',
           description: 'You can change it anytime in the settings.',
         })
       } catch (error) {
-        console.error(error)
         toast({
           title: 'Ups!',
           description: 'Something went wrong. Please try again later.',

@@ -1,13 +1,9 @@
 import { z } from 'zod'
 
 export const profileFormSchema = z.object({
-  username: z
-    .string()
-    .min(2, {
-      message: 'Full name must be at least 2 characters.',
-    })
-    .optional()
-    .default('@guest'),
+  username: z.string().min(2, {
+    message: 'Full name must be at least 2 characters.',
+  }),
   fullName: z.string().optional(),
   avatar: z.string().optional(),
   lastRoom: z.string().optional(),

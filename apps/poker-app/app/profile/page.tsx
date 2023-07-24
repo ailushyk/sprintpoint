@@ -6,7 +6,7 @@ import { api } from '@/lib/api'
 import { AppearanceForm } from '@/app/profile/_components/appearance-form'
 import { ProfileForm } from '@/app/profile/_components/profile-form'
 
-const ProfilePage = async () => {
+export default async function ProfilePage() {
   const user = api().user.get()
   return (
     <main className="container flex-1 space-y-16 pb-24">
@@ -40,5 +40,3 @@ const ProfilePage = async () => {
     </main>
   )
 }
-
-export default ProfilePage
