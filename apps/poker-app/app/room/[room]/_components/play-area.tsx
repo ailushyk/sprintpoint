@@ -2,7 +2,14 @@
 
 import React, { useEffect, useState } from 'react'
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@easypoker/ui'
+import { SocketData } from '@easypoker/shared'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  toast,
+} from '@easypoker/ui'
 
 import { RoomValue } from '@/lib/room'
 import { socket } from '@/lib/socket-client'
@@ -18,10 +25,12 @@ export const PlayArea = ({
   room: RoomValue
   children: React.ReactNode
 }) => {
-  const [open, setOpen] = useState(() => false)
+  const [openUserDialog, setOpenUserDialog] = useState(() => false)
+  const [isConnected, setIsConnected] = useState(false)
+  const [users, setUsers] = useState<SocketData[]>([])
 
   const afterSuccess = ({ username }: { username: string }) => {
-    setOpen(false)
+    setOpenUserDialog(false)
   }
 
   /**
@@ -29,14 +38,34 @@ export const PlayArea = ({
    */
   useEffect(() => {
     if (user?.username) {
-      socket.auth = { username: user.username }
+      setIsConnected(true)
+      socket.auth = { id: user.id, username: user.username }
       socket.connect()
     } else {
-      setOpen(true)
+      setOpenUserDialog(true)
     }
 
     return () => {
-      user.username && socket.disconnect()
+      socket.disconnect()
+    }
+  }, [user.id, user.username])
+
+  useEffect(() => {
+    socket.on('users', (users) => {
+      console.log('users', users)
+      setUsers(users)
+    })
+
+    socket.on('user:connected', (data) => {
+      toast({
+        title: `${data.user.username} connected`,
+      })
+      setUsers(data.users)
+    })
+
+    return () => {
+      socket.off('users')
+      socket.off('user:connected')
     }
   }, [user.username])
 
@@ -48,7 +77,17 @@ export const PlayArea = ({
 
       {children}
 
-      <Dialog defaultOpen open={open} onOpenChange={(open) => null}>
+      <ul>
+        {users.map((_user) => (
+          <li key={_user.id}>
+            {_user.username}{' '}
+            <span className="text-muted-foreground">{_user.id}</span>{' '}
+            {_user.id === user.id && ' (you)'}
+          </li>
+        ))}
+      </ul>
+
+      <Dialog defaultOpen open={openUserDialog} onOpenChange={(open) => null}>
         <DialogContent className="abc sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Please set your username</DialogTitle>

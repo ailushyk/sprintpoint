@@ -1,15 +1,6 @@
 export const DEMO_TABLE = 'table-1'
 
 export const multiplayer = (io, socket) => {
-  io.use((socket, next) => {
-    const username = socket.handshake.auth.username
-    if (!username) {
-      return next(new Error('invalid username'))
-    }
-    socket.username = username
-    next()
-  })
-
   socket.join(DEMO_TABLE)
 
   const emitResult = async () => {

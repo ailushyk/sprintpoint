@@ -1,10 +1,19 @@
 export interface ServerToClientEvents {
-  noArg: () => void
-  withAck: (d: string, callback: (e: number) => void) => void
+  pong: () => void
+  users: (users: { id: string; username: string }[]) => void
+  'user:connected': ({
+    user,
+    users,
+  }: {
+    user: SocketData
+    users: SocketData[]
+  }) => void
 }
 
 export interface ClientToServerEvents {
-  hello: () => void
+  ping: () => void
+  pong: () => void
+  disconnect: () => void
 }
 
 export interface InterServerEvents {
@@ -12,6 +21,7 @@ export interface InterServerEvents {
 }
 
 export interface SocketData {
-  name: string
-  age: number
+  id: string
+  username: string
+  value?: number
 }

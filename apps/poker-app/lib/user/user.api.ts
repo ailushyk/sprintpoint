@@ -1,5 +1,6 @@
 import 'server-only'
 
+import { randomUUID } from 'crypto'
 import { cookies } from 'next/headers'
 
 import { profileFormSchema, UserProfileValues } from '@/lib/user/user'
@@ -23,6 +24,7 @@ export const getUserInfo = async () => {
   }
 
   return Promise.resolve({
+    id: randomUUID(),
     username: '',
     fullName: '',
     avatar: '',
