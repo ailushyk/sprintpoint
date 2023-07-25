@@ -11,8 +11,21 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(URL, {
 })
 
 socket.onAny((event, ...args) => {
+  console.log('-------------------🔽')
+  console.log('socket event')
   console.log(event, args)
+  console.log('-------------------🔼')
 })
+
+socket.on('connect', () => {
+  console.log('socket connected')
+})
+
+socket.on('disconnect', () => {
+  console.log('socket disconnected')
+})
+
+socket.emit('ping')
 
 socket.on('connect_error', (err) => {
   if (err.message === 'invalid username') {
@@ -22,15 +35,6 @@ socket.on('connect_error', (err) => {
     })
     console.error(err)
   }
-})
-
-socket.on('connect', () => {
-  console.log('socket connected')
-  console.log(socket.id)
-})
-
-socket.on('disconnect', () => {
-  console.log('socket disconnected')
 })
 
 export { socket }

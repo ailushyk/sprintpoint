@@ -81,9 +81,7 @@ export function ProfileForm({
           )}
         />
 
-        <Button type="submit" disabled={!form.formState.isDirty}>
-          Update profile
-        </Button>
+        <Button type="submit">Update profile</Button>
       </form>
     </Form>
   )
