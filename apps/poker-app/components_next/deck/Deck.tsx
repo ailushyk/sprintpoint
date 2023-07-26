@@ -53,19 +53,6 @@ export const Deck = ({ deck }: { deck: DeckValue }) => {
     // onPick('1', DECK_NAME)
   }
 
-  const onChange = (value, { name, type }) => {
-    // console.log(value, name, type)
-  }
-
-  React.useEffect(
-    () => {
-      const subscription = form.watch(onChange)
-      return () => subscription.unsubscribe()
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [form.watch]
-  )
-
   return (
     <div className="flex flex-col items-center gap-8">
       <div>

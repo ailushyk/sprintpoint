@@ -8,6 +8,7 @@ import { cn } from '@easypoker/ui'
 
 import { getAverageCardValue } from '@/lib/deck-utils'
 import { getClosest } from '@/lib/math'
+import { socket } from '@/lib/socket-client'
 
 export const PickedCard = ({
   control,
@@ -17,12 +18,35 @@ export const PickedCard = ({
   deck: DeckValue
 }) => {
   const values = useWatch({ control })
+  const selectedCards = Object.values(values)
 
   const deckValues = useMemo(() => {
     return deck.cards.map((card) => card.value)
   }, [deck.cards])
 
-  const sp = getClosest(getAverageCardValue(values, deck.cards), deckValues)
+  const getStatus = () => {
+    if (selectedCards.every((card) => !!card)) {
+      return 'voted'
+    }
+    if (selectedCards.every((card) => !card)) {
+      return 'idle'
+    }
+    return 'voting'
+  }
+
+  const getSp = (status) => {
+    if (status === 'voted') {
+      const average = getAverageCardValue(selectedCards, deck.cards)
+      const closest = getClosest(average, deckValues)
+      socket.emit('user:vote', closest)
+      return closest
+    } else {
+      socket.emit('user:status', status)
+      return
+    }
+  }
+
+  let sp = getSp(getStatus())
 
   return (
     <div

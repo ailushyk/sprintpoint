@@ -77,6 +77,28 @@ const onConnection = (socket) => {
 
   io.emit('users:all', users)
 
+  socket.on('user:status', (value) => {
+    io.emit('user:status', {
+      user: {
+        id: socket.data.id,
+        username: socket.data.username,
+        status: value,
+      },
+    })
+  })
+
+  socket.on('user:vote', (value) => {
+    // TODO: validate value
+    // TODO: save result
+    io.emit('user:status', {
+      user: {
+        id: socket.data.id,
+        username: socket.data.username,
+        status: 'voted',
+      },
+    })
+  })
+
   socket.on('disconnect', () => {
     socket.broadcast.emit('user:status', {
       user: {
