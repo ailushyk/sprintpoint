@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import { AppHeader } from '@/components_next/app-header/app-header'
 import { Deck } from '@/components_next/deck/Deck'
 import { DeckValue } from '@/components_next/deck/deck.api'
@@ -25,11 +25,9 @@ export default async function PlayRoomPage({
 
       <main className="container flex-1">
         <PlayArea user={user} room={room}>
-          <Suspense fallback={<Loading />}>
-            <WaitOnPromise promise={deckPromise}>
-              {({ data }: { data: DeckValue }) => <Deck deck={data} />}
-            </WaitOnPromise>
-          </Suspense>
+          <WaitOnPromise promise={deckPromise} fallback={<Loading />}>
+            {({ data }: { data: DeckValue }) => <Deck deck={data} />}
+          </WaitOnPromise>
         </PlayArea>
       </main>
     </>
