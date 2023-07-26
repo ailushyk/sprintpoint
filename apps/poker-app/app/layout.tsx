@@ -3,7 +3,7 @@ import './globals.css'
 import React from 'react'
 import { Inter } from 'next/font/google'
 
-import { Toaster, UIProvider } from '@easypoker/ui'
+import { TailwindIndicator, Toaster, UIProvider } from '@easypoker/ui'
 
 import { GlobalKeyboardEvents } from '@/components/GlobalKeyboardEvents'
 
@@ -27,6 +27,8 @@ export default function RootLayout({
 
           <Toaster />
           <GlobalKeyboardEvents />
+
+          <TailwindIndicator />
         </UIProvider>
       </body>
     </html>
