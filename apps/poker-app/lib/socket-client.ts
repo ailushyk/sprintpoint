@@ -1,10 +1,13 @@
 import { io, Socket } from 'socket.io-client'
 
 import { ClientToServerEvents, ServerToClientEvents } from '@easypoker/shared'
+import { socketDataSchema } from '@easypoker/shared/dist'
 import { toast } from '@easypoker/ui'
 
 const URL =
   process.env.NEXT_PUBLIC_WEB_SOCKET_API_URL ?? 'http://localhost:3000'
+
+export const usersSchema = socketDataSchema.array()
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(URL, {
   autoConnect: false,

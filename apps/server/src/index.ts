@@ -6,8 +6,10 @@ import { Server } from 'socket.io'
 import {
   ClientToServerEvents,
   InterServerEvents,
+  PlayStatusValue,
   ServerToClientEvents,
-  SocketData,
+  socketDataSchema,
+  SocketDataValue,
 } from '@easypoker/shared'
 
 import { APP_PORT, CORS_ORIGIN } from '../config.js'
@@ -19,7 +21,7 @@ const io = new Server<
   ClientToServerEvents,
   ServerToClientEvents,
   InterServerEvents,
-  SocketData
+  SocketDataValue
 >(httpServer, {
   cors: {
     origin: CORS_ORIGIN,
@@ -41,41 +43,48 @@ const io = new Server<
 // })
 
 io.use((socket, next) => {
-  const userId = socket.handshake.auth.id
-  const username = socket.handshake.auth.username
-  if (!userId) {
-    return next(new Error('invalid userId'))
+  let data: SocketDataValue = {
+    id: socket.handshake.auth.id,
+    username: socket.handshake.auth.username,
+    status: 'idle',
   }
-
-  if (!username) {
-    return next(new Error('invalid username'))
+  const parse = socketDataSchema.safeParse(data)
+  if (parse.success === true) {
+    socket.data = parse.data
+    next()
+  } else {
+    next(new Error(parse.error.message ?? 'invalid data'))
   }
-
-  socket.data.id = userId
-  socket.data.username = username
-  next()
 })
 
 const onConnection = (socket) => {
   ping(io, socket)
   // multiplayer(io, socket)
-  let users: SocketData[] = []
+
+  // TODO: play area socket
+  const users: Array<{
+    id: string
+    username: string
+    status: PlayStatusValue
+  }> = []
   io.of('/').sockets.forEach((socket) => {
-    console.log(socket.id)
     users.push({
       id: socket.data.id,
       username: socket.data.username,
-      value: null,
+      status: 'idle',
     })
   })
-  socket.emit('users', users)
 
-  socket.broadcast.emit('user:connected', {
-    user: {
-      id: socket.data.id,
-      username: socket.data.username,
-    },
-    users,
+  io.emit('users:all', users)
+
+  socket.on('disconnect', () => {
+    socket.broadcast.emit('user:status', {
+      user: {
+        id: socket.data.id,
+        username: socket.data.username,
+        status: 'offline',
+      },
+    })
   })
 }
 
