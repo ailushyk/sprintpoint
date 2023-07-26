@@ -3,14 +3,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { SocketDataValue } from '@easypoker/shared'
-import { socketDataSchema } from '@easypoker/shared/dist'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  toast,
-} from '@easypoker/ui'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@easypoker/ui'
 
 import { RoomValue } from '@/lib/room'
 import { socket, usersSchema } from '@/lib/socket-client'
