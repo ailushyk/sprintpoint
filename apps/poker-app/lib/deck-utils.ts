@@ -6,20 +6,14 @@ const getCardValueByName = (cardName: string, cards: CardValue[]) => {
 }
 
 const getAverageCardValue = (
-  selectedCards: FormDeckProps,
+  selectedCards: Array<string>,
   deck: CardValue[]
 ) => {
-  let cardNames = Object.values(selectedCards)
-
-  if (cardNames.some((r) => !r)) {
-    return null
-  } else {
-    let sum = cardNames.reduce((acc, cardName) => {
-      let value = getCardValueByName(cardName, deck)
-      return value ? acc + value : acc
-    }, 0)
-    return sum / cardNames.length
-  }
+  let sum = selectedCards.reduce((acc, cardName) => {
+    let value = getCardValueByName(cardName, deck)
+    return value ? acc + value : acc
+  }, 0)
+  return sum / selectedCards.length
 }
 
 export { getAverageCardValue }

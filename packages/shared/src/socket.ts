@@ -4,7 +4,7 @@ export const playStatusSchema = z
   .union([
     z.literal('idle'),
     z.literal('offline'),
-    z.literal('ready'),
+    // z.literal('ready'),
     z.literal('on-hold'),
     z.literal('voting'),
     z.literal('voted'),
