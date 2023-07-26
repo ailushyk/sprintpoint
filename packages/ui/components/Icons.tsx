@@ -1,11 +1,12 @@
 import {
+  CheckIcon,
   ChevronDownIcon,
   GitHubLogoIcon,
   LaptopIcon,
   MoonIcon,
   SunIcon,
 } from '@radix-ui/react-icons'
-import { Linkedin, Loader2, Twitter } from 'lucide-react'
+import { AlertCircle, CloudOff, Linkedin, Loader2, Twitter } from 'lucide-react'
 
 export const Icons = {
   moon: MoonIcon,
@@ -16,6 +17,9 @@ export const Icons = {
   spinner: Loader2,
   gitHub: GitHubLogoIcon,
   ChevronDown: ChevronDownIcon,
+  offline: CloudOff,
+  ready: CheckIcon,
+  hold: AlertCircle,
   // gitHub: (props: LucideProps) => (
   //   <svg viewBox="0 0 438.549 438.549" {...props}>
   //     <path

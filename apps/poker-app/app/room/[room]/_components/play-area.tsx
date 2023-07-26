@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from 'react'
 
-import { SocketData } from '@easypoker/shared'
+import { SocketDataValue } from '@easypoker/shared'
+import { socketDataSchema } from '@easypoker/shared/dist'
 import {
   Dialog,
   DialogContent,
@@ -12,9 +13,10 @@ import {
 } from '@easypoker/ui'
 
 import { RoomValue } from '@/lib/room'
-import { socket } from '@/lib/socket-client'
+import { socket, usersSchema } from '@/lib/socket-client'
 import { UserProfileValues } from '@/lib/user/user'
 import { SetUsernameForm } from '@/app/room/[room]/_components/set-username-form'
+import { UserList } from '@/app/room/[room]/_components/user-list'
 
 export const PlayArea = ({
   user,
@@ -27,7 +29,7 @@ export const PlayArea = ({
 }) => {
   const [openUserDialog, setOpenUserDialog] = useState(() => false)
   const [isConnected, setIsConnected] = useState(false)
-  const [users, setUsers] = useState<SocketData[]>([])
+  const [users, setUsers] = useState<SocketDataValue[]>([])
 
   const afterSuccess = ({ username }: { username: string }) => {
     setOpenUserDialog(false)
@@ -51,40 +53,47 @@ export const PlayArea = ({
   }, [user.id, user.username])
 
   useEffect(() => {
-    socket.on('users', (users) => {
-      console.log('users', users)
+    socket.on('users:all', (users) => {
+      usersSchema.parse(users)
       setUsers(users)
     })
 
-    socket.on('user:connected', (data) => {
-      toast({
-        title: `${data.user.username} connected`,
+    socket.on('user:status', (data) => {
+      setUsers((prev) => {
+        return prev.map((_user) => {
+          if (_user.id === data.user.id) {
+            return {
+              ..._user,
+              status: data.user.status,
+            }
+          }
+          return _user
+        })
       })
-      setUsers(data.users)
     })
 
     return () => {
       socket.off('users')
-      socket.off('user:connected')
+      socket.off('user:status')
     }
   }, [user.username])
 
   return (
-    <div className="flex flex-col gap-12 lg:flex-row lg:gap-6">
+    <div className="flex flex-col gap-16 lg:flex-row">
       <div className="flex flex-col gap-4 lg:max-w-xs">
         <div className="flex items-center justify-between">
           <h1>room: {room.name ?? room.id}</h1>
         </div>
 
-        <ul>
+        <UserList>
           {users.map((_user) => (
-            <li key={_user.id}>
-              {_user.username}{' '}
-              <span className="text-muted-foreground">{_user.id}</span>{' '}
-              {_user.id === user.id && ' (you)'}
-            </li>
+            <UserList.Item
+              key={_user.id}
+              user={_user}
+              self={_user.id === user.id}
+            />
           ))}
-        </ul>
+        </UserList>
       </div>
 
       {children}
