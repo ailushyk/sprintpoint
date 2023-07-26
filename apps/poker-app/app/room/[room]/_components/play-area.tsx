@@ -70,22 +70,24 @@ export const PlayArea = ({
   }, [user.username])
 
   return (
-    <div>
-      <div className="flex items-center justify-between">
-        <h1>room: {room.name ?? room.id}</h1>
+    <div className="flex flex-col gap-12 lg:flex-row lg:gap-6">
+      <div className="flex flex-col gap-4 lg:max-w-xs">
+        <div className="flex items-center justify-between">
+          <h1>room: {room.name ?? room.id}</h1>
+        </div>
+
+        <ul>
+          {users.map((_user) => (
+            <li key={_user.id}>
+              {_user.username}{' '}
+              <span className="text-muted-foreground">{_user.id}</span>{' '}
+              {_user.id === user.id && ' (you)'}
+            </li>
+          ))}
+        </ul>
       </div>
 
       {children}
-
-      <ul>
-        {users.map((_user) => (
-          <li key={_user.id}>
-            {_user.username}{' '}
-            <span className="text-muted-foreground">{_user.id}</span>{' '}
-            {_user.id === user.id && ' (you)'}
-          </li>
-        ))}
-      </ul>
 
       <Dialog defaultOpen open={openUserDialog} onOpenChange={(open) => null}>
         <DialogContent className="abc sm:max-w-[425px]">
