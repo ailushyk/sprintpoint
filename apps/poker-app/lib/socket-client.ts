@@ -9,16 +9,17 @@ const URL =
 
 export const usersSchema = socketDataSchema.array()
 
-const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(URL, {
+const socket: Socket = io(URL, {
   autoConnect: false,
 })
 
-// socket.onAny((event, ...args) => {
-//   console.log('-------------------🔽')
-//   console.log('socket event')
-//   console.log(event, args)
-//   console.log('-------------------🔼')
-// })
+socket.onAny((event, ...args) => {
+  console.log('-------------------🔽')
+  console.log('SOCKET EVENT:')
+  console.log(event)
+  console.log(args)
+  console.log('-------------------🔼')
+})
 
 socket.on('connect', () => {
   console.log('socket connected')
@@ -27,8 +28,6 @@ socket.on('connect', () => {
 socket.on('disconnect', () => {
   console.log('socket disconnected')
 })
-
-socket.emit('ping')
 
 socket.on('connect_error', (err) => {
   if (err.message === 'invalid username') {

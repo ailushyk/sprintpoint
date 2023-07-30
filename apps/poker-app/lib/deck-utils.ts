@@ -1,4 +1,3 @@
-import { FormDeckProps } from '@/components_next/deck/Deck'
 import { CardValue } from '@/components_next/deck/deck.api'
 
 const getCardValueByName = (cardName: string, cards: CardValue[]) => {
@@ -16,4 +15,14 @@ const getAverageCardValue = (
   return sum / selectedCards.length
 }
 
-export { getAverageCardValue }
+function getStatusByValues(selectedCards: string[]) {
+  if (selectedCards.every((card) => !!card)) {
+    return 'voted'
+  }
+  if (selectedCards.every((card) => !card)) {
+    return 'idle'
+  }
+  return 'voting'
+}
+
+export { getAverageCardValue, getStatusByValues }
