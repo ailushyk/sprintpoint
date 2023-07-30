@@ -4,20 +4,9 @@ import { UserValue, VoteValue } from './user'
 export type AllUsersResponse = Array<UserValue & { vote?: VoteValue }>
 
 export interface ServerToClientEvents {
-  pong: () => void
   // Play Area
   'users:all': ({ users }: { users: AllUsersResponse }) => void
   'room:checking': (data: { users: AllUsersResponse }) => void
-  'users:votes': (
-    users: { id: string; username: string; value: number }[]
-  ) => void
-  'user:status': (data: {
-    user: {
-      id: string
-      username: string
-      status: PlayStatusValue
-    }
-  }) => void
 
   /**
    * @deprecated

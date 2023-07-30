@@ -66,6 +66,23 @@ io.use((socket, next) => {
 })
 
 const onConnection = (socket) => {
+  socket.on('disconnect', (reason) => {
+    console.log('disconnect', reason)
+    users = users.map((u) => {
+      if (u.id === socket.data.id) {
+        return {
+          ...u,
+          status: 'offline',
+          lastUpdate: new Date().toISOString(),
+        }
+      }
+      return u
+    })
+    Array.from(socket.adapter.rooms.keys()).forEach((r: string) => {
+      io.to(r).emit('users:all', { users: getUsersWithVotes(r) })
+    })
+  })
+
   socket.on('room:join', ({ room }: { room: string }) => {
     console.log('room:join', room)
     let _room = rooms.find((r) => r.code === room)
@@ -87,6 +104,17 @@ const onConnection = (socket) => {
         ...socket.data,
         status: 'idle',
         lastUpdate: new Date().toISOString(),
+      })
+    } else {
+      users = users.map((u) => {
+        if (u.id === socket.data.id) {
+          return {
+            ...u,
+            status: 'idle',
+            lastUpdate: new Date().toISOString(),
+          }
+        }
+        return u
       })
     }
 
@@ -116,11 +144,20 @@ const onConnection = (socket) => {
 
     const user = users.find((u) => u.id === socket.data.id)
     if (!user) {
-      console.log('user', socket.data.id, 'not found')
-      console.log('all users', users)
       console.log('user not found')
       return
     }
+
+    users = users.map((u) => {
+      if (u.id === user.id) {
+        return {
+          ...u,
+          status: 'voting',
+          lastUpdate: new Date().toISOString(),
+        }
+      }
+      return u
+    })
     const vote = votes.find((v) => v.userId === user.id && v.roomId === room)
     if (!vote) {
       votes.push({
@@ -152,44 +189,6 @@ const onConnection = (socket) => {
     votes = votes.filter((v) => v.roomId !== room)
     io.to(room).emit('users:all', { users: getUsersWithVotes(room) })
   })
-
-  // socket.on('user:status', (payload) => {
-  //   api.updateUser(payload.room, {
-  //     id: socket.data.id,
-  //     // status: payload.status,
-  //   })
-  //   io.to(payload.room).emit('user:status', {
-  //     user: {
-  //       id: socket.data.id,
-  //       username: socket.data.username,
-  //       status: payload.status,
-  //     },
-  //   })
-  // })
-
-  // socket.on('user:vote', (payload) => {
-  //   api.updateUser(payload.room, {
-  //     id: socket.data.id,
-  //     value: payload.value,
-  //   })
-  //   io.to(payload.room).emit('user:status', {
-  //     user: {
-  //       id: socket.data.id,
-  //       username: socket.data.username,
-  //       status: 'voted',
-  //     },
-  //   })
-  // })
-
-  // socket.on('disconnect', () => {
-  //   socket.broadcast.emit('user:status', {
-  //     user: {
-  //       id: socket.data.id,
-  //       username: socket.data.username,
-  //       status: 'offline',
-  //     },
-  //   })
-  // })
 }
 
 io.on('connect', onConnection)

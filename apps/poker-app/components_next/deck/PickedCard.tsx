@@ -10,8 +10,6 @@ import { getClosest } from '@/lib/math'
 import { usePlayArea } from '@/app/room/[room]/_components/play-area-provider'
 
 export const PickedCard = ({ sp }: { sp: number | null }) => {
-  console.log('sp', sp)
-
   return (
     <div
       className={cn(
