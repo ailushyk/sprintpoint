@@ -23,7 +23,7 @@ export const getUserInfo = async () => {
     return Promise.resolve(parsedUser.data)
   }
 
-  return Promise.resolve({
+  const newUser: UserProfileValues = {
     id: randomUUID(),
     username: '',
     fullName: '',
@@ -31,5 +31,6 @@ export const getUserInfo = async () => {
     lastRoom: '',
     theme: 'dark' as const,
     type: 'incognito' as const,
-  })
+  }
+  return Promise.resolve(newUser)
 }

@@ -7,7 +7,7 @@ import { AppearanceForm } from '@/app/profile/_components/appearance-form'
 import { ProfileForm } from '@/app/profile/_components/profile-form'
 
 export default async function ProfilePage() {
-  const user = api().user.get()
+  const user = await api().user.get()
   return (
     <main className="container flex-1 space-y-16 pb-24">
       <div className="space-y-6">

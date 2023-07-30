@@ -23,7 +23,7 @@ import { profileFormSchema, UserProfileValues } from '@/lib/user/user'
 export function ProfileForm({
   defaultValues,
 }: {
-  defaultValues: Partial<UserProfileValues>
+  defaultValues: UserProfileValues
 }) {
   const [isPending, startTransition] = useTransition()
   const form = useForm<UserProfileValues>({
