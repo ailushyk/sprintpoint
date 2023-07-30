@@ -1,52 +1,16 @@
 import React, { useMemo } from 'react'
 import { FormDeckProps } from '@/components_next/deck/Deck'
-import { type DeckValue } from '@/components_next/deck/deck.api'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Control, useWatch } from 'react-hook-form'
 
 import { cn } from '@easypoker/ui'
 
-import { getAverageCardValue } from '@/lib/deck-utils'
+import { getAverageCardValue, getStatusByValues } from '@/lib/deck-utils'
 import { getClosest } from '@/lib/math'
-import { socket } from '@/lib/socket-client'
+import { usePlayArea } from '@/app/room/[room]/_components/play-area-provider'
 
-export const PickedCard = ({
-  control,
-  deck,
-}: {
-  control: Control<FormDeckProps>
-  deck: DeckValue
-}) => {
-  const values = useWatch({ control })
-  const selectedCards = Object.values(values)
-
-  const deckValues = useMemo(() => {
-    return deck.cards.map((card) => card.value)
-  }, [deck.cards])
-
-  const getStatus = () => {
-    if (selectedCards.every((card) => !!card)) {
-      return 'voted'
-    }
-    if (selectedCards.every((card) => !card)) {
-      return 'idle'
-    }
-    return 'voting'
-  }
-
-  const getSp = (status) => {
-    if (status === 'voted') {
-      const average = getAverageCardValue(selectedCards, deck.cards)
-      const closest = getClosest(average, deckValues)
-      socket.emit('user:vote', closest)
-      return closest
-    } else {
-      socket.emit('user:status', status)
-      return
-    }
-  }
-
-  let sp = getSp(getStatus())
+export const PickedCard = ({ sp }: { sp: number | null }) => {
+  console.log('sp', sp)
 
   return (
     <div
