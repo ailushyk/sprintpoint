@@ -137,7 +137,7 @@ export const tailwindPreset = {
   darkMode: ['class'],
   // this is required to prevent a warning but is overridden in the app
   content: [
-    // add next line in the app tailwind.config.js
+    // add next line in the app tailwind.config.ts
     // './node_modules/@easypoker/ui/**/*.{js,ts,jsx,tsx}',
   ],
   plugins: [easyPlugin, animatePlugin],

@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { AllUsersResponse, PlayStatusValue } from '@easypoker/shared'
+import { AllUsersResponse } from '@easypoker/shared'
+import { UserResponse } from '@easypoker/shared/src'
 import { Icons } from '@easypoker/ui'
 
 export const UserStatus = ({ user }: { user: AllUsersResponse[number] }) => {
-  console.log('user', user)
-  const getStatus = (user) => {
+  const getStatus = (user: UserResponse) => {
     if (user.status === 'on-hold') {
       return 'on-hold'
     }
@@ -61,6 +61,6 @@ function checkIfUserIsActuallyVoting(user: AllUsersResponse[number]) {
   let seconds = Math.floor(diff / 1000)
   // console.log('now', now)
   // console.log('lastUpdate', lastUpdate)
-  console.log('seconds', diff, seconds)
+  // console.log('seconds', diff, seconds)
   return seconds <= 3
 }

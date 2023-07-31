@@ -1,6 +1,6 @@
 import { createServer } from 'http'
 import express from 'express'
-import { Server } from 'socket.io'
+import { Server, Socket } from 'socket.io'
 
 import {
   ClientToServerEvents,
@@ -13,11 +13,18 @@ import {
 } from '@easypoker/shared'
 import { VoteValue } from '@easypoker/shared/src'
 
-import { APP_PORT, CORS_ORIGIN } from '../config.js'
+import { APP_PORT, CORS_ORIGIN } from './config'
 
 const app = express()
 const httpServer = createServer(app)
-const io = new Server<
+type ClientSocket = Socket<
+  ClientToServerEvents,
+  ServerToClientEvents,
+  InterServerEvents,
+  SocketDataValue
+>
+
+export const io = new Server<
   ClientToServerEvents,
   ServerToClientEvents,
   InterServerEvents,
@@ -36,7 +43,6 @@ const io = new Server<
     sameSite: 'lax',
   },
 })
-
 let rooms: RoomValue[] = []
 let users: Array<UserValue> = []
 let votes: Array<VoteValue> = []
@@ -65,25 +71,8 @@ io.use((socket, next) => {
   }
 })
 
-const onConnection = (socket) => {
-  socket.on('disconnect', (reason) => {
-    console.log('disconnect', reason)
-    users = users.map((u) => {
-      if (u.id === socket.data.id) {
-        return {
-          ...u,
-          status: 'offline',
-          lastUpdate: new Date().toISOString(),
-        }
-      }
-      return u
-    })
-    Array.from(socket.adapter.rooms.keys()).forEach((r: string) => {
-      io.to(r).emit('users:all', { users: getUsersWithVotes(r) })
-    })
-  })
-
-  socket.on('room:join', ({ room }: { room: string }) => {
+function handleRoomJoin(socket: ClientSocket) {
+  return ({ room }: { room: string }) => {
     console.log('room:join', room)
     let _room = rooms.find((r) => r.code === room)
     // create room if not exists with user
@@ -123,19 +112,27 @@ const onConnection = (socket) => {
 
     // return room state to user
     socket.emit('room:joined', {
-      room: _room,
+      room: _room as RoomValue,
     })
     // broadcast to room that user joined and return all users
     io.to(room).emit('users:all', { users: getUsersWithVotes(room) })
-  })
+  }
+}
 
-  socket.on('room:check', ({ room }: { room: string }) => {
-    io.to(room).emit('room:checking', {
-      users: getUsersWithVotes(room),
-    })
+function handleRoomCheck({ room }: { room: string }) {
+  io.to(room).emit('room:checking', {
+    users: getUsersWithVotes(room),
   })
+}
 
-  socket.on('user:vote', ({ value, room }: { value: number; room: string }) => {
+function handleRoomReset({ room }: { room: string }) {
+  votes = votes.filter((v) => v.roomId !== room)
+  io.to(room).emit('user:reset')
+  io.to(room).emit('users:all', { users: getUsersWithVotes(room) })
+}
+
+function handleUserVote(socket: ClientSocket) {
+  return ({ value, room }: { value: number; room: string }) => {
     const _room = rooms.find((r) => r.code === room)
     if (!_room) {
       console.log('room not found')
@@ -176,20 +173,48 @@ const onConnection = (socket) => {
     io.to(room).emit('users:all', {
       users: getUsersWithVotes(room),
     })
-  })
+  }
+}
 
-  socket.on('user:reset', ({ room }: { room: string }) => {
+function handleUserReset(socket: ClientSocket) {
+  return ({ room }: { room: string }) => {
     votes = votes.filter(
       (v) => v.roomId !== room || v.userId !== socket.data.id
     )
     io.to(room).emit('users:all', { users: getUsersWithVotes(room) })
+  }
+}
+
+const onConnection = (socket: ClientSocket) => {
+  socket.on('disconnect', (reason) => {
+    console.log('disconnect', reason)
+    users = users.map((u) => {
+      if (u.id === socket.data.id) {
+        return {
+          ...u,
+          status: 'offline',
+          lastUpdate: new Date().toISOString(),
+        }
+      }
+      return u
+    })
+
+    // TODO: fix me
+    // @ts-ignore
+    Array.from(socket.adapter.rooms.keys()).forEach((r: string) => {
+      io.to(r).emit('users:all', { users: getUsersWithVotes(r) })
+    })
   })
 
-  socket.on('room:reset', ({ room }: { room: string }) => {
-    votes = votes.filter((v) => v.roomId !== room)
-    io.to(room).emit('user:reset')
-    io.to(room).emit('users:all', { users: getUsersWithVotes(room) })
-  })
+  socket.on('room:join', handleRoomJoin(socket))
+
+  socket.on('room:check', handleRoomCheck)
+
+  socket.on('user:vote', handleUserVote(socket))
+
+  socket.on('user:reset', handleUserReset(socket))
+
+  socket.on('room:reset', handleRoomReset)
 }
 
 io.on('connect', onConnection)

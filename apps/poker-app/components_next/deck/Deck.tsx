@@ -1,7 +1,10 @@
 'use client'
 
 import React, { useMemo, useState } from 'react'
+import { DeckFormActions } from '@/components_next/deck/deck-form-actions'
+import { OfflineMessage } from '@/components_next/deck/offline-message'
 import { PickedCard } from '@/components_next/deck/PickedCard'
+import { AnimatePresence, motion } from 'framer-motion'
 import { UseFormReturn } from 'react-hook-form'
 
 import {
@@ -20,9 +23,9 @@ import { getAverageCardValue, getStatusByValues } from '@/lib/deck-utils'
 import { getClosest } from '@/lib/math'
 import { socket } from '@/lib/socket-client'
 import {
-  FormDeckProps,
-  usePlayArea,
-} from '@/app/room/[room]/_components/play-area-provider'
+  FormDeckValues,
+  useOnlineContext,
+} from '@/app/room/[room]/_components/online-provider'
 
 const estimateParams = ['risk', 'complexity', 'unfamiliar'] as const
 const planingPokerVariablesDescription = {
@@ -37,16 +40,17 @@ export const Deck = ({
   form,
   defaultValues,
 }: {
-  form: UseFormReturn<FormDeckProps>
-  defaultValues: FormDeckProps
+  form: UseFormReturn<FormDeckValues>
+  defaultValues: FormDeckValues
 }) => {
-  const { deck, room, status } = usePlayArea()
+  const { state } = useOnlineContext()
   const [sp, setSp] = useState<number | null>(null)
 
+  const { room, deck } = state
   const { watch } = form
 
-  const onSubmit = (data: FormDeckProps) => {
-    if (status === 'checking') {
+  const onSubmit = (data: FormDeckValues) => {
+    if (room.status === 'checking') {
       socket.emit('room:reset', { room: room.code })
       form.reset(defaultValues)
     } else {
@@ -60,7 +64,7 @@ export const Deck = ({
 
   React.useEffect(
     () => {
-      const subscription = watch((value, { name, type }) => {
+      const subscription = watch((value) => {
         let status = getStatusByValues(Object.values(value))
         if (status === 'voted') {
           const average = getAverageCardValue(Object.values(value), deck.cards)
@@ -93,7 +97,7 @@ export const Deck = ({
           className="flex flex-col items-center gap-9"
         >
           <fieldset
-            disabled={status === 'checking'}
+            disabled={room.status === 'checking'}
             className="grid grid-cols-3 place-items-center gap-9 md:grid-cols-1"
           >
             <div className="col-span-3 hidden md:col-span-full">
@@ -145,31 +149,32 @@ export const Deck = ({
             ))}
           </fieldset>
 
-          <div className="flex items-center justify-center gap-6">
-            {status === 'checking' ? (
-              <Button type="submit" className="w-40">
-                Next vote
-              </Button>
+          <AnimatePresence mode="wait">
+            {socket.connected ? (
+              <motion.div
+                key="deck-form-actions"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
+              >
+                <DeckFormActions
+                  status={room.status}
+                  reset={() => form.reset(defaultValues)}
+                />
+              </motion.div>
             ) : (
-              <>
-                <Button
-                  key="reset-action"
-                  type="reset"
-                  onClick={() => {
-                    form.reset(defaultValues)
-                  }}
-                  variant="outline"
-                  className="w-40"
-                >
-                  Reset
-                </Button>
-
-                <Button type="submit" className="w-40">
-                  Check
-                </Button>
-              </>
+              <motion.div
+                key="deck-form-offline"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.2, ease: 'easeOut', delay: 1 }}
+              >
+                <OfflineMessage />
+              </motion.div>
             )}
-          </div>
+          </AnimatePresence>
         </form>
       </Form>
     </div>

@@ -11,7 +11,7 @@ pnpm add @easypoker/ui
 ## Usage
 
 ```js
-// tailwind.config.js
+// tailwind.config.ts
 const sharedConfig = require('@easypoker/ui/lib/tailwind-preset.ts')
 
 module.exports = {

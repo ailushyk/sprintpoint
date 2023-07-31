@@ -2,7 +2,8 @@ import React from 'react'
 import { AppHeader } from '@/components_next/app-header/app-header'
 
 import { api } from '@/lib/api'
-import { PlayAreaProvider } from '@/app/room/[room]/_components/play-area-provider'
+import { Board } from '@/app/room/[room]/_components/board'
+import { OnlineProvider } from '@/app/room/[room]/_components/online-provider'
 
 export default async function PlayRoomPage({
   params,
@@ -20,7 +21,9 @@ export default async function PlayRoomPage({
       <AppHeader />
 
       <main className="container flex-1">
-        <PlayAreaProvider user={user} room={room} deck={deck.data} />
+        <OnlineProvider user={user} room={room} deck={deck.data}>
+          <Board />
+        </OnlineProvider>
       </main>
     </>
   )
