@@ -1,6 +1,7 @@
 {
   "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
+    "strictNullChecks": true,
     "plugins": [{ "name": "next" }],
     "paths": {
       "@/*": ["./*"]
