@@ -4,11 +4,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import { DeckValue } from '@/components_next/deck/deck.api'
 import { Loading } from '@/components_next/Loading'
 
-import { roomSchema, SocketDataValue } from '@easypoker/shared'
+import { roomSchema, RoomValue, SocketDataValue } from '@easypoker/shared'
 import { AllUsersResponse } from '@easypoker/shared/src'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@easypoker/ui'
 
-import { RoomValue } from '@/lib/room'
 import { socket, usersSchema } from '@/lib/socket-client'
 import { UserProfileValues } from '@/lib/user/user'
 import { SetUsernameForm } from '@/app/room/[room]/_components/set-username-form'

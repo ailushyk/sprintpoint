@@ -162,6 +162,7 @@ export const Deck = () => {
             ) : (
               <>
                 <Button
+                  key="reset-action"
                   type="reset"
                   onClick={() => {
                     form.reset(defaultValues)
