@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { buttonVariants, cn } from '@easypoker/ui'
+import { Button, buttonVariants, cn } from '@easypoker/ui'
 
 import { PlayGameButton } from '@/app/(home)/_components/play-game-button'
 
@@ -28,41 +28,45 @@ export default function Home() {
 
         <div className="container flex flex-col items-center justify-center gap-3">
           <PlayGameButton />
-          <Link
-            href="/room/create"
-            className={cn(buttonVariants({ variant: 'outline' }), 'w-32')}
-          >
-            Create Room
-          </Link>
+
           <Link
             href="/room/join"
             className={cn(buttonVariants({ variant: 'outline' }), 'w-32')}
           >
             Join Room
           </Link>
-          <Link
-            href="/room/offline"
-            className={cn(buttonVariants({ variant: 'outline' }), 'w-32')}
-          >
-            Offline
-          </Link>
+
+          <hr />
+
+          <div className="flex flex-col items-center gap-1">
+            <div className="text-xs text-muted-foreground">Coming Soon</div>
+            <Button
+              // href="/room/create"
+              className={cn('w-32')}
+              disabled
+            >
+              Create Room
+            </Button>
+          </div>
         </div>
 
         <section className="space-y-1">
           <h2 className="text-2xl font-bold">Your rooms</h2>
-
-          <p>Here are the rooms you&apos;ve created or joined.</p>
-
-          {/* TODO: Replace with actual rooms*/}
-          <ul>
-            <li>Room 1</li>
-            <li>Room 2</li>
-            <li>Room 3</li>
-          </ul>
-
           <p>
-            You don&apos;t have any rooms yet. Create one or join one to get
+            You don&apos;t have any rooms yet. Create one or join one to get.
+            Coming Soon.
           </p>
+
+          <div className="hidden">
+            <p>Here are the rooms you&apos;ve created or joined.</p>
+
+            {/* TODO: Replace with actual rooms*/}
+            <ul>
+              <li>Room 1</li>
+              <li>Room 2</li>
+              <li>Room 3</li>
+            </ul>
+          </div>
         </section>
       </div>
     </div>
