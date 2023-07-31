@@ -24,7 +24,7 @@ import {
   toast,
 } from '@easypoker/ui'
 
-import { createRoomAction } from '@/app/(home)/_components/create-room-actions'
+import { createRoomAction } from '@/app/(home)/_components/room-actions'
 
 const createRoomFormSchema = z.object({
   name: z.string().nonempty(),
