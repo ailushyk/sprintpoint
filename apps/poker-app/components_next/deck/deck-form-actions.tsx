@@ -8,7 +8,7 @@ export function DeckFormActions(props: {
   reset: () => void
 }) {
   return (
-    <div className="flex items-center justify-center gap-6">
+    <div className="flex flex-col items-center justify-center gap-6 md:flex-row">
       {props.status === 'checking' ? (
         <Button type="submit" className="w-40">
           Next vote

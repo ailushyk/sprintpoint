@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 
 import {
   Button,
+  cn,
   Form,
   FormControl,
   FormDescription,
@@ -106,7 +107,7 @@ export const Deck = () => {
                 name={PART_OF_VALUE}
                 render={({ field }) => (
                   <FormItem className="flex flex-col items-center justify-center md:items-start">
-                    <FormLabel className="capitalize">
+                    <FormLabel className="sticky top-14 z-10 flex w-24 items-center justify-center rounded-md py-2 capitalize backdrop-blur md:static md:w-auto md:py-0">
                       {PART_OF_VALUE}
                     </FormLabel>
                     <FormControl>
@@ -116,7 +117,13 @@ export const Deck = () => {
                         className="flex flex-col gap-3 md:flex-row"
                       >
                         {deck.cards.map((card) => (
-                          <FormItem key={`${PART_OF_VALUE}-${card.name}`}>
+                          <FormItem
+                            key={`${PART_OF_VALUE}-${card.name}`}
+                            className={cn(
+                              form.getValues(PART_OF_VALUE) === card.name &&
+                                'sticky bottom-4 top-20 z-10 md:static'
+                            )}
+                          >
                             <FormControl>
                               <input
                                 type="radio"
