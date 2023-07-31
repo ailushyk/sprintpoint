@@ -2,11 +2,12 @@ import React from 'react'
 import { AppHeader } from '@/components_next/app-header/app-header'
 import { Deck } from '@/components_next/deck/Deck'
 
-import { Separator } from '@easypoker/ui'
+import { Button, Separator } from '@easypoker/ui'
 
 import { api } from '@/lib/api'
 import { OnlineProvider } from '@/app/room/[room]/_components/online-provider'
 import { Results } from '@/app/room/[room]/_components/results'
+import { RoomTitle } from '@/app/room/[room]/_components/room-title'
 import { Users } from '@/app/room/[room]/_components/users'
 
 export default async function PlayRoomPage({
@@ -28,10 +29,11 @@ export default async function PlayRoomPage({
         <OnlineProvider user={user} room={room} deck={deck.data}>
           <div className="flex flex-col gap-12 lg:flex-row">
             <div className="flex flex-col gap-4 lg:w-52">
-              <div className="flex items-center justify-between">
-                <h1>room: {room.name || room.code}</h1>
+              <div className="flex items-center justify-between text-muted-foreground">
+                <RoomTitle room={room} />
               </div>
 
+              <Separator />
               <Users user={user} />
               <Results user={user} />
             </div>
