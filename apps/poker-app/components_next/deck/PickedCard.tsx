@@ -1,19 +1,13 @@
-import React, { useMemo } from 'react'
-import { FormDeckProps } from '@/components_next/deck/Deck'
+import React from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Control, useWatch } from 'react-hook-form'
 
 import { cn } from '@easypoker/ui'
-
-import { getAverageCardValue, getStatusByValues } from '@/lib/deck-utils'
-import { getClosest } from '@/lib/math'
-import { usePlayArea } from '@/app/room/[room]/_components/play-area-provider'
 
 export const PickedCard = ({ sp }: { sp: number | null }) => {
   return (
     <div
       className={cn(
-        'flex h-20 w-20 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md border-2 border-muted bg-popover p-4 text-4xl transition',
+        'flex h-20 w-20 flex-col items-center justify-center overflow-hidden rounded-md border-2 border-muted bg-popover p-4 text-4xl transition',
         sp ? 'border-primary text-primary' : 'border-muted text-muted'
       )}
     >
