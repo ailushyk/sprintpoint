@@ -1,8 +1,12 @@
 'use client'
 
 import React, { useContext, useEffect, useState } from 'react'
+import { Deck } from '@/components_next/deck/Deck'
 import { DeckValue } from '@/components_next/deck/deck.api'
 import { Loading } from '@/components_next/Loading'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 import { roomSchema, RoomValue, SocketDataValue } from '@easypoker/shared'
 import { AllUsersResponse } from '@easypoker/shared/src'
@@ -10,7 +14,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@easypoker/ui'
 
 import { socket, usersSchema } from '@/lib/socket-client'
 import { UserProfileValues } from '@/lib/user/user'
+import { Results } from '@/app/room/[room]/_components/results'
 import { SetUsernameForm } from '@/app/room/[room]/_components/set-username-form'
+import { Users } from '@/app/room/[room]/_components/users'
 
 interface PlayContextValue {
   room: RoomValue
@@ -23,12 +29,18 @@ interface PlayContextValue {
 
 const PlayContext = React.createContext<PlayContextValue>(null!)
 
-export const usePlayArea = () => {
-  const context = useContext(PlayContext)
-  if (!context) {
-    throw new Error('usePlayArea must be used within a PlayArea')
-  }
-  return context
+const formSchema = z.object({
+  risk: z.string(),
+  complexity: z.string(),
+  unfamiliar: z.string(),
+})
+
+export type FormDeckProps = z.infer<typeof formSchema>
+
+let defaultValues = {
+  risk: '',
+  complexity: '',
+  unfamiliar: '',
 }
 
 const reducer = (state: PlayContextValue, action: any) => {
@@ -50,12 +62,10 @@ export const PlayAreaProvider = ({
   user,
   room,
   deck,
-  children,
 }: {
   user: UserProfileValues
   room: RoomValue
   deck: DeckValue
-  children: React.ReactNode
 }) => {
   const [openUserDialog, setOpenUserDialog] = useState(() => false)
   const [isConnected, setIsConnected] = useState(false)
@@ -64,6 +74,10 @@ export const PlayAreaProvider = ({
     users: [],
     deck: deck,
     status: 'voting',
+  })
+  const form = useForm<FormDeckProps>({
+    resolver: zodResolver(formSchema),
+    defaultValues,
   })
 
   const updateUsers = (users: Array<SocketDataValue>) => {
@@ -92,28 +106,38 @@ export const PlayAreaProvider = ({
     }
   }, [room.code, user.id, user.username])
 
-  useEffect(() => {
-    socket.on('room:joined', ({ room }) => {
-      roomSchema.parse(room)
-      dispatch({ type: 'setRoom', payload: room })
-    })
-    socket.on('users:all', ({ users }) => {
-      usersSchema.parse(users)
-      dispatch({ type: 'setUsers', payload: users })
-    })
-    socket.io.on('reconnect', () => {
-      console.log('reconnect')
-      socket.emit('room:join', { room: room.code })
-    })
-    socket.on('room:checking', ({ users }) => {
-      dispatch({ type: 'check', payload: users })
-    })
+  useEffect(
+    () => {
+      socket.io.on('reconnect', () => {
+        socket.emit('room:join', { room: room.code })
+      })
+      socket.on('room:joined', ({ room }) => {
+        roomSchema.parse(room)
+        dispatch({ type: 'setRoom', payload: room })
+      })
+      socket.on('room:checking', ({ users }) => {
+        usersSchema.parse(users)
+        dispatch({ type: 'check', payload: users })
+      })
+      socket.on('users:all', ({ users }) => {
+        usersSchema.parse(users)
+        dispatch({ type: 'setUsers', payload: users })
+      })
+      socket.on('user:reset', () => {
+        form.reset(defaultValues)
+      })
 
-    return () => {
-      socket.off('room:joined')
-      socket.off('users:all')
-    }
-  }, [room.code, user.username])
+      return () => {
+        socket.off('reconnect')
+        socket.off('room:joined')
+        socket.off('room:checking')
+        socket.off('users:all')
+        socket.off('user:reset')
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [room.code, user.username]
+  )
 
   const value: PlayContextValue = {
     ...state,
@@ -123,7 +147,22 @@ export const PlayAreaProvider = ({
   return (
     <PlayContext.Provider value={value}>
       <div className="flex flex-col gap-16 lg:flex-row">
-        {isConnected ? children : <Loading />}
+        {isConnected ? (
+          <>
+            <div className="flex flex-col gap-4 lg:max-w-xs">
+              <div className="flex items-center justify-between">
+                <h1>room: {room.name || room.code}</h1>
+              </div>
+
+              <Users user={user} />
+              <Results user={user} />
+            </div>
+
+            <Deck form={form} defaultValues={defaultValues} />
+          </>
+        ) : (
+          <Loading />
+        )}
 
         <Dialog defaultOpen open={openUserDialog} onOpenChange={(open) => null}>
           <DialogContent className="abc sm:max-w-[425px]">
@@ -137,4 +176,12 @@ export const PlayAreaProvider = ({
       </div>
     </PlayContext.Provider>
   )
+}
+
+export const usePlayArea = () => {
+  const context = useContext(PlayContext)
+  if (!context) {
+    throw new Error('usePlayArea must be used within a PlayArea')
+  }
+  return context
 }
