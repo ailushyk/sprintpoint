@@ -13,13 +13,13 @@ const socket: Socket = io(URL, {
   autoConnect: false,
 })
 
-socket.onAny((event, ...args) => {
-  console.log('-------------------🔽')
-  console.log('SOCKET EVENT:')
-  console.log(event)
-  console.log(args)
-  console.log('-------------------🔼')
-})
+// socket.onAny((event, ...args) => {
+//   console.log('-------------------🔽')
+//   console.log('SOCKET EVENT:')
+//   console.log(event)
+//   console.log(args)
+//   console.log('-------------------🔼')
+// })
 
 socket.on('connect', () => {
   console.log('socket connected')

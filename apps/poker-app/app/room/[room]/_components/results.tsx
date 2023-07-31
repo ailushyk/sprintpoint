@@ -2,27 +2,35 @@
 
 import React from 'react'
 
+import { UserResponse } from '@easypoker/shared/src'
 import { cn } from '@easypoker/ui'
 
 import { UserProfileValues } from '@/lib/user/user'
-import { usePlayArea } from '@/app/room/[room]/_components/play-area-provider'
+import { useOnlineContext } from '@/app/room/[room]/_components/online-provider'
 import { UserList } from '@/app/room/[room]/_components/user-list'
 
 export function Results(props: { user: UserProfileValues }) {
-  const { status, room, users } = usePlayArea()
+  const {
+    state: { room, users },
+  } = useOnlineContext()
 
-  const self = (user) => user.id === props.user.id
+  const self = (user: UserResponse) => user.id === props.user.id
 
-  if (status !== 'checking') return null
+  if (room.status !== 'checking') return null
 
   return (
     <UserList>
       {users.map((user) => (
         <UserList.Item key={user.id}>
-          <div className={cn(self(user) && 'underline underline-offset-2')}>
+          <div
+            className={cn(
+              'truncate',
+              self(user) && 'underline underline-offset-2'
+            )}
+          >
             {user.username}
           </div>
-          <div>
+          <div className="flex w-5 flex-shrink-0 items-center justify-center">
             {user.vote?.value ?? (
               <span className="flex h-4 w-4 items-center justify-center text-destructive">
                 -
