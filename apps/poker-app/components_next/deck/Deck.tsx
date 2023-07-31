@@ -2,9 +2,7 @@
 
 import React, { useMemo, useState } from 'react'
 import { PickedCard } from '@/components_next/deck/PickedCard'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { UseFormReturn } from 'react-hook-form'
 
 import {
   Button,
@@ -21,7 +19,10 @@ import {
 import { getAverageCardValue, getStatusByValues } from '@/lib/deck-utils'
 import { getClosest } from '@/lib/math'
 import { socket } from '@/lib/socket-client'
-import { usePlayArea } from '@/app/room/[room]/_components/play-area-provider'
+import {
+  FormDeckProps,
+  usePlayArea,
+} from '@/app/room/[room]/_components/play-area-provider'
 
 const estimateParams = ['risk', 'complexity', 'unfamiliar'] as const
 const planingPokerVariablesDescription = {
@@ -32,27 +33,17 @@ const planingPokerVariablesDescription = {
     'Unfamiliarity is how well you know the work. The less familiar you are with the work, the more likely it is that something will go wrong.',
 }
 
-const formSchema = z.object({
-  risk: z.string(),
-  complexity: z.string(),
-  unfamiliar: z.string(),
-})
-
-export type FormDeckProps = z.infer<typeof formSchema>
-
-let defaultValues = {
-  risk: '',
-  complexity: '',
-  unfamiliar: '',
-}
-
-export const Deck = () => {
+export const Deck = ({
+  form,
+  defaultValues,
+}: {
+  form: UseFormReturn<FormDeckProps>
+  defaultValues: FormDeckProps
+}) => {
   const { deck, room, status } = usePlayArea()
   const [sp, setSp] = useState<number | null>(null)
-  const { watch, ...form } = useForm<FormDeckProps>({
-    resolver: zodResolver(formSchema),
-    defaultValues,
-  })
+
+  const { watch } = form
 
   const onSubmit = (data: FormDeckProps) => {
     if (status === 'checking') {
@@ -96,7 +87,7 @@ export const Deck = () => {
         <PickedCard sp={sp} />
       </div>
 
-      <Form {...form} watch={watch}>
+      <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col items-center gap-9"

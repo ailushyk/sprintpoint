@@ -187,6 +187,7 @@ const onConnection = (socket) => {
 
   socket.on('room:reset', ({ room }: { room: string }) => {
     votes = votes.filter((v) => v.roomId !== room)
+    io.to(room).emit('user:reset')
     io.to(room).emit('users:all', { users: getUsersWithVotes(room) })
   })
 }

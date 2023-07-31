@@ -7,21 +7,7 @@ export interface ServerToClientEvents {
   // Play Area
   'users:all': ({ users }: { users: AllUsersResponse }) => void
   'room:checking': (data: { users: AllUsersResponse }) => void
-
-  /**
-   * @deprecated
-   */
-  users: (users: { id: string; username: string }[]) => void
-  /**
-   * @deprecated
-   */
-  'user:connected': ({
-    user,
-    users,
-  }: {
-    user: SocketDataValue
-    users: SocketDataValue[]
-  }) => void
+  'user:reset': () => void
 }
 
 export interface ClientToServerEvents {
