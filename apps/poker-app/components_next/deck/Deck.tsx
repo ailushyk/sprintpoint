@@ -5,7 +5,6 @@ import { DeckFormActions } from '@/components_next/deck/deck-form-actions'
 import { OfflineMessage } from '@/components_next/deck/offline-message'
 import { PickedCard } from '@/components_next/deck/PickedCard'
 import { AnimatePresence, motion } from 'framer-motion'
-import { UseFormReturn } from 'react-hook-form'
 
 import {
   Button,
@@ -36,17 +35,11 @@ const planingPokerVariablesDescription = {
     'Unfamiliarity is how well you know the work. The less familiar you are with the work, the more likely it is that something will go wrong.',
 }
 
-export const Deck = ({
-  form,
-  defaultValues,
-}: {
-  form: UseFormReturn<FormDeckValues>
-  defaultValues: FormDeckValues
-}) => {
+export const Deck = () => {
   const { state } = useOnlineContext()
   const [sp, setSp] = useState<number | null>(null)
 
-  const { room, deck } = state
+  const { room, deck, form, defaultValues } = state
   const { watch } = form
 
   const onSubmit = (data: FormDeckValues) => {

@@ -22,7 +22,12 @@ export const Users = (props: { user: UserProfileValues }) => {
     <UserList>
       {users.map((user) => (
         <UserList.Item key={user.id}>
-          <div className={cn(self(user) && 'underline underline-offset-2')}>
+          <div
+            className={cn(
+              'truncate',
+              self(user) && 'underline underline-offset-2'
+            )}
+          >
             {user.username}
           </div>
           <UserStatus user={user} />

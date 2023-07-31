@@ -5,53 +5,57 @@ import { UserResponse } from '@easypoker/shared/src'
 import { Icons } from '@easypoker/ui'
 
 export const UserStatus = ({ user }: { user: AllUsersResponse[number] }) => {
-  const getStatus = (user: UserResponse) => {
-    if (user.status === 'on-hold') {
-      return 'on-hold'
-    }
-    if (user.status === 'offline') {
-      return 'offline'
-    }
-    // if (user.status === 'idle') {
-    //   return 'idle'
-    // }
-    if (user.vote?.value) {
-      return 'voted'
-    }
-    if (typeof user.vote === 'undefined') {
-      return 'idle'
-    }
-    if (checkIfUserIsActuallyVoting(user)) {
-      return 'voting'
-    }
-    return 'idle'
-  }
-
   const status = getStatus(user)
-
-  if (status === 'voting') {
-    return (
-      <Icons.spinner className="h-4 w-4 animate-spin text-muted-foreground" />
-    )
-  }
-
-  if (status === 'voted') {
-    return <Icons.ready className="h-4 w-4" />
-  }
-
-  if (status === 'on-hold') {
-    return <Icons.hold className="h-4 w-4" />
-  }
-
-  if (status === 'offline') {
-    return <Icons.offline className="h-4 w-4 text-muted-foreground" />
+  let node: React.ReactNode
+  switch (status) {
+    case 'voting':
+      node = (
+        <Icons.spinner className="h-4 w-4 animate-spin text-muted-foreground" />
+      )
+      break
+    case 'voted':
+      node = <Icons.ready className="h-4 w-4" />
+      break
+    case 'on-hold':
+      node = <Icons.hold className="h-4 w-4" />
+      break
+    case 'offline':
+      node = <Icons.offline className="h-4 w-4 text-muted-foreground" />
+      break
+    case 'idle':
+    default:
+      node = (
+        <span className="flex h-4 w-4 items-center justify-center text-muted-foreground">
+          -
+        </span>
+      )
+      break
   }
 
   return (
-    <span className="flex h-4 w-4 items-center justify-center text-muted-foreground">
-      -
-    </span>
+    <div className="flex w-5 flex-shrink-0 items-center justify-center">
+      {node}
+    </div>
   )
+}
+
+function getStatus(user: UserResponse): string {
+  if (user.status === 'on-hold') {
+    return 'on-hold'
+  }
+  if (user.status === 'offline') {
+    return 'offline'
+  }
+  if (user.vote?.value) {
+    return 'voted'
+  }
+  if (typeof user.vote === 'undefined') {
+    return 'idle'
+  }
+  if (checkIfUserIsActuallyVoting(user)) {
+    return 'voting'
+  }
+  return 'idle'
 }
 
 function checkIfUserIsActuallyVoting(user: AllUsersResponse[number]) {

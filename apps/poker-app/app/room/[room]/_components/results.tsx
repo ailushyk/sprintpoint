@@ -22,10 +22,15 @@ export function Results(props: { user: UserProfileValues }) {
     <UserList>
       {users.map((user) => (
         <UserList.Item key={user.id}>
-          <div className={cn(self(user) && 'underline underline-offset-2')}>
+          <div
+            className={cn(
+              'truncate',
+              self(user) && 'underline underline-offset-2'
+            )}
+          >
             {user.username}
           </div>
-          <div>
+          <div className="flex w-5 flex-shrink-0 items-center justify-center">
             {user.vote?.value ?? (
               <span className="flex h-4 w-4 items-center justify-center text-destructive">
                 -
