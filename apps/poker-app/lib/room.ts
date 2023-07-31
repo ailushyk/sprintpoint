@@ -1,23 +1,16 @@
-import { randomUUID } from 'crypto'
-import { z } from 'zod'
-
-const roomSchema = z.object({
-  id: z.string().nonempty().uuid(),
-  code: z.string().nonempty(),
-  name: z.string().optional(),
-  deck: z.string().nonempty().default('standard'),
-  users: z.array(z.string()),
-})
-
-export type RoomValue = z.infer<typeof roomSchema>
+import { RoomValue } from '@easypoker/shared'
+import { roomSchema } from '@easypoker/shared/src'
 
 // TODO: get room data from server
 export const getRoom = (roomId: string): RoomValue => {
-  return {
-    id: randomUUID(),
+  const room = {
     code: roomId,
-    name: 'work-in-progress',
+    name: '',
     deck: 'standard',
     users: [],
+    status: 'voting',
+    lastUpdate: new Date().toISOString(),
   }
+
+  return roomSchema.parse(room)
 }

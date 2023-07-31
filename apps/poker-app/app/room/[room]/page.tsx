@@ -26,7 +26,7 @@ export default async function PlayRoomPage({
         <PlayAreaProvider user={user} room={room} deck={deck.data}>
           <div className="flex flex-col gap-4 lg:max-w-xs">
             <div className="flex items-center justify-between">
-              <h1>room: {room.name ?? room.id}</h1>
+              <h1>room: {room.name || room.code}</h1>
             </div>
 
             <Users user={user} />
