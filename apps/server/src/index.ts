@@ -48,13 +48,31 @@ let users: Array<UserValue> = []
 let votes: Array<VoteValue> = []
 
 function getUsersWithVotes(roomId: string) {
-  return users.map((u) => {
-    let vote = votes.find((v) => v.userId === u.id && v.roomId === roomId)
-    return {
-      ...u,
-      vote: vote,
-    }
-  })
+  const room = rooms.find((r) => r.code === roomId)
+  if (!room) {
+    console.error(new Error(`room ${roomId} not found`))
+    return []
+  }
+
+  return users
+    .filter((u) => room.users.includes(u.id))
+    .map((u) => {
+      let vote = votes.find((v) => v.userId === u.id && v.roomId === roomId)
+      if (!vote) {
+        vote = {
+          userId: u.id,
+          roomId: roomId,
+          value: null,
+          status: 'idle',
+          lastUpdate: new Date().toISOString(),
+        }
+        votes.push(vote)
+      }
+      return {
+        ...u,
+        vote: vote,
+      }
+    })
 }
 
 io.use((socket, next) => {
@@ -85,6 +103,11 @@ function handleRoomJoin(socket: ClientSocket) {
         lastUpdate: new Date().toISOString(),
       })
       _room = rooms.find((r) => r.code === room)
+    } else {
+      // add user to room if not exists
+      if (!_room?.users.includes(socket.data.id)) {
+        _room.users.push(socket.data.id)
+      }
     }
 
     // add user if not exists in users array
@@ -120,19 +143,61 @@ function handleRoomJoin(socket: ClientSocket) {
 }
 
 function handleRoomCheck({ room }: { room: string }) {
+  // set room status to checking
+  rooms = rooms.map((r) =>
+    r.code === room
+      ? {
+          ...r,
+          status: 'checking',
+          lastUpdate: new Date().toISOString(),
+        }
+      : r
+  )
+
+  const _room = rooms.find((r) => r.code === room)
+  if (!_room) {
+    console.log('room not found')
+    return
+  }
   io.to(room).emit('room:checking', {
+    room: _room,
     users: getUsersWithVotes(room),
   })
 }
 
 function handleRoomReset({ room }: { room: string }) {
-  votes = votes.filter((v) => v.roomId !== room)
-  io.to(room).emit('user:reset')
+  // set room status to voting
+  rooms = rooms.map((r) =>
+    r.code === room
+      ? {
+          ...r,
+          status: 'voting',
+          lastUpdate: new Date().toISOString(),
+        }
+      : r
+  )
+  // reset votes for room
+  votes = votes.map((v) =>
+    v.roomId === room
+      ? {
+          ...v,
+          value: null,
+          status: 'idle',
+          lastUpdate: new Date().toISOString(),
+        }
+      : v
+  )
+  const _room = rooms.find((r) => r.code === room)
+  if (!_room) {
+    console.log('room not found')
+    return
+  }
+  io.to(room).emit('room:reset', { room: _room })
   io.to(room).emit('users:all', { users: getUsersWithVotes(room) })
 }
 
 function handleUserVote(socket: ClientSocket) {
-  return ({ value, room }: { value: number; room: string }) => {
+  return ({ value, room }: { value: number | null; room: string }) => {
     const _room = rooms.find((r) => r.code === room)
     if (!_room) {
       console.log('room not found')
@@ -155,18 +220,26 @@ function handleUserVote(socket: ClientSocket) {
       }
       return u
     })
+
+    const status = value === null ? 'voting' : 'voted'
     const vote = votes.find((v) => v.userId === user.id && v.roomId === room)
     if (!vote) {
       votes.push({
         userId: user.id,
         roomId: room,
         value,
+        status,
         lastUpdate: new Date().toISOString(),
       })
     } else {
       votes = votes.map((v) =>
         v.userId === user.id && v.roomId === room
-          ? { ...v, value, lastUpdate: new Date().toISOString() }
+          ? {
+              ...v,
+              value,
+              status,
+              lastUpdate: new Date().toISOString(),
+            }
           : { ...v }
       )
     }
@@ -176,11 +249,36 @@ function handleUserVote(socket: ClientSocket) {
   }
 }
 
+function handleUserInactive(socket: ClientSocket) {
+  return ({ room }: { room: string }) => {
+    votes = votes.map((v) => {
+      if (v.roomId === room && v.userId === socket.data.id) {
+        return {
+          ...v,
+          status: 'idle',
+          lastUpdate: new Date().toISOString(),
+        }
+      }
+      return v
+    })
+    io.to(room).emit('users:all', { users: getUsersWithVotes(room) })
+  }
+}
+
 function handleUserReset(socket: ClientSocket) {
   return ({ room }: { room: string }) => {
-    votes = votes.filter(
-      (v) => v.roomId !== room || v.userId !== socket.data.id
-    )
+    // reset vote for user
+    votes = votes.map((v) => {
+      if (v.roomId === room && v.userId === socket.data.id) {
+        return {
+          ...v,
+          value: null,
+          status: 'idle',
+          lastUpdate: new Date().toISOString(),
+        }
+      }
+      return v
+    })
     io.to(room).emit('users:all', { users: getUsersWithVotes(room) })
   }
 }
@@ -199,10 +297,30 @@ const onConnection = (socket: ClientSocket) => {
       return u
     })
 
-    // TODO: fix me
-    // @ts-ignore
-    Array.from(socket.adapter.rooms.keys()).forEach((r: string) => {
-      io.to(r).emit('users:all', { users: getUsersWithVotes(r) })
+    // find all rooms with user
+    rooms = rooms.map((r) => {
+      if (r.users.includes(socket.data.id)) {
+        io.to(r.code).emit('users:all', { users: getUsersWithVotes(r.code) })
+        return {
+          ...r,
+          users: r.users.filter((u) => {
+            if (u === socket.data.id) {
+              const _u = users.find((_u) => _u.id === u)
+              if (!_u) {
+                return false
+              }
+              if (
+                _u.lastUpdate <
+                new Date(Date.now() - 1000 * 60 * 7).toISOString()
+              ) {
+                return false
+              }
+            }
+            return true
+          }),
+        }
+      }
+      return r
     })
   })
 
@@ -210,11 +328,13 @@ const onConnection = (socket: ClientSocket) => {
 
   socket.on('room:check', handleRoomCheck)
 
+  socket.on('room:reset', handleRoomReset)
+
   socket.on('user:vote', handleUserVote(socket))
 
-  socket.on('user:reset', handleUserReset(socket))
+  socket.on('user:inactive', handleUserInactive(socket))
 
-  socket.on('room:reset', handleRoomReset)
+  socket.on('user:reset', handleUserReset(socket))
 }
 
 io.on('connect', onConnection)

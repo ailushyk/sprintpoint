@@ -50,7 +50,7 @@ type Action =
     }
   | {
       type: 'check'
-      payload: AllUsersResponse
+      payload: { users: AllUsersResponse; room: RoomValue }
     }
 
 const reducer = (state: OnlineStateValue, action: Action): OnlineStateValue => {
@@ -63,16 +63,12 @@ const reducer = (state: OnlineStateValue, action: Action): OnlineStateValue => {
       return {
         ...state,
         users: action.payload,
-        room: {
-          ...state.room,
-          status: 'voting',
-        },
       }
     case 'check':
       return {
         ...state,
-        users: action.payload,
-        room: { ...state.room, status: 'checking' },
+        users: action.payload.users,
+        room: action.payload.room,
       }
     default:
       throw new Error('Invalid action type')
@@ -116,7 +112,7 @@ export const OnlineProvider = ({
     form,
     defaultValues,
   }
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, {}, () => initialState)
 
   const afterSuccess = ({ username }: { username: string }) => {
     setOpenUserDialog(false)
@@ -147,16 +143,17 @@ export const OnlineProvider = ({
       roomSchema.parse(room)
       dispatch({ type: 'setRoom', payload: room })
     })
-    socket.on('room:checking', ({ users }) => {
-      usersSchema.parse(users)
-      dispatch({ type: 'check', payload: users })
+    socket.on('room:checking', (payload) => {
+      usersSchema.parse(payload.users)
+      dispatch({ type: 'check', payload: payload })
     })
     socket.on('users:all', ({ users }) => {
       usersSchema.parse(users)
       dispatch({ type: 'setUsers', payload: users })
     })
-    socket.on('user:reset', () => {
+    socket.on('room:reset', ({ room }) => {
       form.reset(defaultValues)
+      dispatch({ type: 'setRoom', payload: { ...room } })
     })
 
     return () => {
