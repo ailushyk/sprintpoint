@@ -2,7 +2,7 @@ import React from 'react'
 import { AppHeader } from '@/components_next/app-header/app-header'
 import { Deck } from '@/components_next/deck/Deck'
 
-import { Button, Separator } from '@easypoker/ui'
+import { Separator } from '@easypoker/ui'
 
 import { api } from '@/lib/api'
 import { OnlineProvider } from '@/app/room/[room]/_components/online-provider'

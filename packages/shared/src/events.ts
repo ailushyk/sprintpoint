@@ -1,6 +1,6 @@
 import { RoomValue } from './room'
-import { PlayStatusValue, SocketDataValue } from './socket'
-import { UserValue, VoteValue } from './user'
+import { SocketDataValue } from './socket'
+import { PlayStatusValue, UserValue, VoteValue } from './user'
 
 export type UserResponse = UserValue & { vote?: VoteValue }
 export type AllUsersResponse = Array<UserResponse>
