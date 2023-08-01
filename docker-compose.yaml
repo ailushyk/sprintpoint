@@ -1,29 +1,16 @@
 version: "3"
 
 services:
-#  web:
-#    container_name: web
-#    build:
-#      context: .
-#      dockerfile: ./apps/web/Dockerfile
-#    restart: always
-#    ports:
-#      - 3000:3000
-#    networks:
-#      - app_network
   api:
     container_name: api
+    image: ailushyk/easypoker-api:0.0.3
+    platform: linux/amd64
     build:
       context: .
       dockerfile: ./apps/server/Dockerfile
 #    restart: always
     ports:
       - 3010:3010
-    networks:
-      - app_network
-
-# Define a network, which allows containers to communicate
-# with each other, by using their container name as a hostname
-networks:
-  app_network:
-    external: true
+    environment:
+      APP_PORT: 3010
+      CORS_ORIGIN: http://localhost:3001

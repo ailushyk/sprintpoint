@@ -1,55 +1,36 @@
-FROM node:18-alpine AS base
-
-# The web Dockerfile is copy-pasted into our main docs at /docs/handbook/deploying-with-docker.
-# Make sure you update this Dockerfile, the Dockerfile in the web workspace and copy that over to Dockerfile in the docs.
-
-FROM base AS builder
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
-RUN apk update
-# Set working directory
+# TODO: Remove dev deps from prod build
+# BUILDER - Stage 1
+FROM --platform=linux/amd64 node:alpine as builder
 WORKDIR /app
-
-RUN npm i -g turbo
+RUN apk update && yarn global add turbo
 COPY . .
 RUN turbo prune --scope=server --docker
 
-# Add lockfile and package.json's of isolated subworkspace
-FROM base AS installer
-RUN apk add --no-cache libc6-compat
-RUN apk update
+# INSTALLER - Stage 2
+FROM node:alpine as installer
 WORKDIR /app
-
-# Install pnpm globally
-RUN npm install -g pnpm
+RUN apk update && apk add g++ make py3-pip && yarn global add pnpm
 
 # First install dependencies (as they change less often)
-COPY .gitignore .gitignore
-COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/full/.gitignore ./.gitignore
+COPY --from=builder /app/out/full/turbo.json ./turbo.json
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
-RUN pnpm install
+RUN pnpm fetch
 
 # Build the project and its dependencies
 COPY --from=builder /app/out/full/ .
-COPY turbo.json turbo.json
-
-# Uncomment and use build args to enable remote caching
-# ARG TURBO_TEAM
-# ENV TURBO_TEAM=$TURBO_TEAM
-
-# ARG TURBO_TOKEN
-# ENV TURBO_TOKEN=$TURBO_TOKEN
-
+RUN pnpm install -r --ignore-scripts
 RUN pnpm turbo run build --filter=server...
 
-FROM base AS runner
+# # RUNNER - Stage 3
+FROM node:alpine AS runner
 WORKDIR /app
 
-# Don't run production as root
-RUN addgroup --system --gid 1001 expressjs
-RUN adduser --system --uid 1001 expressjs
-USER expressjs
+# # Don't run production as root
+RUN addgroup --system --gid 1001 app
+RUN adduser --system --uid 1001 app
+USER app
 COPY --from=installer /app .
 
-CMD node apps/server/dist/index.cjs
+CMD ["node", "apps/server/dist/index.cjs"]
