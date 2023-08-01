@@ -48,13 +48,21 @@ let users: Array<UserValue> = []
 let votes: Array<VoteValue> = []
 
 function getUsersWithVotes(roomId: string) {
-  return users.map((u) => {
-    let vote = votes.find((v) => v.userId === u.id && v.roomId === roomId)
-    return {
-      ...u,
-      vote: vote,
-    }
-  })
+  const room = rooms.find((r) => r.code === roomId)
+  if (!room) {
+    console.error(new Error(`room ${roomId} not found`))
+    return []
+  }
+
+  return users
+    .filter((u) => room.users.includes(u.id))
+    .map((u) => {
+      let vote = votes.find((v) => v.userId === u.id && v.roomId === roomId)
+      return {
+        ...u,
+        vote: vote,
+      }
+    })
 }
 
 io.use((socket, next) => {
@@ -85,6 +93,11 @@ function handleRoomJoin(socket: ClientSocket) {
         lastUpdate: new Date().toISOString(),
       })
       _room = rooms.find((r) => r.code === room)
+    } else {
+      // add user to room if not exists
+      if (!_room?.users.includes(socket.data.id)) {
+        _room.users.push(socket.data.id)
+      }
     }
 
     // add user if not exists in users array
