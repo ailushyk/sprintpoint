@@ -21,6 +21,7 @@ export const voteSchema = z.object({
   userId: z.string().uuid().nonempty(),
   roomId: z.string().uuid().nonempty(),
   value: z.number().nullable().optional(),
+  status: playStatusSchema,
   lastUpdate: z.string().datetime(),
 })
 

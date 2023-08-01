@@ -40,22 +40,15 @@ export const UserStatus = ({ user }: { user: AllUsersResponse[number] }) => {
 }
 
 function getStatus(user: UserResponse): string {
-  if (user.status === 'on-hold') {
-    return 'on-hold'
+  if (user.status === 'offline') return 'offline'
+
+  if (user.status === 'on-hold') return 'on-hold'
+
+  const status = user.vote.status
+  if (status === 'voting') {
+    return checkIfUserIsActuallyVoting(user) ? 'voting' : 'idle'
   }
-  if (user.status === 'offline') {
-    return 'offline'
-  }
-  if (user.vote?.value) {
-    return 'voted'
-  }
-  if (typeof user.vote === 'undefined') {
-    return 'idle'
-  }
-  if (checkIfUserIsActuallyVoting(user)) {
-    return 'voting'
-  }
-  return 'idle'
+  return status
 }
 
 function checkIfUserIsActuallyVoting(user: AllUsersResponse[number]) {
@@ -63,8 +56,5 @@ function checkIfUserIsActuallyVoting(user: AllUsersResponse[number]) {
   let lastUpdate = new Date(user.vote?.lastUpdate ?? user.lastUpdate)
   let diff = now.getTime() - lastUpdate.getTime()
   let seconds = Math.floor(diff / 1000)
-  // console.log('now', now)
-  // console.log('lastUpdate', lastUpdate)
-  // console.log('seconds', diff, seconds)
-  return seconds <= 3
+  return seconds <= 7
 }

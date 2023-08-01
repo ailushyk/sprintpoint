@@ -4,6 +4,7 @@ import React, { useMemo, useState } from 'react'
 import { DeckFormActions } from '@/components_next/deck/deck-form-actions'
 import { OfflineMessage } from '@/components_next/deck/offline-message'
 import { PickedCard } from '@/components_next/deck/PickedCard'
+import { useUserActivity } from '@/components_next/deck/useUserActivity'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import {
@@ -39,6 +40,7 @@ const planingPokerVariablesDescription = {
 export const Deck = () => {
   const { state } = useOnlineContext()
   const [sp, setSp] = useState<number | null>(null)
+  const { handleUserActivity, resetUserActivity } = useUserActivity()
 
   const { room, deck, form, defaultValues } = state
   const { watch } = form
@@ -65,15 +67,21 @@ export const Deck = () => {
           const closest = getClosest(average, deckValues)
           setSp(closest)
           socket.emit('user:vote', { room: room.code, value: closest })
+          // clear timer
+          resetUserActivity()
         } else if (status === 'voting') {
           setSp(null)
           socket.emit('user:vote', { room: room.code, value: null })
+          // check if user is inactive
+          handleUserActivity()
         } else if (status === 'idle') {
           setSp(null)
           socket.emit('user:reset', { room: room.code })
         }
       })
-      return () => subscription.unsubscribe()
+      return () => {
+        subscription.unsubscribe()
+      }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [watch]
