@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 
 import { cn } from '@easypoker/ui'
 
-export const PickedCard = ({ sp }: { sp: number | null }) => {
+const PickedCard = ({ sp }: { sp: number | null }) => {
   return (
     <div
       className={cn(
@@ -37,3 +37,15 @@ export const PickedCard = ({ sp }: { sp: number | null }) => {
     </div>
   )
 }
+
+const Wrapper = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="sticky top-0 flex w-full flex-col items-center justify-center bg-background/50 pt-2 backdrop-blur-lg">
+      {children}
+    </div>
+  )
+}
+
+PickedCard.Wrapper = Wrapper
+
+export { PickedCard }
