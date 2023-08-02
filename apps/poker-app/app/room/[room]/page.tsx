@@ -28,12 +28,11 @@ export default async function PlayRoomPage({
       <main className="container flex-1 pb-24">
         <OnlineProvider user={user} room={room} deck={deck.data}>
           <div className="flex flex-col gap-12 lg:flex-row">
-            <div className="flex flex-col gap-4 lg:w-52">
+            <div className="flex flex-col gap-8 lg:w-52">
               <div className="flex items-center justify-between text-muted-foreground">
                 <RoomTitle room={room} />
               </div>
 
-              <Separator />
               <Users user={user} />
               <Results user={user} />
             </div>

@@ -3,12 +3,12 @@ import React from 'react'
 import { cn } from '@easypoker/ui'
 
 const UserList = ({ children }: { children: React.ReactNode }) => {
-  return <ul>{children}</ul>
+  return <ul className="flex flex-col divide-y">{children}</ul>
 }
 
 const UserListItem = ({ children }: { children: React.ReactNode }) => {
   return (
-    <li>
+    <li className="py-2">
       <div className={cn('flex items-center justify-between gap-3')}>
         {children}
       </div>
