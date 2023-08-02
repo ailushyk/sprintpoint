@@ -3,14 +3,14 @@ version: "3"
 services:
   api:
     container_name: api
-    image: ailushyk/easypoker-api:0.0.5
-    platform: linux/amd64
+    image: ailushyk/easypoker-api
+#    platform: linux/amd64
     build:
       context: .
       dockerfile: ./apps/server/Dockerfile
 #    restart: always
     ports:
-      - 3010:3010
+      - 8080:3010
     environment:
       APP_PORT: 3010
       CORS_ORIGIN: http://localhost:3001
