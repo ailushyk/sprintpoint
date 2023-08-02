@@ -28,4 +28,5 @@ jobs:
         context: .
         file: ./apps/server/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/easypoker-api:$(date +%s)
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/easypoker-api:latest
+#        tags: ${{ secrets.DOCKERHUB_USERNAME }}/easypoker-api:$(date +%s)
