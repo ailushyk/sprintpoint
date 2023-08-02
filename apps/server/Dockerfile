@@ -1,6 +1,7 @@
 # TODO: Remove dev deps from prod build
 # BUILDER - Stage 1
-FROM --platform=linux/amd64 node:alpine as builder
+#FROM --platform=linux/amd64 node:alpine as builder
+FROM node:alpine as builder
 WORKDIR /app
 RUN apk update && yarn global add turbo
 COPY . .
