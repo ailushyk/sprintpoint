@@ -3,8 +3,10 @@ name: Docker Image CI
 on:
   push:
     branches: [ "main" ]
-#  pull_request:
-#    branches: [ "main" ]
+  pull_request:
+    types:
+      - closed
+    branches: [ "main" ]
 
 jobs:
 
@@ -28,5 +30,5 @@ jobs:
         context: .
         file: ./apps/server/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/easypoker-api:latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/easypoker-api:${{ github.event.pull_request.number }}
 #        tags: ${{ secrets.DOCKERHUB_USERNAME }}/easypoker-api:$(date +%s)
