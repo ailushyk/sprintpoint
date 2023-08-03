@@ -23,6 +23,8 @@ import {
 import { getAverageCardValue, getStatusByValues } from '@/lib/deck-utils'
 import { getClosest } from '@/lib/math'
 import { socket } from '@/lib/socket-client'
+import { UserProfileValues } from '@/lib/user/user'
+import { MobileResult } from '@/app/room/[room]/_components/mobile-result'
 import {
   FormDeckValues,
   useOnlineContext,
@@ -37,7 +39,7 @@ const planingPokerVariablesDescription = {
     'Unfamiliarity is how well you know the work. The less familiar you are with the work, the more likely it is that something will go wrong.',
 }
 
-export const Deck = () => {
+export const Deck = ({ user }: { user: UserProfileValues }) => {
   const { state } = useOnlineContext()
   const [sp, setSp] = useState<number | null>(null)
   const { handleUserActivity, resetUserActivity } = useUserActivity()
@@ -186,6 +188,8 @@ export const Deck = () => {
           </AnimatePresence>
         </form>
       </Form>
+
+      <MobileResult user={user} />
     </div>
   )
 }
