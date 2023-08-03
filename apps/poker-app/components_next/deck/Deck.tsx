@@ -45,6 +45,7 @@ export const Deck = () => {
   const { room, deck, form, defaultValues } = state
   const { watch } = form
 
+  // TODO:
   const onSubmit = (data: FormDeckValues) => {
     if (room.status === 'checking') {
       socket.emit('room:reset', { room: room.code })

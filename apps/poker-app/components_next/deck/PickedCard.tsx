@@ -40,7 +40,7 @@ const PickedCard = ({ sp }: { sp: number | null }) => {
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="sticky top-0 flex w-full flex-col items-center justify-center bg-background/50 pt-2 backdrop-blur-lg">
+    <div className="sticky top-0 z-10 flex w-full flex-col items-center justify-center border-b bg-background pt-2">
       {children}
     </div>
   )

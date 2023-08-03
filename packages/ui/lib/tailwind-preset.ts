@@ -49,6 +49,9 @@ const easyPlugin = plugin(
         '--destructive': '0 62.8% 30.6%',
         '--destructive-foreground': '0 85.7% 97.3%',
         '--ring': '240 3.7% 15.9%',
+        '--drawer': '240 3.7% 8.9%',
+        // '--drawer': '240 3.7% 7%',
+        // '--drawer': '240 7% 9%',
       },
     })
 
@@ -107,6 +110,9 @@ const easyPlugin = plugin(
           card: {
             DEFAULT: 'hsl(var(--card))',
             foreground: 'hsl(var(--card-foreground))',
+          },
+          drawer: {
+            DEFAULT: 'hsl(var(--drawer))',
           },
         },
         borderRadius: {
