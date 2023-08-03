@@ -16,8 +16,6 @@ export function Results(props: { user: UserProfileValues }) {
 
   const self = (user: UserResponse) => user.id === props.user.id
 
-  if (room.status !== 'checking') return null
-
   return (
     <UserList>
       {users.map((user) => (
@@ -30,7 +28,7 @@ export function Results(props: { user: UserProfileValues }) {
           >
             {user.username}
           </div>
-          <div className="flex w-5 flex-shrink-0 items-center justify-center">
+          <div className="flex w-8 flex-shrink-0 items-center justify-center">
             {user.vote?.value ?? (
               <span className="flex h-4 w-4 items-center justify-center text-destructive">
                 -

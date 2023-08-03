@@ -16,8 +16,6 @@ export const Users = (props: { user: UserProfileValues }) => {
   } = useOnlineContext()
   const self = (user: UserResponse) => user.id === props.user.id
 
-  if (room.status !== 'voting') return null
-
   return (
     <UserList>
       {users.map((user) => (

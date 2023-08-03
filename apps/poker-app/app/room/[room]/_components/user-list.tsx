@@ -3,7 +3,11 @@ import React from 'react'
 import { cn } from '@easypoker/ui'
 
 const UserList = ({ children }: { children: React.ReactNode }) => {
-  return <ul className="flex flex-col divide-y">{children}</ul>
+  return (
+    <ul className="flex flex-col divide-y rounded-lg bg-background px-3">
+      {children}
+    </ul>
+  )
 }
 
 const UserListItem = ({ children }: { children: React.ReactNode }) => {

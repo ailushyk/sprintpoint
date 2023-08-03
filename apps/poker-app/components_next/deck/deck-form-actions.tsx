@@ -9,22 +9,22 @@ export function DeckFormActions(props: {
 }) {
   return (
     <div className="flex flex-col items-center justify-center gap-6 md:flex-row">
+      <Button
+        key="reset-action"
+        type="reset"
+        onClick={props.reset}
+        variant="outline"
+        className="w-40"
+      >
+        Reset
+      </Button>
+
       {props.status === 'checking' ? (
         <Button type="submit" className="w-40">
-          Next vote
+          result
         </Button>
       ) : (
         <>
-          <Button
-            key="reset-action"
-            type="reset"
-            onClick={props.reset}
-            variant="outline"
-            className="w-40"
-          >
-            Reset
-          </Button>
-
           <Button type="submit" className="w-40">
             Check
           </Button>
