@@ -15,13 +15,14 @@ export function DeckFormActions(props: {
         onClick={props.reset}
         variant="outline"
         className="w-40"
+        disabled={props.status === 'checking'}
       >
         Reset
       </Button>
 
       {props.status === 'checking' ? (
-        <Button type="submit" className="w-40">
-          result
+        <Button type="submit" className="w-40" variant="destructive">
+          Next vote
         </Button>
       ) : (
         <>

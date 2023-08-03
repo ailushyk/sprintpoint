@@ -5,9 +5,7 @@ import { Deck } from '@/components_next/deck/Deck'
 import { Separator } from '@easypoker/ui'
 
 import { api } from '@/lib/api'
-import { MobileResult } from '@/app/room/[room]/_components/mobile-result'
 import { OnlineProvider } from '@/app/room/[room]/_components/online-provider'
-import { Results } from '@/app/room/[room]/_components/results'
 import { RoomTitle } from '@/app/room/[room]/_components/room-title'
 import { Users } from '@/app/room/[room]/_components/users'
 
@@ -43,13 +41,12 @@ export default async function PlayRoomPage({
               orientation="vertical"
               className="hidden h-auto lg:block"
             />
-            <Deck />
+
+            <Deck user={user} />
 
             <div className="md:hidden">
               <Users user={user} />
             </div>
-
-            <MobileResult user={user} />
           </div>
         </OnlineProvider>
       </main>

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect } from 'react'
+import { motion } from 'framer-motion'
 
 import {
   Button,
@@ -33,7 +34,7 @@ function Mock({ visible }: { visible: boolean }) {
 export function MobileResult({ user }: { user: UserProfileValues }) {
   const [open, setOpen] = React.useState(false)
   const {
-    state: { room },
+    state: { room, ...state },
   } = useOnlineContext()
 
   useEffect(() => {
@@ -52,7 +53,27 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerTrigger>open</DrawerTrigger>
+      <div className="flex justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={
+            room.status === 'checking' && !open
+              ? { opacity: 1, y: 0 }
+              : { opacity: 0, y: 20 }
+          }
+          transition={{ duration: 0.2, ease: 'easeOut', delay: 0.2 }}
+        >
+          <DrawerTrigger asChild>
+            <Button
+              className="w-40 delay-1000"
+              variant="ghost"
+              disabled={room.status === 'voting' && !open}
+            >
+              Votes
+            </Button>
+          </DrawerTrigger>
+        </motion.div>
+      </div>
       <DrawerContent side="bottom">
         <DrawerHeader>
           <DrawerTitle>Result</DrawerTitle>
