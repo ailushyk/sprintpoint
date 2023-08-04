@@ -13,6 +13,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  Icons,
   Input,
   toast,
 } from '@easypoker/ui'
@@ -30,18 +31,25 @@ export function ProfileForm({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
     mode: 'onChange',
+    resetOptions: {
+      keepDirty: true,
+    },
   })
 
   function onSubmit(data: UserProfileValues) {
-    startTransition(async () => {
-      await updateUserInfoAction(data)
-      toast({
-        title: 'You submitted the following values:',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        ),
+    // if (!form.formState.isDirty) {
+    //   toast({
+    //     title: 'No changes',
+    //     description: 'You have not made any changes to your profile.',
+    //   })
+    //   return
+    // }
+    startTransition(() => {
+      updateUserInfoAction(data).then(() => {
+        toast({
+          title: 'Profile updated',
+          description: 'Your profile has been updated.',
+        })
       })
     })
   }
@@ -81,7 +89,13 @@ export function ProfileForm({
           )}
         />
 
-        <Button type="submit">Update profile</Button>
+        <Button type="submit" disabled={isPending} className="w-40">
+          {isPending ? (
+            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            'Update profile'
+          )}
+        </Button>
       </form>
     </Form>
   )

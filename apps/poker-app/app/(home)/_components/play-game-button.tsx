@@ -12,9 +12,10 @@ export const PlayGameButton = () => {
   const router = useRouter()
 
   const handlePlayAction = () => {
-    startTransition(async () => {
-      const room = await createRoom()
-      router.push(`/room/${room}`)
+    startTransition(() => {
+      createRoom().then((room) => {
+        router.push(`/room/${room}`)
+      })
     })
   }
 

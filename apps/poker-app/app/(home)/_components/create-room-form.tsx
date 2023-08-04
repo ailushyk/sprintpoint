@@ -46,21 +46,21 @@ export const CreateRoomForm = () => {
   })
 
   const onSubmit = (data: CreateRoomFormValues) => {
-    startTransition(async () => {
-      try {
-        await createRoomAction(data)
-
-        form.reset()
-        toast({
-          title: 'Room created!',
-          description: 'You can now share the link with your friends.',
+    startTransition(() => {
+      createRoomAction(data)
+        .then(() => {
+          form.reset()
+          toast({
+            title: 'Room created!',
+            description: 'You can now share the link with your friends.',
+          })
         })
-      } catch (e) {
-        toast({
-          title: 'Ups!',
-          description: 'Something went wrong. Please try again later.',
+        .catch(() => {
+          toast({
+            title: 'Ups!',
+            description: 'Something went wrong. Please try again later.',
+          })
         })
-      }
     })
   }
 

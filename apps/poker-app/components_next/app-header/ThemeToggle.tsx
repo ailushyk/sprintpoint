@@ -5,10 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 
 import { Button, Icons, useTheme } from '@easypoker/ui'
 
-const ThemeToggle = React.forwardRef<
-  React.ElementRef<typeof Button>,
-  React.ComponentPropsWithoutRef<typeof Button>
->((props, ref) => {
+const ThemeToggle = React.forwardRef<HTMLButtonElement>((props, ref) => {
   const { setTheme, theme } = useTheme()
 
   const isDark = theme === 'dark'

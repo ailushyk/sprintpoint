@@ -15,7 +15,6 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  Icons,
   Input,
   toast,
 } from '@easypoker/ui'
@@ -39,21 +38,11 @@ export const JoinRoomForm = () => {
   })
 
   const onSubmit = (data: JoinRoomFormValues) => {
-    startTransition(async () => {
-      try {
-        router.push(`/room/${data.code}`)
-
-        toast({
-          title: 'You have joined the room!',
-          description: 'You can now start playing.',
-        })
-      } catch (e) {
-        toast({
-          title: 'Ups!',
-          description: 'Something went wrong. Please try again later.',
-        })
-      }
+    toast({
+      title: 'You have joined the room!',
+      description: 'You can now start playing.',
     })
+    router.push(`/room/${data.code}`)
   }
 
   return (
@@ -81,14 +70,7 @@ export const JoinRoomForm = () => {
 
         <div className="text-right">
           <Button type="submit" className="w-40">
-            {isPending ? (
-              <span className="flex items-center text-muted">
-                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                <span>Connecting...</span>
-              </span>
-            ) : (
-              'Join'
-            )}
+            Join
           </Button>
         </div>
       </form>

@@ -11,22 +11,22 @@ export const RoomTitle = ({ room }: { room: RoomValue }) => {
   const [copied, setCopied] = useState(false)
 
   const handleClipboardCopy = async () => {
-    try {
-      startTransition(async () => {
-        await navigator.clipboard.writeText(room.code)
+    startTransition(() => {
+      try {
+        navigator.clipboard.writeText(room.code)
         setCopied(true)
         toast({
           title: 'Copied to clipboard',
           description: `Room code "${room.code}" copied to clipboard`,
         })
-      })
-    } catch (error) {
-      console.error(error)
-      toast({
-        title: 'Error',
-        description: 'Could not copy room code to clipboard',
-      })
-    }
+      } catch (error) {
+        console.error(error)
+        toast({
+          title: 'Error',
+          description: 'Could not copy room code to clipboard',
+        })
+      }
+    })
   }
 
   useEffect(() => {
