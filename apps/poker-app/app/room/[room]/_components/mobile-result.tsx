@@ -74,15 +74,23 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
         </motion.div>
       </div>
       <DrawerContent side="bottom">
-        <DrawerHeader>
-          <DrawerTitle>Result</DrawerTitle>
-          <div className="flex justify-center">
-            <div className="flex h-20 w-20 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-primary bg-accent p-4 text-4xl transition hover:bg-accent hover:text-accent-foreground dark:border-primary dark:bg-background">
-              100
+        {room.value ? (
+          <DrawerHeader>
+            <DrawerTitle>Result</DrawerTitle>
+            <div className="flex justify-center">
+              <div className="flex h-20 w-20 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-primary bg-accent p-4 text-4xl transition hover:bg-accent hover:text-accent-foreground dark:border-primary dark:bg-background">
+                {room.value}
+              </div>
             </div>
-          </div>
-          <DrawerDescription>This is the result of the vote</DrawerDescription>
-        </DrawerHeader>
+            <DrawerDescription>
+              This is the result of the vote
+            </DrawerDescription>
+          </DrawerHeader>
+        ) : (
+          <DrawerHeader>
+            <DrawerTitle>No votes yet</DrawerTitle>
+          </DrawerHeader>
+        )}
 
         <DrawerBody>
           <Results user={user} />

@@ -5,6 +5,9 @@ export * from './room'
 export * from './socket'
 export * from './user'
 
+export * from './math'
+export * from './deck'
+
 const resultSchedule = z.object({
   roomId: z.string().uuid(),
   users: z.array(

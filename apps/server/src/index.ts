@@ -4,15 +4,17 @@ import { Server, Socket } from 'socket.io'
 
 import {
   ClientToServerEvents,
+  getClosestValue,
   InterServerEvents,
   RoomValue,
   ServerToClientEvents,
   socketDataSchema,
   SocketDataValue,
   UserValue,
+  VoteValue,
 } from '@easypoker/shared'
-import { VoteValue } from '@easypoker/shared/src'
 
+import { api } from './api'
 import { APP_PORT, CORS_ORIGIN } from './config'
 
 const app = express()
@@ -142,13 +144,41 @@ function handleRoomJoin(socket: ClientSocket) {
   }
 }
 
-function handleRoomCheck({ room }: { room: string }) {
+async function handleRoomCheck({ room }: { room: string }) {
+  // get deck
+  const deckName = rooms.find((r) => r.code === room)?.deck
+  if (!deckName) {
+    console.error(new Error(`deck for room ${room} not found`))
+    return
+  }
+  const deck = await api().deck.getAdvanced(deckName)
+
+  // get all votes and calculate result
+  const _votes = votes.filter((v) => v.roomId === room && v.value !== null)
+  const result = _votes.reduce((acc, curr) => {
+    if (curr.value) {
+      return acc + curr.value
+    }
+    return acc
+  }, 0)
+
+  // get closest value
+  let _value: null | number = null
+  if (_votes.length > 0) {
+    const avg = result / _votes.length
+    _value = getClosestValue(
+      avg,
+      deck.data.cards.map((card) => card.value)
+    )
+  }
+
   // set room status to checking
   rooms = rooms.map((r) =>
     r.code === room
       ? {
           ...r,
           status: 'checking',
+          value: _value,
           lastUpdate: new Date().toISOString(),
         }
       : r

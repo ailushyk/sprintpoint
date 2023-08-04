@@ -1,7 +1,4 @@
-import {
-  getDeck,
-  getDeckWithoutNonValueCards,
-} from '@/components_next/deck/deck.api'
+import { getDeck, getDeckWithoutNonValueCards } from '@easypoker/shared'
 
 import { getRoom } from '@/lib/room'
 import { getUserInfo, setUserInfo } from '@/lib/user/user.api'
