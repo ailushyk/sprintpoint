@@ -46,7 +46,6 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
   }, [room.status])
 
   let handleNextVote = () => {
-    console.log('handleNextVote')
     socket.emit('room:reset', { room: room.code })
     setOpen(false)
   }

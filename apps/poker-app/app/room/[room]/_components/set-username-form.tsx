@@ -32,21 +32,23 @@ export const SetUsernameForm = ({
   })
 
   const onSubmit = (data: UserProfileValues) => {
-    startTransition(async () => {
-      try {
-        await updateUserInfoAction(data)
-        afterSuccess?.(data)
+    startTransition(() => {
+      updateUserInfoAction(data)
+        .then(() => {
+          afterSuccess?.(data)
 
-        toast({
-          title: 'Username saved!',
-          description: 'You can change it anytime in the settings.',
+          toast({
+            title: 'Username saved!',
+            description: 'You can change it anytime in the settings.',
+          })
         })
-      } catch (error) {
-        toast({
-          title: 'Ups!',
-          description: 'Something went wrong. Please try again later.',
+        .catch((err) => {
+          console.error(err)
+          toast({
+            title: 'Ups!',
+            description: 'Something went wrong. Please try again later.',
+          })
         })
-      }
     })
   }
 
