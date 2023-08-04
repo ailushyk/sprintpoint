@@ -7,12 +7,11 @@ import React, {
   useReducer,
   useState,
 } from 'react'
-import { DeckValue } from '@/components_next/deck/deck.api'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, UseFormReturn } from 'react-hook-form'
 import { z } from 'zod'
 
-import { roomSchema, RoomValue } from '@easypoker/shared'
+import { DeckValue, roomSchema, RoomValue } from '@easypoker/shared'
 import { AllUsersResponse, RoomStatusValue } from '@easypoker/shared/src'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@easypoker/ui'
 

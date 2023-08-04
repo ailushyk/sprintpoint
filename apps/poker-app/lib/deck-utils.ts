@@ -1,4 +1,4 @@
-import { CardValue } from '@/components_next/deck/deck.api'
+import { CardValue } from '@easypoker/shared'
 
 const getCardValueByName = (cardName: string, cards: CardValue[]) => {
   return cards.find((c) => c.name === cardName)?.value
