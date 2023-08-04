@@ -3,6 +3,8 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
+    "build:app": "turbo run build --filter=poker-app... --filter=server...",
+    "build:client": "turbo run build --filter=poker-app",
     "dev": "turbo run dev",
     "dev:app": "turbo run dev --filter=poker-app... --filter=server...",
     "dev:client": "turbo run dev --filter=poker-app...",
