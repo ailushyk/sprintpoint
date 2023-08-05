@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
 import { socket } from '@/lib/socket-client'
-import { useOnlineContext } from '@/app/room/[room]/_components/online-provider'
+import { useOnlineContext } from '@/app/(app)/room/[room]/_components/online-provider'
 
 export const useUserActivity = () => {
   const timer = useRef<NodeJS.Timer>(null!)

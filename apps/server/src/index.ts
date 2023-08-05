@@ -95,7 +95,7 @@ function handleRoomJoin(socket: ClientSocket) {
   return ({ room }: { room: string }) => {
     console.log('room:join', room)
     let _room = rooms.find((r) => r.code === room)
-    // create room if not exists with user
+    // settings room if not exists with user
     if (!_room) {
       rooms.push({
         users: [socket.data.id],

@@ -12,6 +12,12 @@ export const GlobalKeyboardEvents = () => {
       // if (e.key === 'j' && e.metaKey) {
       //   setOpen((open) => !open)
       // }
+
+      // if (e.key === 'd' && e.metaKey && e.shiftKey) {
+      //   e.preventDefault()
+      //   navigate.push('/dashboard')
+      // }
+
       if (e.key === 'p' && e.metaKey && e.shiftKey) {
         navigate.push('/profile')
       }
