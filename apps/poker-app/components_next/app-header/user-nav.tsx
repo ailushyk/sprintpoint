@@ -46,6 +46,9 @@ export async function UserNav() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
+            <Link href="/dashboard">Dashboard</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
             <Link href="/profile">
               Profile
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>

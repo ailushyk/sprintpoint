@@ -24,11 +24,11 @@ import { getAverageCardValue, getStatusByValues } from '@/lib/deck-utils'
 import { getClosest } from '@/lib/math'
 import { socket } from '@/lib/socket-client'
 import { UserProfileValues } from '@/lib/user/user'
-import { MobileResult } from '@/app/room/[room]/_components/mobile-result'
+import { MobileResult } from '@/app/(app)/room/[room]/_components/mobile-result'
 import {
   FormDeckValues,
   useOnlineContext,
-} from '@/app/room/[room]/_components/online-provider'
+} from '@/app/(app)/room/[room]/_components/online-provider'
 
 const estimateParams = ['risk', 'complexity', 'unfamiliar'] as const
 const planingPokerVariablesDescription = {
