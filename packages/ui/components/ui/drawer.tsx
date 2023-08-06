@@ -37,7 +37,7 @@ const DrawerOverlay = React.forwardRef<
 DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName
 
 const sheetVariants = cva(
-  'ah-[86%] fixed z-50 flex flex-col justify-start rounded-t-3xl bg-background p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500 dark:bg-drawer',
+  'fixed z-50 flex max-h-[86%] flex-col justify-start rounded-t-3xl bg-background p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500 dark:bg-drawer',
   {
     variants: {
       side: {
