@@ -1,14 +1,12 @@
 import React from 'react'
 import { Deck } from '@/components_next/deck/Deck'
 
-import { cn, Separator } from '@easypoker/ui'
+import { Separator } from '@easypoker/ui'
 
 import { api } from '@/lib/api'
 import { MockUsers } from '@/app/(app)/room/[room]/_components/mobile-result'
 import { OnlineProvider } from '@/app/(app)/room/[room]/_components/online-provider'
 import { RoomTitle } from '@/app/(app)/room/[room]/_components/room-title'
-import { UserList } from '@/app/(app)/room/[room]/_components/user-list'
-import { UserStatus } from '@/app/(app)/room/[room]/_components/user-status'
 import { Users } from '@/app/(app)/room/[room]/_components/users'
 
 export default async function PlayRoomPage({
@@ -45,7 +43,7 @@ export default async function PlayRoomPage({
 
           <div className="lg:hidden">
             <Users user={user} />
-            <MockUsers visible />
+            <MockUsers visible={false} />
           </div>
         </div>
       </OnlineProvider>

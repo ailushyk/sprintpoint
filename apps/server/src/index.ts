@@ -33,7 +33,7 @@ export const io = new Server<
   SocketDataValue
 >(httpServer, {
   cors: {
-    origin: CORS_ORIGIN,
+    origin: CORS_ORIGIN.split(','),
     credentials: true,
   },
   cookie: {
