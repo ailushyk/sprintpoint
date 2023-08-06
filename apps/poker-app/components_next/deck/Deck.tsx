@@ -99,18 +99,12 @@ export const Deck = ({ user }: { user: UserProfileValues }) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col items-center gap-9"
+          className="w-full space-y-12"
         >
           <fieldset
             disabled={room.status === 'checking'}
-            className="grid grid-cols-3 place-items-center gap-9 md:grid-cols-1"
+            className="grid w-full grid-cols-3 place-items-stretch md:grid-cols-1 lg:gap-9"
           >
-            <div className="col-span-3 hidden md:col-span-full">
-              <Button type="submit" className="w-40">
-                confirm
-              </Button>
-            </div>
-
             {estimateParams.map((PART_OF_VALUE) => (
               <FormField
                 key={PART_OF_VALUE}
@@ -118,7 +112,7 @@ export const Deck = ({ user }: { user: UserProfileValues }) => {
                 name={PART_OF_VALUE}
                 render={({ field }) => (
                   <FormItem className="flex flex-col items-center justify-center md:items-start">
-                    <FormLabel className="sticky top-28 z-10 capitalize md:static md:w-auto md:py-0">
+                    <FormLabel className="sticky top-24 z-20 w-full border-b bg-background py-2 text-center capitalize md:static md:w-auto md:py-0 lg:border-transparent">
                       {PART_OF_VALUE}
                     </FormLabel>
                     <FormControl>
@@ -132,7 +126,7 @@ export const Deck = ({ user }: { user: UserProfileValues }) => {
                             key={`${PART_OF_VALUE}-${card.name}`}
                             className={cn(
                               form.getValues(PART_OF_VALUE) === card.name &&
-                                'sticky bottom-4 top-32 z-10 md:static'
+                                'sticky bottom-4 top-28 z-10 md:static'
                             )}
                           >
                             <FormControl>
@@ -143,7 +137,7 @@ export const Deck = ({ user }: { user: UserProfileValues }) => {
                                 className="peer sr-only"
                               />
                             </FormControl>
-                            <FormLabel className="flex h-14 w-14 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 text-xl transition hover:bg-accent hover:text-accent-foreground peer-checked:border-primary peer-checked:bg-accent">
+                            <FormLabel className="flex h-20 w-20 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-muted bg-popover p-4 text-xl transition hover:bg-accent hover:text-accent-foreground peer-checked:border-primary peer-checked:bg-accent lg:h-14 lg:w-14 lg:rounded-md">
                               {card.name}
                             </FormLabel>
                           </FormItem>
@@ -180,7 +174,7 @@ export const Deck = ({ user }: { user: UserProfileValues }) => {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.2, ease: 'easeOut', delay: 1 }}
+                transition={{ duration: 0.2, ease: 'easeOut', delay: 0.5 }}
               >
                 <OfflineMessage />
               </motion.div>

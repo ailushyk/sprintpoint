@@ -25,11 +25,9 @@ export function DeckFormActions(props: {
           Next vote
         </Button>
       ) : (
-        <>
-          <Button type="submit" className="w-40">
-            Check
-          </Button>
-        </>
+        <Button type="submit" className="w-40">
+          Check
+        </Button>
       )}
     </div>
   )
