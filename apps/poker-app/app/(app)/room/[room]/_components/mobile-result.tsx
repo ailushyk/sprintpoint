@@ -1,7 +1,12 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import {
+  AnimatePresence,
+  motion,
+  useAnimationControls,
+  Variants,
+} from 'framer-motion'
 
 import {
   Button,
@@ -43,6 +48,7 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
   const {
     state: { room, users },
   } = useOnlineContext()
+  const controls = useAnimationControls()
 
   const isChecking = room.status === 'checking'
   const votesCount = users.filter((u) => u.vote?.value).length
@@ -54,6 +60,37 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
   let handleNextVote = () => {
     socket.emit('room:reset', { room: room.code })
   }
+
+  const closeDrawer = async () => {
+    await controls.start('closed')
+    setOpen(false)
+  }
+
+  const fullOpen = async () => {
+    await controls.start('fullOpen')
+  }
+
+  const variants: Variants = {
+    open: {
+      y: 0,
+      transition: { ease: 'easeOut', duration: 0.2 },
+    },
+    fullOpen: {
+      // top: 0,
+      // bottom: 0,
+      maxHeight: '100%',
+    },
+    closed: {
+      y: '100%',
+      transition: { ease: 'easeIn', duration: 0.2 },
+    },
+  }
+
+  useEffect(() => {
+    if (open) {
+      controls.start('open').then()
+    }
+  }, [controls, open])
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
@@ -86,65 +123,76 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.2 }}
               />
             </DrawerOverlay>
-            <DrawerContent
-              className={cn(
-                'fixed z-50 flex max-h-[86%] flex-col justify-start rounded-t-3xl bg-background px-3 py-6 dark:bg-drawer',
-                'inset-x-0 bottom-0 border-t'
-              )}
-              asChild
-            >
+            <DrawerContent asChild>
               <motion.div
-                initial={{ y: 200 }}
-                animate={{ y: 0 }}
-                exit={{ y: 200 }}
+                className={cn('fixed inset-x-0 bottom-0 z-50 max-h-[46%]')}
+                initial="closed"
+                animate={controls}
+                exit="closed"
+                variants={variants}
               >
-                {votesCount ? (
-                  <div className="flex flex-col space-y-2 border-b pb-2 pt-6 text-center dark:border-primary-foreground sm:text-left">
-                    <div className="flex flex-col items-center justify-center gap-1">
-                      <DrawerTitle>Recommended</DrawerTitle>
-                      <div className="flex h-20 w-20 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-primary bg-accent p-4 text-4xl transition hover:bg-accent hover:text-accent-foreground dark:border-primary dark:bg-background">
-                        {room.value}
-                      </div>
-                    </div>
-                    <DrawerDescription>
-                      {votesCount === users.length
-                        ? 'All votes in'
-                        : `${votesCount} of ${users.length} votes`}
-                    </DrawerDescription>
-                  </div>
-                ) : (
-                  <div className="flex flex-col space-y-2 border-b pb-2 pt-6 text-center dark:border-primary-foreground sm:text-left">
-                    <DrawerTitle>No votes yet</DrawerTitle>
-                  </div>
-                )}
-
-                <div className="mb-4 flex-1 overflow-y-auto">
-                  <Results user={user} />
-                  <MockUsers visible={true} />
-                </div>
-
-                <div
-                  className={cn(
-                    'flex flex-col-reverse items-center justify-center md:flex-row md:justify-end md:space-x-2'
-                  )}
+                <motion.div
+                  className="overflow-hidden rounded-t-3xl border-t bg-background px-3 py-6 dark:bg-drawer"
+                  drag="y"
+                  dragSnapToOrigin
+                  onDragEnd={async (event, info) => {
+                    if (info.offset.y > 60) {
+                      await closeDrawer()
+                    }
+                    if (info.offset.y < -60) {
+                      await fullOpen()
+                    }
+                  }}
+                  transition={{ duration: 0.2 }}
                 >
-                  <Button
-                    onClick={handleNextVote}
-                    variant="destructive"
-                    size="lg"
-                  >
-                    Next vote
-                  </Button>
-                </div>
+                  {votesCount ? (
+                    <div className="flex flex-col space-y-2 border-b pb-2 pt-6 text-center dark:border-primary-foreground sm:text-left">
+                      <div className="flex flex-col items-center justify-center gap-1">
+                        <DrawerTitle>Recommended</DrawerTitle>
+                        <div className="flex h-20 w-20 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-primary bg-accent p-4 text-4xl transition hover:bg-accent hover:text-accent-foreground dark:border-primary dark:bg-background">
+                          {room.value}
+                        </div>
+                      </div>
+                      <DrawerDescription>
+                        {votesCount === users.length
+                          ? 'All votes in'
+                          : `${votesCount} of ${users.length} votes`}
+                      </DrawerDescription>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col space-y-2 border-b pb-2 pt-6 text-center dark:border-primary-foreground sm:text-left">
+                      <DrawerTitle>No votes yet</DrawerTitle>
+                    </div>
+                  )}
 
-                <div className="absolute inset-x-0 top-4 mx-auto mb-8 h-[0.35rem] w-16 flex-shrink-0 rounded-full bg-muted" />
-                <DrawerClose className="absolute right-4 top-4 hidden rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary md:block">
-                  <Icons.close className="h-4 w-4" />
-                  <span className="sr-only">Close</span>
-                </DrawerClose>
+                  <div className="mb-4 flex-1 overflow-y-auto">
+                    <Results user={user} />
+                    <MockUsers visible={false} />
+                  </div>
+
+                  <div
+                    className={cn(
+                      'flex flex-col-reverse items-center justify-center md:flex-row md:justify-end md:space-x-2'
+                    )}
+                  >
+                    <Button
+                      onClick={handleNextVote}
+                      variant="destructive"
+                      size="lg"
+                    >
+                      Next vote
+                    </Button>
+                  </div>
+
+                  <div className="absolute inset-x-0 top-4 mx-auto mb-8 h-[0.35rem] w-16 flex-shrink-0 rounded-full bg-muted" />
+                  <DrawerClose className="absolute right-4 top-4 hidden rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary md:block">
+                    <Icons.close className="h-4 w-4" />
+                    <span className="sr-only">Close</span>
+                  </DrawerClose>
+                </motion.div>
               </motion.div>
             </DrawerContent>
           </DrawerPortal>
