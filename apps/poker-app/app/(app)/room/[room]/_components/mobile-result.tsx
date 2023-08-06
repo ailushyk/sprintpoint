@@ -19,53 +19,55 @@ import { socket } from '@/lib/socket-client'
 import { UserProfileValues } from '@/lib/user/user'
 import { useOnlineContext } from '@/app/(app)/room/[room]/_components/online-provider'
 import { Results } from '@/app/(app)/room/[room]/_components/results'
+import { UserList } from '@/app/(app)/room/[room]/_components/user-list'
 
-function Mock({ visible }: { visible: boolean }) {
+export function MockUsers({ visible }: { visible: boolean }) {
   if (!visible) return null
   return (
-    <>
-      {Array.from({ length: 30 }).map((item, index) => (
-        <div key={index} className="mb-2 h-8 w-full rounded-md bg-gray-300" />
+    <UserList>
+      {Array.from({ length: 39 }).map((_, i) => (
+        <UserList.Item key={i}>
+          <div className="truncate">user {i}</div>
+          idle
+        </UserList.Item>
       ))}
-    </>
+    </UserList>
   )
 }
 
 export function MobileResult({ user }: { user: UserProfileValues }) {
   const [open, setOpen] = React.useState(false)
   const {
-    state: { room, ...state },
+    state: { room, users },
   } = useOnlineContext()
 
-  useEffect(() => {
-    // console.log('open:', open)
-  }, [open])
+  const isChecking = room.status === 'checking'
+  const votesCount = users.filter((u) => u.vote?.value).length
 
   useEffect(() => {
-    setOpen(room.status === 'checking')
-  }, [room.status])
+    setOpen(isChecking)
+  }, [isChecking])
 
   let handleNextVote = () => {
     socket.emit('room:reset', { room: room.code })
-    setOpen(false)
   }
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <div className="flex justify-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={
-            room.status === 'checking' && !open
-              ? { opacity: 1, y: 0 }
-              : { opacity: 0, y: 20 }
-          }
-          transition={{ duration: 0.2, ease: 'easeOut', delay: 0.2 }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={isChecking ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+          transition={{
+            duration: 0.2,
+            ease: 'easeOut',
+            delay: isChecking ? 0.4 : 0,
+          }}
         >
           <DrawerTrigger asChild>
             <Button
-              className="w-40 delay-1000"
               variant="ghost"
+              size="lg"
               disabled={room.status === 'voting' && !open}
             >
               Votes
@@ -74,16 +76,18 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
         </motion.div>
       </div>
       <DrawerContent side="bottom">
-        {room.value ? (
+        {votesCount ? (
           <DrawerHeader>
-            <DrawerTitle>Result</DrawerTitle>
-            <div className="flex justify-center">
+            <div className="flex flex-col items-center justify-center gap-1">
+              <DrawerTitle>Recommended</DrawerTitle>
               <div className="flex h-20 w-20 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-primary bg-accent p-4 text-4xl transition hover:bg-accent hover:text-accent-foreground dark:border-primary dark:bg-background">
                 {room.value}
               </div>
             </div>
             <DrawerDescription>
-              This is the result of the vote
+              {votesCount === users.length
+                ? 'All votes in'
+                : `${votesCount} of ${users.length} votes`}
             </DrawerDescription>
           </DrawerHeader>
         ) : (
@@ -94,15 +98,11 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
 
         <DrawerBody>
           <Results user={user} />
-          <Mock visible={false} />
+          <MockUsers visible={true} />
         </DrawerBody>
 
         <DrawerFooter className="flex items-center justify-center">
-          <Button
-            className="w-40"
-            onClick={handleNextVote}
-            variant="destructive"
-          >
+          <Button onClick={handleNextVote} variant="destructive" size="lg">
             Next vote
           </Button>
         </DrawerFooter>

@@ -154,32 +154,10 @@ export const Deck = ({ user }: { user: UserProfileValues }) => {
             ))}
           </fieldset>
 
-          <AnimatePresence mode="wait">
-            {socket.connected ? (
-              <motion.div
-                key="deck-form-actions"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.2, ease: 'easeOut' }}
-              >
-                <DeckFormActions
-                  status={room.status}
-                  reset={() => form.reset(defaultValues)}
-                />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="deck-form-offline"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.2, ease: 'easeOut', delay: 0.5 }}
-              >
-                <OfflineMessage />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <DeckFormActions
+            status={room.status}
+            reset={() => form.reset(defaultValues)}
+          />
         </form>
       </Form>
 
