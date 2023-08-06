@@ -1,6 +1,7 @@
 import {
   CheckIcon,
   ChevronDownIcon,
+  Cross2Icon,
   GitHubLogoIcon,
   LaptopIcon,
   MoonIcon,
@@ -16,6 +17,7 @@ import {
   Twitter,
 } from 'lucide-react'
 
+// @ts-ignore
 export const Icons = {
   moon: MoonIcon,
   sun: SunIcon,
@@ -30,6 +32,7 @@ export const Icons = {
   hold: AlertCircle,
   clipboardCheck: ClipboardCheck,
   clipboardCopy: ClipboardCopy,
+  close: Cross2Icon,
   // gitHub: (props: LucideProps) => (
   //   <svg viewBox="0 0 438.549 438.549" {...props}>
   //     <path
@@ -38,4 +41,4 @@ export const Icons = {
   //     />
   //   </svg>
   // ),
-}
+} as const
