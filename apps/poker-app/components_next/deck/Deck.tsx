@@ -2,13 +2,10 @@
 
 import React, { useMemo, useState } from 'react'
 import { DeckFormActions } from '@/components_next/deck/deck-form-actions'
-import { OfflineMessage } from '@/components_next/deck/offline-message'
 import { PickedCard } from '@/components_next/deck/PickedCard'
 import { useUserActivity } from '@/components_next/deck/useUserActivity'
-import { AnimatePresence, motion } from 'framer-motion'
 
 import {
-  Button,
   cn,
   Form,
   FormControl,
@@ -103,7 +100,7 @@ export const Deck = ({ user }: { user: UserProfileValues }) => {
         >
           <fieldset
             disabled={room.status === 'checking'}
-            className="grid w-full grid-cols-3 place-items-stretch md:grid-cols-1 lg:gap-9"
+            className="grid w-full grid-cols-3 place-items-stretch md:grid-cols-1 md:place-items-center md:space-y-8"
           >
             {estimateParams.map((PART_OF_VALUE) => (
               <FormField
@@ -111,7 +108,7 @@ export const Deck = ({ user }: { user: UserProfileValues }) => {
                 control={form.control}
                 name={PART_OF_VALUE}
                 render={({ field }) => (
-                  <FormItem className="flex flex-col items-center justify-center md:items-start">
+                  <FormItem className="flex max-w-full flex-col items-center justify-center md:items-start">
                     <FormLabel className="sticky top-24 z-20 w-full border-b bg-background py-2 text-center capitalize md:static md:w-auto md:py-0 lg:border-transparent">
                       {PART_OF_VALUE}
                     </FormLabel>
@@ -119,14 +116,14 @@ export const Deck = ({ user }: { user: UserProfileValues }) => {
                       <RadioGroup
                         onValueChange={field.onChange}
                         defaultValue={field.value}
-                        className="flex flex-col gap-3 md:flex-row"
+                        className="flex w-full flex-col items-center gap-2 md:flex-row md:overflow-x-auto lg:gap-3"
                       >
                         {deck.cards.map((card) => (
                           <FormItem
                             key={`${PART_OF_VALUE}-${card.name}`}
                             className={cn(
                               form.getValues(PART_OF_VALUE) === card.name &&
-                                'sticky bottom-4 top-28 z-10 md:static'
+                                'sticky bottom-4 top-28 z-10 md:bottom-auto md:left-0 md:right-0 md:top-auto'
                             )}
                           >
                             <FormControl>
@@ -134,17 +131,17 @@ export const Deck = ({ user }: { user: UserProfileValues }) => {
                                 type="radio"
                                 {...form.register(PART_OF_VALUE)}
                                 value={card.name}
-                                className="peer sr-only"
+                                className="peer hidden"
                               />
                             </FormControl>
-                            <FormLabel className="flex h-20 w-20 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-muted bg-popover p-4 text-xl transition hover:bg-accent hover:text-accent-foreground peer-checked:border-primary peer-checked:bg-accent lg:h-14 lg:w-14 lg:rounded-md">
+                            <FormLabel className="flex h-20 w-20 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-muted bg-popover p-4 text-xl transition hover:bg-accent hover:text-accent-foreground peer-checked:border-primary peer-checked:bg-accent md:h-14 md:w-14 lg:rounded-md">
                               {card.name}
                             </FormLabel>
                           </FormItem>
                         ))}
                       </RadioGroup>
                     </FormControl>
-                    <FormDescription className="hidden md:block md:max-w-xl">
+                    <FormDescription className="hidden max-w-md md:block">
                       {planingPokerVariablesDescription[PART_OF_VALUE]}
                     </FormDescription>
                     <FormMessage />
