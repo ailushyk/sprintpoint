@@ -7,7 +7,7 @@ const PickedCard = ({ sp }: { sp: number | null }) => {
   return (
     <div
       className={cn(
-        'flex h-20 w-20 flex-col items-center justify-center overflow-hidden rounded-md border-2 border-muted bg-popover p-4 text-4xl transition',
+        'flex h-20 w-20 flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-muted bg-popover p-4 text-4xl transition lg:rounded-md',
         sp === null ? 'border-muted text-muted' : 'border-primary text-primary'
       )}
     >
@@ -40,7 +40,7 @@ const PickedCard = ({ sp }: { sp: number | null }) => {
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="sticky top-0 z-10 flex w-full flex-col items-center justify-center border-b bg-background pb-12 pt-2 md:border-none">
+    <div className="sticky top-0 z-50 flex w-full flex-col items-center justify-center bg-background py-2 md:border-none">
       {children}
     </div>
   )
