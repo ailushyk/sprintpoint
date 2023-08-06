@@ -1,18 +1,21 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 import {
   Button,
+  buttonVariants,
+  cn,
   Drawer,
-  DrawerBody,
+  DrawerClose,
   DrawerContent,
   DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
+  DrawerOverlay,
+  DrawerPortal,
   DrawerTitle,
   DrawerTrigger,
+  Icons,
 } from '@easypoker/ui'
 
 import { socket } from '@/lib/socket-client'
@@ -54,8 +57,8 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
-      <div className="flex justify-center">
-        <motion.div
+      <DrawerTrigger asChild>
+        <motion.button
           initial={{ opacity: 0, y: 12 }}
           animate={isChecking ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
           transition={{
@@ -63,50 +66,90 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
             ease: 'easeOut',
             delay: isChecking ? 0.4 : 0,
           }}
+          disabled={room.status === 'voting' && !open}
+          className={cn(
+            buttonVariants({
+              variant: 'ghost',
+              size: 'lg',
+            })
+          )}
         >
-          <DrawerTrigger asChild>
-            <Button
-              variant="ghost"
-              size="lg"
-              disabled={room.status === 'voting' && !open}
+          Votes
+        </motion.button>
+      </DrawerTrigger>
+
+      <AnimatePresence>
+        {open && (
+          <DrawerPortal forceMount>
+            <DrawerOverlay asChild>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+              />
+            </DrawerOverlay>
+            <DrawerContent
+              className={cn(
+                'fixed z-50 flex max-h-[86%] flex-col justify-start rounded-t-3xl bg-background px-3 py-6 dark:bg-drawer',
+                'inset-x-0 bottom-0 border-t'
+              )}
+              asChild
             >
-              Votes
-            </Button>
-          </DrawerTrigger>
-        </motion.div>
-      </div>
-      <DrawerContent side="bottom">
-        {votesCount ? (
-          <DrawerHeader>
-            <div className="flex flex-col items-center justify-center gap-1">
-              <DrawerTitle>Recommended</DrawerTitle>
-              <div className="flex h-20 w-20 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-primary bg-accent p-4 text-4xl transition hover:bg-accent hover:text-accent-foreground dark:border-primary dark:bg-background">
-                {room.value}
-              </div>
-            </div>
-            <DrawerDescription>
-              {votesCount === users.length
-                ? 'All votes in'
-                : `${votesCount} of ${users.length} votes`}
-            </DrawerDescription>
-          </DrawerHeader>
-        ) : (
-          <DrawerHeader>
-            <DrawerTitle>No votes yet</DrawerTitle>
-          </DrawerHeader>
+              <motion.div
+                initial={{ y: 200 }}
+                animate={{ y: 0 }}
+                exit={{ y: 200 }}
+              >
+                {votesCount ? (
+                  <div className="flex flex-col space-y-2 border-b pb-2 pt-6 text-center dark:border-primary-foreground sm:text-left">
+                    <div className="flex flex-col items-center justify-center gap-1">
+                      <DrawerTitle>Recommended</DrawerTitle>
+                      <div className="flex h-20 w-20 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-primary bg-accent p-4 text-4xl transition hover:bg-accent hover:text-accent-foreground dark:border-primary dark:bg-background">
+                        {room.value}
+                      </div>
+                    </div>
+                    <DrawerDescription>
+                      {votesCount === users.length
+                        ? 'All votes in'
+                        : `${votesCount} of ${users.length} votes`}
+                    </DrawerDescription>
+                  </div>
+                ) : (
+                  <div className="flex flex-col space-y-2 border-b pb-2 pt-6 text-center dark:border-primary-foreground sm:text-left">
+                    <DrawerTitle>No votes yet</DrawerTitle>
+                  </div>
+                )}
+
+                <div className="mb-4 flex-1 overflow-y-auto">
+                  <Results user={user} />
+                  <MockUsers visible={true} />
+                </div>
+
+                <div
+                  className={cn(
+                    'flex flex-col-reverse items-center justify-center md:flex-row md:justify-end md:space-x-2'
+                  )}
+                >
+                  <Button
+                    onClick={handleNextVote}
+                    variant="destructive"
+                    size="lg"
+                  >
+                    Next vote
+                  </Button>
+                </div>
+
+                <div className="absolute inset-x-0 top-4 mx-auto mb-8 h-[0.35rem] w-16 flex-shrink-0 rounded-full bg-muted" />
+                <DrawerClose className="absolute right-4 top-4 hidden rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary md:block">
+                  <Icons.close className="h-4 w-4" />
+                  <span className="sr-only">Close</span>
+                </DrawerClose>
+              </motion.div>
+            </DrawerContent>
+          </DrawerPortal>
         )}
-
-        <DrawerBody>
-          <Results user={user} />
-          <MockUsers visible={true} />
-        </DrawerBody>
-
-        <DrawerFooter className="flex items-center justify-center">
-          <Button onClick={handleNextVote} variant="destructive" size="lg">
-            Next vote
-          </Button>
-        </DrawerFooter>
-      </DrawerContent>
+      </AnimatePresence>
     </Drawer>
   )
 }
