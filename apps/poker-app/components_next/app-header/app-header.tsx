@@ -6,7 +6,7 @@ export function AppHeader() {
     <header className="supports-backdrop-blur:bg-background/60 w-full border-b bg-background/95 backdrop-blur">
       <div className="container flex h-14 items-center justify-between">
         <div>
-          <Link href="/" className="font-bold">
+          <Link href="/" className="font-bold text-muted-foreground">
             Easy Poker
           </Link>
         </div>

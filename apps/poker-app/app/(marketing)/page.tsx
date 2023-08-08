@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { GradientText } from '@/components_next/gradient-text'
 import { PlayGameButton } from '@/components_next/play-game-button'
 
 import { buttonVariants, cn } from '@easypoker/ui'
@@ -11,9 +12,11 @@ export default function Home() {
   return (
     <main className="flex h-screen flex-col items-center">
       <header className="container space-y-1 p-8 text-center">
-        <h1 className="text-4xl font-bold">Easy Poker</h1>
+        <h1 className="text-4xl font-bold">
+          <GradientText>Easy Poker</GradientText>
+        </h1>
         <p className="text-center">
-          Easy Poker is a simple way to plan work with your team.
+          Start estimating smarter with Planing Poker
         </p>
       </header>
 
