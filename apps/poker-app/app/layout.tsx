@@ -2,6 +2,7 @@ import './globals.css'
 
 import React from 'react'
 import { Inter } from 'next/font/google'
+import { Analytics } from '@/components_next/analytics'
 
 import { TailwindIndicator, Toaster, UIProvider } from '@easypoker/ui'
 
@@ -61,6 +62,7 @@ export default function RootLayout({
 
           <TailwindIndicator />
         </UIProvider>
+        <Analytics />
       </body>
     </html>
   )
