@@ -3,6 +3,10 @@ import { PlayGameButton } from '@/components_next/play-game-button'
 
 import { buttonVariants, cn } from '@easypoker/ui'
 
+export const metadata = {
+  title: 'EasyPoker - Empowering Agile Teams with Planning Poker',
+}
+
 export default function Home() {
   return (
     <main className="flex h-screen flex-col items-center">
