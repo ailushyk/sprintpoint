@@ -1,18 +1,13 @@
 'use client'
 
-import React from 'react'
+import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
 export const GlobalKeyboardEvents = () => {
   const navigate = useRouter()
-  const [open, setOpen] = React.useState(false)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      // if (e.key === 'j' && e.metaKey) {
-      //   setOpen((open) => !open)
-      // }
-
       // if (e.key === 'd' && e.metaKey && e.shiftKey) {
       //   e.preventDefault()
       //   navigate.push('/dashboard')
@@ -25,7 +20,7 @@ export const GlobalKeyboardEvents = () => {
 
     document.addEventListener('keydown', down)
     return () => document.removeEventListener('keydown', down)
-  }, [])
+  }, [navigate])
 
   return null
 }
