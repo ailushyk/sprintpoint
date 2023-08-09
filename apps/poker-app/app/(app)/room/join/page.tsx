@@ -4,6 +4,10 @@ import { buttonVariants, cn } from '@easypoker/ui'
 
 import { JoinRoomForm } from '@/app/(app)/_components/join-room-form'
 
+export const metadata = {
+  title: 'Join Room',
+}
+
 export default function JoinRoomPage() {
   return (
     <main className="container max-w-2xl flex-1 space-y-8">

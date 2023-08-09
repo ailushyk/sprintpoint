@@ -1,4 +1,5 @@
 import React from 'react'
+import { Metadata } from 'next'
 import { Deck } from '@/components_next/deck/Deck'
 
 import { Separator } from '@easypoker/ui'
@@ -9,11 +10,31 @@ import { OnlineProvider } from '@/app/(app)/room/[room]/_components/online-provi
 import { RoomTitle } from '@/app/(app)/room/[room]/_components/room-title'
 import { Users } from '@/app/(app)/room/[room]/_components/users'
 
-export default async function PlayRoomPage({
-  params,
-}: {
+interface PlayRoomPageProps {
   params: { room: string }
-}) {
+}
+
+export async function generateMetadata({
+  params,
+}: PlayRoomPageProps): Promise<Metadata> {
+  // read route params
+  const room = params.room
+
+  // fetch data
+  // const product = await fetch(`https://.../${room}`).then((res) => res.json())
+
+  // optionally access and extend (rather than replace) parent metadata
+  // const previousImages = (await parent)?.openGraph?.images || []
+
+  return {
+    title: `Play in ${room}`,
+    // openGraph: {
+    //   images: ['/some-specific-page-image.jpg', ...previousImages],
+    // },
+  }
+}
+
+export default async function PlayRoomPage({ params }: PlayRoomPageProps) {
   const [user, room] = await Promise.all([
     api().user.get(),
     api().room.get(params.room),
