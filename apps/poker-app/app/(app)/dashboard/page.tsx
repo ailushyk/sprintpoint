@@ -17,39 +17,37 @@ export default function AppPage() {
         </h1>
       </header>
 
-      <div className="flex flex-col items-center justify-center gap-3 pb-8">
-        <PlayGameButton>New Room</PlayGameButton>
+      <div className="flex flex-col items-center justify-center gap-3 pb-8 md:flex-row-reverse">
+        <PlayGameButton>Play</PlayGameButton>
 
         <Link
           href="/room/join"
           className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}
         >
-          Join Room
+          Join
         </Link>
 
         <hr />
       </div>
 
-      <noindex>
-        <div className="container space-y-1">
-          <h2 className="text-2xl font-bold">Your rooms</h2>
-          <p>
-            You don&apos;t have any rooms yet. Create one or join one to get.
-            Coming Soon.
-          </p>
+      <div className="container space-y-1">
+        <h2 className="text-2xl font-bold">Your rooms</h2>
+        <p>
+          You don&apos;t have any rooms yet. Create one or join one to get.
+          Coming Soon.
+        </p>
 
-          <div className="hidden">
-            <p>Here are the rooms you&apos;ve created or joined.</p>
+        <div className="hidden">
+          <p>Here are the rooms you&apos;ve created or joined.</p>
 
-            {/* TODO: Replace with actual rooms*/}
-            <ul>
-              <li>Room 1</li>
-              <li>Room 2</li>
-              <li>Room 3</li>
-            </ul>
-          </div>
+          {/* TODO: Replace with actual rooms*/}
+          <ul>
+            <li>Room 1</li>
+            <li>Room 2</li>
+            <li>Room 3</li>
+          </ul>
         </div>
-      </noindex>
+      </div>
     </main>
   )
 }
