@@ -51,11 +51,13 @@ export default function Home() {
         <section className="space-y-1">
           <h2 className="text-2xl font-bold">How it works</h2>
           <p className="">
-            You can create a room and invite your friends to join. Or, you can
-            join a room that someone else has created. Then, start a round and
-            share the link to the room with your friends. Everyone can vote on
-            the cards they want to play. Once everyone has voted, the round is
-            over and you can start a new one.
+            To play the game, you have two options: create a new room or join an
+            existing one. To create a new room, click on the “Play” button and
+            invite your friends to join. If you want to join an existing room,
+            click on the “Join” button and connect to it. Once you&apos;re in a
+            room, start a round and share the link with your friends. Everyone
+            can vote on the cards they want to play. Once everyone has voted,
+            the round is over and you can start a new one.
           </p>
         </section>
       </div>
