@@ -2,6 +2,10 @@ import React from 'react'
 import { AppHeader } from '@/components_next/app-header/app-header'
 
 export const metadata = {
+  title: {
+    default: 'Planing Poker - Easy Poker',
+    template: '%s | EasyPoker',
+  },
   robots: 'noindex, nofollow',
 }
 
