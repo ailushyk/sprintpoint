@@ -1,5 +1,6 @@
 import { getDeck, getDeckWithoutNonValueCards } from '@easypoker/shared'
 
+import { addToAllChecks, getAllChecks } from '@/lib/api/redis'
 import { getRoom } from '@/lib/room'
 import { getUserInfo, setUserInfo } from '@/lib/user/user.api'
 
@@ -24,5 +25,9 @@ export const api = () => ({
   },
   room: {
     get: getRoom,
+  },
+  redis: {
+    getAllChecks,
+    addToAllChecks,
   },
 })
