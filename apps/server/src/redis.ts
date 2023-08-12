@@ -1,7 +1,10 @@
 import { Redis } from '@upstash/redis'
 
-const redis = Redis.fromEnv()
-export { redis }
+const redis = new Redis({
+  url: 'https://eu1-proper-dassie-38877.upstash.io',
+  token:
+    'AZfdASQgYzgyNThkZmMtMDgwYi00NDViLWIxNjctODc5YmY1MGUwMmZlMTU3ZWJkYWNkZDg0NGI3MDlhMzg5NjBmMDMxZGFiMDc=',
+})
 
 const ALL_CHECKS = 'all-checks'
 
