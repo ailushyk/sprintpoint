@@ -193,6 +193,11 @@ async function handleRoomCheck({ room }: { room: string }) {
     room: _room,
     users: getUsersWithVotes(room),
   })
+
+  // increment all checks count
+  if (_votes.length > 0) {
+    api().redis.addToAllChecks().then()
+  }
 }
 
 function handleRoomReset({ room }: { room: string }) {
