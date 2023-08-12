@@ -4,11 +4,15 @@ import { PlayGameButton } from '@/components_next/play-game-button'
 
 import { buttonVariants, cn } from '@easypoker/ui'
 
+import { api } from '@/lib/api'
+
 export const metadata = {
   title: 'EasyPoker - Empowering Agile Teams with Planning Poker',
 }
 
-export default function Home() {
+export default async function Home() {
+  const checks = await api().redis.getAllChecks()
+
   return (
     <main className="flex h-screen flex-col items-center">
       <header className="container space-y-1 p-8 text-center">
@@ -47,6 +51,12 @@ export default function Home() {
             process and ensure successful project completion.
           </p>
         </section>
+
+        <aside className="flex items-center justify-center">
+          <div className="rounded border border-destructive px-6 py-3">
+            All checks: {checks}
+          </div>
+        </aside>
 
         <section className="space-y-1">
           <h2 className="text-2xl font-bold">How it works</h2>
