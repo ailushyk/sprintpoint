@@ -6,6 +6,8 @@ import { buttonVariants, cn } from '@easypoker/ui'
 
 import { api } from '@/lib/api'
 
+export const revalidate = 30
+
 export const metadata = {
   title: 'EasyPoker - Empowering Agile Teams with Planning Poker',
 }
@@ -53,8 +55,10 @@ export default async function Home() {
         </section>
 
         <aside className="flex items-center justify-center">
-          <div className="rounded border border-destructive px-6 py-3">
-            All checks: {checks}
+          <div className="rounded-lg border border-destructive bg-gradient-to-br from-red-700 to-amber-600 p-[1px]">
+            <div className="rounded-lg bg-background/90 px-6 py-4">
+              Total estimates performed: {checks}
+            </div>
           </div>
         </aside>
 
