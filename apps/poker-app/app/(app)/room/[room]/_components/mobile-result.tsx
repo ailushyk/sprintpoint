@@ -30,7 +30,7 @@ import { Results } from '@/app/(app)/room/[room]/_components/results'
 import { UserList } from '@/app/(app)/room/[room]/_components/user-list'
 
 const easyAnimation = [0.36, 0.66, 0.04, 1]
-
+const showMock = true
 export function MobileResult({ user }: { user: UserProfileValues }) {
   const [open, setOpen] = React.useState(false)
   const {
@@ -121,14 +121,14 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
             </DrawerOverlay>
             <DrawerContent asChild>
               <motion.div
-                className={cn('fixed inset-x-0 bottom-0 z-50 h-[46%]')}
+                className={cn('fixed inset-x-0 bottom-0 z-50 h-1/2')}
                 initial="closed"
                 animate={controls}
                 exit="closed"
                 variants={variants}
               >
                 <motion.div
-                  className="h-full rounded-t-3xl border-t bg-background px-3 py-6 dark:bg-drawer"
+                  className="flex h-full flex-col rounded-t-3xl border-t bg-background dark:bg-drawer"
                   drag="y"
                   dragSnapToOrigin
                   onDragEnd={async (event, info) => {
@@ -142,13 +142,12 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
                   transition={{ duration: 0.2 }}
                 >
                   {votesCount ? (
-                    <div className="flex flex-col space-y-2 border-b pb-2 pt-6 text-center dark:border-primary-foreground sm:text-left">
-                      <div className="flex flex-col items-center justify-center gap-1">
-                        <DrawerTitle>Recommended</DrawerTitle>
+                    <div className="flex flex-col space-y-2 border-b px-3 py-6 text-center dark:border-primary-foreground sm:text-left">
+                      <DrawerTitle className="flex flex-col items-center justify-center gap-1 pt-2">
                         <div className="flex h-20 w-20 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-primary bg-accent p-4 text-4xl transition hover:bg-accent hover:text-accent-foreground dark:border-primary dark:bg-background">
                           {room.value}
                         </div>
-                      </div>
+                      </DrawerTitle>
                       <DrawerDescription>
                         {votesCount === users.length
                           ? 'All votes in'
@@ -156,31 +155,30 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
                       </DrawerDescription>
                     </div>
                   ) : (
-                    <div className="flex flex-col space-y-2 border-b pb-2 pt-6 text-center dark:border-primary-foreground sm:text-left">
+                    <div className="flex flex-col space-y-2 border-b px-3 py-6 text-center dark:border-primary-foreground sm:text-left">
                       <DrawerTitle>No votes yet</DrawerTitle>
                     </div>
                   )}
 
-                  <div className="mb-4 h-full flex-1">
+                  <div className="flex-1 space-y-6 overflow-y-auto px-3 pb-12">
                     <Results user={user} />
-                    <MockUsers visible={true} />
-                  </div>
-
-                  <div
-                    className={cn(
-                      'flex flex-col-reverse items-center justify-center md:flex-row md:justify-end md:space-x-2'
-                    )}
-                  >
-                    <Button
-                      onClick={handleNextVote}
-                      variant="destructive"
-                      size="lg"
+                    <MockUsers visible={showMock} />
+                    <div
+                      className={cn(
+                        'flex flex-col-reverse items-center justify-center md:flex-row md:justify-end md:space-x-2'
+                      )}
                     >
-                      Next vote
-                    </Button>
+                      <Button
+                        onClick={handleNextVote}
+                        variant="destructive"
+                        size="lg"
+                      >
+                        Next vote
+                      </Button>
+                    </div>
                   </div>
 
-                  <div className="absolute inset-x-0 top-4 mx-auto mb-8 h-[0.35rem] w-16 flex-shrink-0 rounded-full bg-muted" />
+                  <div className="absolute inset-x-0 top-2 mx-auto mb-8 h-[0.35rem] w-12 flex-shrink-0 rounded-full bg-muted" />
                   <DrawerClose asChild className="absolute right-4 top-4">
                     <Button
                       size="icon"
