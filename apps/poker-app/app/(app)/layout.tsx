@@ -4,7 +4,7 @@ import { AppHeader } from '@/components_next/app-header/app-header'
 export const metadata = {
   title: {
     default: 'Planing Poker - Sprint Point',
-    template: '%s | SprintPoint',
+    template: '%s | Sprint Point',
   },
   robots: 'noindex, nofollow',
 }
