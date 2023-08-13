@@ -30,7 +30,7 @@ import { Results } from '@/app/(app)/room/[room]/_components/results'
 import { UserList } from '@/app/(app)/room/[room]/_components/user-list'
 
 const easyAnimation = [0.36, 0.66, 0.04, 1]
-const showMock = true
+const showMock = false
 const variants: Variants = {
   open: {
     x: 0,
