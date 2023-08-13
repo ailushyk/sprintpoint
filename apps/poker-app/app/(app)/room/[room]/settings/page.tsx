@@ -1,8 +1,30 @@
+import { Metadata } from 'next'
 import Link from 'next/link'
 
 import { buttonVariants, cn } from '@easypoker/ui'
 
 import { CreateRoomForm } from '@/app/(app)/_components/create-room-form'
+
+interface PlayRoomPageProps {
+  params: { room: string }
+}
+
+export async function generateMetadata({
+  params,
+}: PlayRoomPageProps): Promise<Metadata> {
+  // read route params
+  const room = params.room
+
+  return {
+    title: `Settings - ${room}`,
+    // openGraph: {
+    //   images: ['/some-specific-page-image.jpg', ...previousImages],
+    // },
+    alternates: {
+      canonical: `/room/${room}/settings`,
+    },
+  }
+}
 
 export default function CreateRoomPage({
   params,

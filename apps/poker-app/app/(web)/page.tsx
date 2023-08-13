@@ -10,6 +10,9 @@ export const revalidate = 30
 
 export const metadata = {
   title: 'Sprint Point - Empowering Agile Teams with Planning Poker',
+  alternates: {
+    canonical: '/',
+  },
 }
 
 export default async function Home() {

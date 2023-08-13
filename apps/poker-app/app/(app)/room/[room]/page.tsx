@@ -31,6 +31,9 @@ export async function generateMetadata({
     // openGraph: {
     //   images: ['/some-specific-page-image.jpg', ...previousImages],
     // },
+    alternates: {
+      canonical: `/room/${room}`,
+    },
   }
 }
 

@@ -6,6 +6,12 @@ import { api } from '@/lib/api'
 import { AppearanceForm } from '@/app/(settings)/profile/_components/appearance-form'
 import { ProfileForm } from '@/app/(settings)/profile/_components/profile-form'
 
+export const metadata = {
+  alternates: {
+    canonical: '/profile',
+  },
+}
+
 export default async function ProfilePage() {
   const user = await api().user.get()
   return (

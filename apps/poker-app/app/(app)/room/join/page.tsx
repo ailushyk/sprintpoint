@@ -6,6 +6,9 @@ import { JoinRoomForm } from '@/app/(app)/_components/join-room-form'
 
 export const metadata = {
   title: 'Join Room',
+  alternates: {
+    canonical: '/room/join',
+  },
 }
 
 export default function JoinRoomPage() {

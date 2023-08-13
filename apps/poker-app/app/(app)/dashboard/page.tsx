@@ -7,7 +7,11 @@ export const metadata = {
   title: 'Efficient Agile Estimation with Sprint Point: Plan Your Success',
   description:
     'There are many ways to estimate work. Planning Poker is one of the most popular. It is a simple and effective way to estimate work with your team.',
+  alternates: {
+    canonical: '/dashboard',
+  },
 }
+
 export default function AppPage() {
   return (
     <main className="h-full w-full space-y-8">
