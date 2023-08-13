@@ -21,7 +21,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
           )}
         </div>
         <h1 className=" text-center text-xl font-bold uppercase">
-          <Link href="/">Easy Poker</Link>
+          <Link href="/">Sprint Point</Link>
         </h1>
         <Link href="/profile" className="w-6 text-zinc-400 hover:text-zinc-600">
           <Gear />

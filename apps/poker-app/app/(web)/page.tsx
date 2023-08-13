@@ -19,7 +19,7 @@ export default async function Home() {
     <main className="flex h-screen flex-col items-center">
       <header className="container space-y-1 p-8 text-center">
         <h1 className="text-4xl font-bold">
-          <GradientText>Easy Poker</GradientText>
+          <GradientText>Sprint Point</GradientText>
         </h1>
         <p className="text-center">
           Start estimating smarter with Planing Poker

@@ -7,7 +7,7 @@ export function AppHeader() {
       <div className="container flex h-14 items-center justify-between">
         <div>
           <Link href="/" className="font-bold text-muted-foreground">
-            Easy Poker
+            Sprint Point
           </Link>
         </div>
         <div className="flex items-center space-x-2">

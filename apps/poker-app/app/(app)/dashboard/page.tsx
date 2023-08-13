@@ -13,7 +13,7 @@ export default function AppPage() {
     <main className="h-full w-full space-y-8">
       <header className="container space-y-1 p-8 text-center">
         <h1 className="text-4xl font-bold">
-          Start estimating smarter with Easy Poker!
+          Start estimating smarter with Sprint Point!
         </h1>
       </header>
 
