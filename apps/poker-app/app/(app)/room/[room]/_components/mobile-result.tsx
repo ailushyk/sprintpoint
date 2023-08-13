@@ -31,6 +31,25 @@ import { UserList } from '@/app/(app)/room/[room]/_components/user-list'
 
 const easyAnimation = [0.36, 0.66, 0.04, 1]
 const showMock = true
+const variants: Variants = {
+  open: {
+    x: 0,
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.4, ease: easyAnimation },
+  },
+  fullOpen: {
+    top: 'var(--top-full-open)',
+    transition: { duration: 0.4, ease: easyAnimation },
+  },
+  closed: {
+    x: 'var(--x-from, 0)',
+    y: 'var(--y-from, 0)',
+    opacity: 0,
+    transition: { duration: 0.3, ease: easyAnimation },
+  },
+}
+
 export function MobileResult({ user }: { user: UserProfileValues }) {
   const [open, setOpen] = React.useState(false)
   const {
@@ -56,22 +75,6 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
 
   const fullOpen = async () => {
     await controls.start('fullOpen')
-  }
-
-  const variants: Variants = {
-    open: {
-      y: 0,
-      transition: { duration: 0.4, ease: easyAnimation },
-    },
-    fullOpen: {
-      // top: 0,
-      // bottom: 0,
-      maxHeight: '100%',
-    },
-    closed: {
-      y: '100%',
-      transition: { duration: 0.3, ease: easyAnimation },
-    },
   }
 
   useEffect(() => {
@@ -121,26 +124,29 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
             </DrawerOverlay>
             <DrawerContent asChild>
               <motion.div
-                className={cn('fixed inset-x-0 bottom-0 z-50 h-1/2')}
+                className={cn(
+                  'fixed inset-x-0 bottom-0 z-50 ml-auto md:left-0 md:top-0 md:max-w-sm',
+                  'top-1/2 [--top-full-open:2rem] sm:top-1/3 md:top-0 md:[--top-full-open:0]',
+                  'max-md:[--y-from:100%]',
+                  'md:[--x-from:100%]',
+                  'md:[--motion-opacity-from:0]'
+                )}
                 initial="closed"
                 animate={controls}
                 exit="closed"
                 variants={variants}
+                drag="y"
+                dragSnapToOrigin
+                onDragEnd={async (event, info) => {
+                  if (info.offset.y < -5) {
+                    await fullOpen()
+                  }
+                  if (info.offset.y > 30) {
+                    await closeDrawer()
+                  }
+                }}
               >
-                <motion.div
-                  className="flex h-full flex-col rounded-t-3xl border-t bg-background dark:bg-drawer"
-                  drag="y"
-                  dragSnapToOrigin
-                  onDragEnd={async (event, info) => {
-                    if (info.offset.y > 60) {
-                      await closeDrawer()
-                    }
-                    if (info.offset.y < -60) {
-                      await fullOpen()
-                    }
-                  }}
-                  transition={{ duration: 0.2 }}
-                >
+                <div className="rounded-t-3xl border-t bg-background dark:bg-drawer md:rounded-none">
                   {votesCount ? (
                     <div className="flex flex-col space-y-2 border-b px-3 py-6 text-center dark:border-primary-foreground sm:text-left">
                       <DrawerTitle className="flex flex-col items-center justify-center gap-1 pt-2">
@@ -160,7 +166,7 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
                     </div>
                   )}
 
-                  <div className="flex-1 space-y-6 overflow-y-auto px-3 pb-12">
+                  <div className="h-screen flex-1 space-y-6 overflow-y-auto px-3 pb-64">
                     <Results user={user} />
                     <MockUsers visible={showMock} />
                     <div
@@ -189,7 +195,7 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
                       <span className="sr-only">Close</span>
                     </Button>
                   </DrawerClose>
-                </motion.div>
+                </div>
               </motion.div>
             </DrawerContent>
           </DrawerPortal>
