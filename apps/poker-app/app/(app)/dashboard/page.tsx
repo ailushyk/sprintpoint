@@ -4,7 +4,7 @@ import { PlayGameButton } from '@/components_next/play-game-button'
 import { buttonVariants, cn } from '@easypoker/ui'
 
 export const metadata = {
-  title: 'Efficient Agile Estimation with EasyPoker: Plan Your Success',
+  title: 'Efficient Agile Estimation with Sprint Point: Plan Your Success',
   description:
     'There are many ways to estimate work. Planning Poker is one of the most popular. It is a simple and effective way to estimate work with your team.',
 }
