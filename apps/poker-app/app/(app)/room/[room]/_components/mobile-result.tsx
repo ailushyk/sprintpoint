@@ -29,19 +29,7 @@ import { useOnlineContext } from '@/app/(app)/room/[room]/_components/online-pro
 import { Results } from '@/app/(app)/room/[room]/_components/results'
 import { UserList } from '@/app/(app)/room/[room]/_components/user-list'
 
-export function MockUsers({ visible }: { visible: boolean }) {
-  if (!visible) return null
-  return (
-    <UserList>
-      {Array.from({ length: 39 }).map((_, i) => (
-        <UserList.Item key={i}>
-          <div className="truncate">user {i}</div>
-          idle
-        </UserList.Item>
-      ))}
-    </UserList>
-  )
-}
+const easyAnimation = [0.36, 0.66, 0.04, 1]
 
 export function MobileResult({ user }: { user: UserProfileValues }) {
   const [open, setOpen] = React.useState(false)
@@ -73,7 +61,7 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
   const variants: Variants = {
     open: {
       y: 0,
-      transition: { ease: 'easeOut', duration: 0.2 },
+      transition: { duration: 0.4, ease: easyAnimation },
     },
     fullOpen: {
       // top: 0,
@@ -82,7 +70,7 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
     },
     closed: {
       y: '100%',
-      transition: { ease: 'easeIn', duration: 0.2 },
+      transition: { duration: 0.3, ease: easyAnimation },
     },
   }
 
@@ -121,21 +109,26 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
             <DrawerOverlay asChild>
               <motion.div
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
+                animate={{
+                  opacity: 1,
+                  transition: { duration: 0.4, ease: easyAnimation },
+                }}
+                exit={{
+                  opacity: 0,
+                  transition: { duration: 0.3, ease: easyAnimation },
+                }}
               />
             </DrawerOverlay>
             <DrawerContent asChild>
               <motion.div
-                className={cn('fixed inset-x-0 bottom-0 z-50 max-h-[46%]')}
+                className={cn('fixed inset-x-0 bottom-0 z-50 h-[46%]')}
                 initial="closed"
                 animate={controls}
                 exit="closed"
                 variants={variants}
               >
                 <motion.div
-                  className="overflow-hidden rounded-t-3xl border-t bg-background px-3 py-6 dark:bg-drawer"
+                  className="h-full rounded-t-3xl border-t bg-background px-3 py-6 dark:bg-drawer"
                   drag="y"
                   dragSnapToOrigin
                   onDragEnd={async (event, info) => {
@@ -168,9 +161,9 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
                     </div>
                   )}
 
-                  <div className="mb-4 flex-1 overflow-y-auto">
+                  <div className="mb-4 h-full flex-1">
                     <Results user={user} />
-                    <MockUsers visible={false} />
+                    <MockUsers visible={true} />
                   </div>
 
                   <div
@@ -188,9 +181,15 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
                   </div>
 
                   <div className="absolute inset-x-0 top-4 mx-auto mb-8 h-[0.35rem] w-16 flex-shrink-0 rounded-full bg-muted" />
-                  <DrawerClose className="absolute right-4 top-4 hidden rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary md:block">
-                    <Icons.close className="h-4 w-4" />
-                    <span className="sr-only">Close</span>
+                  <DrawerClose asChild className="absolute right-4 top-4">
+                    <Button
+                      size="icon"
+                      variant="secondary"
+                      className="rounded-full"
+                    >
+                      <Icons.close className="h-4 w-4" />
+                      <span className="sr-only">Close</span>
+                    </Button>
                   </DrawerClose>
                 </motion.div>
               </motion.div>
@@ -199,5 +198,19 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
         )}
       </AnimatePresence>
     </Drawer>
+  )
+}
+
+export function MockUsers({ visible }: { visible: boolean }) {
+  if (!visible) return null
+  return (
+    <UserList>
+      {Array.from({ length: 39 }).map((_, i) => (
+        <UserList.Item key={i}>
+          <div className="truncate">user {i}</div>
+          idle
+        </UserList.Item>
+      ))}
+    </UserList>
   )
 }
