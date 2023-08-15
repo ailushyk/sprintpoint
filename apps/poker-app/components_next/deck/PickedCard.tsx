@@ -7,7 +7,7 @@ const PickedCard = ({ sp }: { sp: number | null }) => {
   return (
     <div
       className={cn(
-        'flex h-20 w-20 flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-muted bg-popover p-4 text-4xl transition lg:rounded-md',
+        'flex h-20 w-20 flex-col items-center justify-center overflow-hidden rounded-xl border-2 bg-popover p-4 text-4xl transition lg:rounded-md',
         sp === null ? 'border-muted text-muted' : 'border-primary text-primary'
       )}
     >

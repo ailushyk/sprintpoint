@@ -134,6 +134,17 @@ const easyPlugin = plugin(
           'accordion-down': 'accordion-down 0.2s ease-out',
           'accordion-up': 'accordion-up 0.2s ease-out',
         },
+        transitionDuration: {
+          2000: '2000ms',
+          4000: '4000ms',
+          8000: '8000ms',
+          12000: '12000ms',
+        },
+        backgroundImage: {
+          'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+          'gradient-conic':
+            'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        },
       },
     },
   }

@@ -26,6 +26,7 @@ export * from './components/ui/use-toast'
 
 // component exports
 export { Icons } from './components/Icons'
+export { ShineBorder } from './components/shine-border'
 
 // lib exports
 export { cn } from './lib/utils'

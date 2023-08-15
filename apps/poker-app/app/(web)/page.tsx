@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { GradientText } from '@/components_next/gradient-text'
 import { PlayGameButton } from '@/components_next/play-game-button'
 
-import { buttonVariants, cn } from '@easypoker/ui'
+import { buttonVariants, cn, ShineBorder } from '@easypoker/ui'
 
 import { api } from '@/lib/api'
 
@@ -16,7 +16,7 @@ export const metadata = {
 }
 
 export default async function Home() {
-  const checks = await api().redis.getAllChecks()
+  const estimatesCounter = await api().redis.getAllChecks()
 
   return (
     <main className="flex h-screen flex-col items-center">
@@ -37,6 +37,7 @@ export default async function Home() {
           >
             Dashboard
           </Link>
+
           <PlayGameButton>Start Play</PlayGameButton>
         </div>
 
@@ -57,13 +58,11 @@ export default async function Home() {
           </p>
         </section>
 
-        <aside className="flex items-center justify-center">
-          <div className="rounded-lg border border-destructive bg-gradient-to-br from-red-700 to-amber-600 p-[1px]">
-            <div className="rounded-lg bg-background/90 px-6 py-4">
-              Total estimates performed: {checks}
-            </div>
-          </div>
-        </aside>
+        <div className="flex items-center justify-center gap-3">
+          <ShineBorder>
+            Total estimates performed: {estimatesCounter}
+          </ShineBorder>
+        </div>
 
         <section className="space-y-1">
           <h2 className="text-2xl font-bold">How it works</h2>
