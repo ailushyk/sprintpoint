@@ -8,7 +8,7 @@ export function ShineBorder(props: {
 }) {
   return (
     <div className="relative flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-red-700/70 via-transparent to-amber-700/70 p-[1px]">
-      <div className="absolute -ml-2 h-full w-[150%] animate-spin bg-gradient-conic from-transparent from-[21%] via-pink-600 via-[26%] to-transparent to-[27%] duration-8000" />
+      <div className="absolute -ml-2 h-full w-[150%] animate-spin bg-gradient-border from-transparent from-[21%] via-pink-600 via-[26%] to-transparent to-[27%] duration-8000" />
       <div
         className={cn(
           'relative rounded-lg bg-background px-6 py-4',
