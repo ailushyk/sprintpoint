@@ -19,7 +19,7 @@ export default async function Home() {
   const estimatesCounter = await api().redis.getAllChecks()
 
   return (
-    <main className="flex h-screen flex-col items-center">
+    <main className="flex flex-col items-center">
       <header className="container space-y-1 p-8 text-center">
         <h1 className="text-4xl font-bold">
           <GradientText>Sprint Point</GradientText>
@@ -31,13 +31,6 @@ export default async function Home() {
 
       <div className="container flex-1 space-y-8">
         <div className="flex items-center justify-center gap-4 py-8">
-          <Link
-            href="/dashboard"
-            className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}
-          >
-            Dashboard
-          </Link>
-
           <PlayGameButton>Start Play</PlayGameButton>
         </div>
 
