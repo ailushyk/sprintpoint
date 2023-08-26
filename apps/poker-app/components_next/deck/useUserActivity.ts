@@ -4,7 +4,7 @@ import { socket } from '@/lib/socket-client'
 import { useOnlineContext } from '@/app/(app)/room/[room]/_components/online-provider'
 
 export const useUserActivity = () => {
-  const timer = useRef<NodeJS.Timer>(null!)
+  const timer = useRef<ReturnType<typeof setTimeout>>()
   const {
     state: { room },
   } = useOnlineContext()
