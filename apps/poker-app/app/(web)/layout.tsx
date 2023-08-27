@@ -1,10 +1,5 @@
 import React from 'react'
-import Link from 'next/link'
 import { AppHeader } from '@/components_next/app-header/app-header'
-
-import { buttonVariants, cn } from '@easypoker/ui'
-
-import { AppLayout } from '@/components/AppLayout'
 
 export default function HomeLayout({
   children,
@@ -12,10 +7,10 @@ export default function HomeLayout({
   children: React.ReactNode
 }) {
   return (
-    <AppLayout>
+    <div className="flex min-h-screen flex-col items-center gap-8">
       <AppHeader links={[{ href: '/dashboard', label: 'Dashboard' }]} />
 
       {children}
-    </AppLayout>
+    </div>
   )
 }
