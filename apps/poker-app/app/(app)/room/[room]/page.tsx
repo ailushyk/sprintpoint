@@ -43,12 +43,13 @@ export default async function PlayRoomPage({ params }: PlayRoomPageProps) {
   const deck = await api().deck.getAdvanced(room.deck)
 
   return (
-    <main className="container flex-1 pb-24">
+    <main className="container flex-1 space-y-2 pb-28 md:pb-36">
       <OnlineProvider user={user} room={room} deck={deck.data}>
         <div className="flex justify-center">
           <RoomTitle room={room} />
         </div>
-        <div className="mx-auto w-full max-w-xl pb-32">
+
+        <div className="mx-auto w-full max-w-xl">
           <Users user={user} />
           <MockUsers visible={true} />
         </div>
