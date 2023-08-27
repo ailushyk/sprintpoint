@@ -209,9 +209,9 @@ export function MockUsers({ visible }: { visible: boolean }) {
   if (!visible) return null
   return (
     <UserList>
-      {Array.from({ length: 39 }).map((_, i) => (
+      {Array.from({ length: 7 }).map((_, i) => (
         <UserList.Item key={i}>
-          <div className="truncate">user {i}</div>
+          <div className="truncate">User {i}</div>
           idle
         </UserList.Item>
       ))}

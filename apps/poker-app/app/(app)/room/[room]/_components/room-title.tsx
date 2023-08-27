@@ -4,9 +4,15 @@ import React, { useEffect, useState, useTransition } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { RoomValue } from '@easypoker/shared'
-import { Button, Icons, toast } from '@easypoker/ui'
+import { Button, cn, Icons, toast } from '@easypoker/ui'
 
-export const RoomTitle = ({ room }: { room: RoomValue }) => {
+export const RoomTitle = ({
+  room,
+  className,
+}: {
+  room: RoomValue
+  className?: string
+}) => {
   const [isPending, startTransition] = useTransition()
   const [copied, setCopied] = useState(false)
 
@@ -39,7 +45,9 @@ export const RoomTitle = ({ room }: { room: RoomValue }) => {
   }, [copied])
 
   return (
-    <div className="flex w-full items-center justify-between gap-1">
+    <div
+      className={cn('flex items-center gap-2 text-muted-foreground', className)}
+    >
       <h1>Room: {room.name || room.code}</h1>
       <Button
         size="sm"
