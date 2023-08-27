@@ -36,7 +36,7 @@ const standardDeck: DeckValue = {
       value: 0,
     },
     {
-      name: '1/2',
+      name: '0.5',
       type: 'simple',
       value: 0.5,
     },

@@ -19,7 +19,7 @@ import { socket, usersSchema } from '@/lib/socket-client'
 import { UserProfileValues } from '@/lib/user/user'
 import { SetUsernameForm } from '@/app/(app)/room/[room]/_components/set-username-form'
 
-const formSchema = z.object({
+export const formSchema = z.object({
   risk: z.string(),
   complexity: z.string(),
   unfamiliar: z.string(),
@@ -151,7 +151,7 @@ export const OnlineProvider = ({
       dispatch({ type: 'setUsers', payload: users })
     })
     socket.on('room:reset', ({ room }) => {
-      form.reset(defaultValues)
+      // form.reset(defaultValues)
       dispatch({ type: 'setRoom', payload: { ...room } })
     })
 
@@ -162,7 +162,7 @@ export const OnlineProvider = ({
       socket.off('users:all')
       socket.off('user:reset')
     }
-  }, [form, room.code])
+  }, [room.code])
 
   return (
     <OnlineContext.Provider value={{ state, dispatch }}>

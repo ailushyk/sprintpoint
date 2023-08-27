@@ -1,9 +1,11 @@
 import React from 'react'
 import { Metadata } from 'next'
+import { Deck } from '@/components_next/deck/Deck'
+
+import { Separator } from '@easypoker/ui'
 
 import { api } from '@/lib/api'
 import { MockUsers } from '@/app/(app)/room/[room]/_components/mobile-result'
-import { NewDeck } from '@/app/(app)/room/[room]/_components/new-deck'
 import { OnlineProvider } from '@/app/(app)/room/[room]/_components/online-provider'
 import { RoomTitle } from '@/app/(app)/room/[room]/_components/room-title'
 import { Users } from '@/app/(app)/room/[room]/_components/users'
@@ -45,16 +47,28 @@ export default async function PlayRoomPage({ params }: PlayRoomPageProps) {
   return (
     <main className="container flex-1 pb-24">
       <OnlineProvider user={user} room={room} deck={deck.data}>
-        <div className="flex justify-center">
-          <RoomTitle room={room} />
-        </div>
-        <div className="mx-auto w-full max-w-xl pb-32">
-          <Users user={user} />
-          <MockUsers visible={true} />
-        </div>
+        <div className="flex flex-col gap-12 lg:flex-row">
+          <div className="flex flex-col gap-8 lg:w-52">
+            <div className="flex items-center justify-between text-muted-foreground">
+              <RoomTitle room={room} />
+            </div>
 
-        <div className="min-w-xl fixed inset-x-0 bottom-0 border-t-2 bg-background md:pt-6">
-          <NewDeck user={user} />
+            <div className="hidden lg:block">
+              <Users user={user} />
+            </div>
+          </div>
+
+          <Separator
+            orientation="vertical"
+            className="hidden h-auto lg:block"
+          />
+
+          <Deck user={user} />
+
+          <div className="lg:hidden">
+            <Users user={user} />
+            <MockUsers visible={false} />
+          </div>
         </div>
       </OnlineProvider>
     </main>
