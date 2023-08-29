@@ -14,6 +14,10 @@ export async function getAllChecks(): Promise<string | null> {
 
 export async function addToAllChecks() {
   const count = await getAllChecks()
-  await redis.set(ALL_CHECKS, count ? Number(count) + 1 : 1)
+  if (process.env.ENABLE_INCREMENTING_TOTAL === 'true') {
+    await redis.set(ALL_CHECKS, count ? Number(count) + 1 : 1)
+  } else {
+    console.log('skipping redis')
+  }
   return redis.get(ALL_CHECKS)
 }
