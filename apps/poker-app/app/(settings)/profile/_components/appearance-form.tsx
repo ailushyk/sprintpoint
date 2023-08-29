@@ -20,15 +20,13 @@ import {
 } from '@easypoker/ui'
 
 const appearanceFormSchema = z.object({
-  theme: z.enum(['light', 'dark'], {
-    required_error: 'Please select a theme.',
-  }),
+  theme: z.union([z.literal('light'), z.literal('dark')]),
 })
 
 type AppearanceFormValues = z.infer<typeof appearanceFormSchema>
 
 // This can come from your database or API.
-const defaultValues: Partial<AppearanceFormValues> = {
+const defaultValues: AppearanceFormValues = {
   theme: 'dark',
 }
 
