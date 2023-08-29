@@ -10,9 +10,7 @@ export const profileFormSchema = z.object({
   avatar: z.string().optional(),
   lastRoom: z.string().optional(),
   theme: z
-    .enum(['light', 'dark'], {
-      required_error: 'Please select a theme.',
-    })
+    .union([z.literal('light'), z.literal('dark')])
     .optional()
     .default('dark'),
   type: z.enum(['incognito', 'user']).default('incognito'),
