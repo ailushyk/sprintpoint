@@ -10,11 +10,6 @@ export interface DeckHook {
   resetDeck(): void
 }
 
-export interface DeckComponent extends Pick<DeckHook, 'isActive' | 'onSelect'> {
-  deck: DeckCardType[]
-  disabled?: boolean
-}
-
 export interface PlayerType {
   username: string
   sp: number | null
