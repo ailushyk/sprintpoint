@@ -25,7 +25,7 @@ const FlipButton = forwardRef<HTMLButtonElement, ButtonProps>(
 )
 FlipButton.displayName = 'FlipButton'
 
-export function CheckButton() {
+export function CheckButton({ className }: { className?: string }) {
   const {
     state: { room },
   } = useOnlineContext()
@@ -47,6 +47,7 @@ export function CheckButton() {
             onClick={handleCheck}
             size="lg"
             variant="default"
+            className={className}
           >
             Check
           </FlipButton>
@@ -56,6 +57,7 @@ export function CheckButton() {
             onClick={handleNext}
             size="lg"
             variant="destructive"
+            className={className}
           >
             Next
           </FlipButton>
