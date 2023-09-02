@@ -7,6 +7,7 @@ import { motion, MotionValue, useScroll, useTransform } from 'framer-motion'
 import { CardValue } from '@easypoker/shared'
 import { Separator, ToggleGroup } from '@easypoker/ui'
 
+import { slideToBottomVariants } from '@/lib/animation-variants'
 import { getCardValueByName } from '@/lib/deck-utils'
 import { socket } from '@/lib/socket-client'
 import { useWindowWidth } from '@/lib/window-width'
@@ -47,12 +48,17 @@ export const NewDeck = () => {
   )
 
   return (
-    <div className="border-t-2 bg-background">
+    <motion.div
+      initial="close"
+      animate={room.status === 'voting' ? 'open' : 'close'}
+      variants={slideToBottomVariants}
+      className="border-t-2 bg-background"
+    >
       <div className="my-2 text-center text-xs font-semibold text-muted-foreground">
         {selectedCard || 'Select a card'}
       </div>
 
-      <div className="relative flex flex-col items-center py-4 md:pt-6 ">
+      <div className="relative flex flex-col items-center py-4 md:pt-6">
         <Separator
           orientation="vertical"
           className="absolute top-0 bg-orange-600"
@@ -75,7 +81,7 @@ export const NewDeck = () => {
           ))}
         </ToggleGroup.Root>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
