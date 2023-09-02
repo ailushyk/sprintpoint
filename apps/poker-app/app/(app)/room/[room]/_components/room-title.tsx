@@ -1,10 +1,12 @@
 'use client'
 
-import React, { useEffect, useState, useTransition } from 'react'
+import React, { useTransition } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { RoomValue } from '@easypoker/shared'
-import { Button, cn, Icons, toast } from '@easypoker/ui'
+import { Button, cn, Icons } from '@easypoker/ui'
+
+import { useClipboard } from '@/hooks/use-clipboard'
 
 export const RoomTitle = ({
   room,
@@ -13,36 +15,11 @@ export const RoomTitle = ({
   room: RoomValue
   className?: string
 }) => {
-  const [isPending, startTransition] = useTransition()
-  const [copied, setCopied] = useState(false)
+  const { isPending, copy } = useClipboard()
 
-  const handleClipboardCopy = async () => {
-    startTransition(() => {
-      try {
-        navigator.clipboard.writeText(room.code)
-        setCopied(true)
-        toast({
-          title: 'Copied to clipboard',
-          description: `Room code "${room.code}" copied to clipboard`,
-        })
-      } catch (error) {
-        console.error(error)
-        toast({
-          title: 'Error',
-          description: 'Could not copy room code to clipboard',
-        })
-      }
-    })
+  const handleClipboardCopy = async (value: string) => {
+    await copy(value, `Room code "${value}" copied to clipboard`)
   }
-
-  useEffect(() => {
-    if (copied) {
-      const timeout = setTimeout(() => {
-        setCopied(false)
-      }, 1000)
-      return () => clearTimeout(timeout)
-    }
-  }, [copied])
 
   return (
     <div
@@ -51,13 +28,13 @@ export const RoomTitle = ({
       <h1>Room: {room.name || room.code}</h1>
       <Button
         size="sm"
-        variant="outline"
-        className="disabled:opacity-100"
-        onClick={handleClipboardCopy}
-        disabled={isPending || copied}
+        variant="ghost"
+        className="relative disabled:opacity-100"
+        onClick={() => handleClipboardCopy(room.code)}
+        disabled={isPending}
       >
         <AnimatePresence mode="popLayout">
-          {copied ? (
+          {isPending ? (
             <motion.div
               key="clipboard-check"
               initial={{ opacity: 0, scale: 0.4 }}
