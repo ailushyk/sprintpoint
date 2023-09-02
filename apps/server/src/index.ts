@@ -256,7 +256,7 @@ function handleUserVote(socket: ClientSocket) {
       return u
     })
 
-    const status = value === null ? 'voting' : 'voted'
+    const status = 'voting' // value === null ? 'voting' : 'voted'
     const vote = votes.find((v) => v.userId === user.id && v.roomId === room)
     if (!vote) {
       votes.push({
@@ -290,7 +290,7 @@ function handleUserInactive(socket: ClientSocket) {
       if (v.roomId === room && v.userId === socket.data.id) {
         return {
           ...v,
-          status: 'idle',
+          status: v.value ? 'voted' : 'idle',
           lastUpdate: new Date().toISOString(),
         }
       }

@@ -40,7 +40,6 @@ export const NewDeck = () => {
     () => {
       if (room.status === 'voting') {
         setSelectedCard('')
-        resetUserActivity()
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

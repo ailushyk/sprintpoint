@@ -40,15 +40,17 @@ export const UserStatus = ({ user }: { user: AllUsersResponse[number] }) => {
 }
 
 function getStatus(user: UserResponse): string {
-  if (user.status === 'offline') return 'offline'
+  return user.vote.status
 
-  if (user.status === 'on-hold') return 'on-hold'
+  // if (user.status === 'offline') return 'offline'
 
-  const status = user.vote.status
-  if (status === 'voting') {
-    return checkIfUserIsActuallyVoting(user) ? 'voting' : 'idle'
-  }
-  return status
+  // if (user.status === 'on-hold') return 'on-hold'
+
+  // const status = user.vote.status
+  // if (status === 'voting') {
+  //   return checkIfUserIsActuallyVoting(user) ? 'voting' : 'idle'
+  // }
+  // return status
 }
 
 function checkIfUserIsActuallyVoting(user: AllUsersResponse[number]) {
@@ -57,5 +59,5 @@ function checkIfUserIsActuallyVoting(user: AllUsersResponse[number]) {
   let diff = now.getTime() - lastUpdate.getTime()
   let seconds = Math.floor(diff / 1000)
   // TODO: make this configurable
-  return seconds < 0
+  return seconds < 1
 }

@@ -8,8 +8,8 @@ import { CheckButton } from '@/app/(app)/room/[room]/_components/check-button'
 import { MockUsers } from '@/app/(app)/room/[room]/_components/mobile-result'
 import { NewDeck } from '@/app/(app)/room/[room]/_components/new-deck'
 import { OnlineProvider } from '@/app/(app)/room/[room]/_components/online-provider'
-import { RoomHeader } from '@/app/(app)/room/[room]/_components/room-header'
 import { RoomTitle } from '@/app/(app)/room/[room]/_components/room-title'
+import { SummaryResult } from '@/app/(app)/room/[room]/_components/summary-result'
 import { UsersBoard } from '@/app/(app)/room/[room]/_components/users-board'
 
 interface PlayRoomPageProps {
@@ -51,7 +51,7 @@ export default async function PlayRoomPage({ params }: PlayRoomPageProps) {
       <OnlineProvider user={user} room={room} deck={deck.data}>
         <div className="sticky top-0 bg-background">
           <div className="mx-auto flex max-w-xl items-center justify-between gap-6 py-6">
-            <RoomHeader />
+            <SummaryResult />
             <div>
               <RoomTitle room={room} />
             </div>
