@@ -50,7 +50,7 @@ export default async function PlayRoomPage({ params }: PlayRoomPageProps) {
     <main className="flex w-full flex-1 flex-col space-y-8 pb-40">
       <OnlineProvider user={user} room={room} deck={deck.data}>
         <div className="sticky top-0 bg-background">
-          <div className="mx-auto flex max-w-xl items-center justify-between gap-6 py-6">
+          <div className="container mx-auto flex max-w-xl items-center justify-between gap-6 py-6">
             <SummaryResult />
             <div>
               <RoomTitle room={room} />

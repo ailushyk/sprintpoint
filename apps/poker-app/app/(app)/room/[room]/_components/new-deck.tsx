@@ -68,7 +68,7 @@ export const NewDeck = () => {
             type="single"
             value={selectedCard}
             onValueChange={setSelectedCard}
-            className="simple-deck scrollbar-none relative flex w-full snap-x snap-mandatory items-end gap-3 overflow-x-auto md:gap-4"
+            className="simple-deck scrollbar-none relative flex w-full snap-x snap-mandatory items-end gap-3 overflow-x-auto hover:overscroll-contain md:gap-4"
             orientation="horizontal"
             disabled={room.status === 'checking'}
           >
@@ -111,7 +111,7 @@ function Card(props: { card: CardValue; progressX: MotionValue<number> }) {
     <div ref={ref} className="shrink-0 snap-center">
       <motion.div style={{ opacity: size }}>
         <ToggleGroup.Item
-          className="flex h-16 w-16 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-muted bg-popover p-4 text-xl transition data-[state=on]:border-primary data-[state=on]:bg-accent md:h-20 md:w-20"
+          className="flex h-16 w-16 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-muted bg-card p-4 text-xl transition data-[state=on]:border-primary data-[state=on]:bg-accent md:h-20 md:w-20"
           value={card.name}
           onClick={handleItemFocus}
         >
