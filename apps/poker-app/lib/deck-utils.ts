@@ -1,6 +1,10 @@
 import { CardValue } from '@easypoker/shared'
 
-const getCardValueByName = (cardName: string, cards: CardValue[]) => {
+const getCardValueByName = (
+  cardName: string | undefined,
+  cards: CardValue[]
+) => {
+  if (!cardName) return null
   return cards.find((c) => c.name === cardName)?.value
 }
 
@@ -25,4 +29,4 @@ function getStatusByValues(selectedCards: string[]) {
   return 'voting'
 }
 
-export { getAverageCardValue, getStatusByValues }
+export { getCardValueByName, getAverageCardValue, getStatusByValues }

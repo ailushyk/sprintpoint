@@ -1,45 +1,80 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
+import { useUserActivity } from '@/components_next/deck/useUserActivity'
 import { motion, MotionValue, useScroll, useTransform } from 'framer-motion'
 
 import { CardValue } from '@easypoker/shared'
 import { Separator, ToggleGroup } from '@easypoker/ui'
 
-import { UserProfileValues } from '@/lib/user/user'
+import { getCardValueByName } from '@/lib/deck-utils'
+import { socket } from '@/lib/socket-client'
 import { useWindowWidth } from '@/lib/window-width'
 import { useOnlineContext } from '@/app/(app)/room/[room]/_components/online-provider'
 
-export const NewDeck = ({ user }: { user: UserProfileValues }) => {
-  const { state } = useOnlineContext()
-  const { room, deck } = state
-  const [value, setValue] = React.useState<string | undefined>(undefined)
-  const ref = useRef(null)
+export const NewDeck = () => {
+  const {
+    state: { room, deck },
+  } = useOnlineContext()
+  const { handleUserActivity, resetUserActivity } = useUserActivity()
+  const [selectedCard, setSelectedCard] = React.useState<string>('')
+  const scrollContainerRef = useRef(null)
   const { scrollX } = useScroll({
-    container: ref,
+    container: scrollContainerRef,
   })
 
+  useEffect(
+    () => {
+      if (room.status === 'voting') {
+        let value = getCardValueByName(selectedCard, deck.cards)
+        socket.emit('user:vote', { room: room.code, value })
+        handleUserActivity()
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [room.code, room.status, selectedCard]
+  )
+
+  useEffect(
+    () => {
+      if (room.status === 'voting') {
+        setSelectedCard('')
+        resetUserActivity()
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [room.status]
+  )
+
   return (
-    <div className="relative flex flex-col items-center py-4">
-      <Separator
-        orientation="vertical"
-        className="absolute top-0 bg-orange-600"
-      />
-      <ToggleGroup.Root
-        type="single"
-        value={value}
-        onValueChange={setValue}
-        ref={ref}
-        className="simple-deck scrollbar-none relative flex w-full snap-x snap-mandatory items-end gap-3 overflow-x-auto md:gap-4"
-      >
-        {deck.cards.map((card) => (
-          <Card
-            key={`simple-deck-${card.name}`}
-            card={card}
-            progressX={scrollX}
-          />
-        ))}
-      </ToggleGroup.Root>
+    <div className="border-t-2 bg-background">
+      <div className="my-2 text-center text-xs font-semibold text-muted-foreground">
+        {selectedCard || 'Select a card'}
+      </div>
+
+      <div className="relative flex flex-col items-center py-4 md:pt-6 ">
+        <Separator
+          orientation="vertical"
+          className="absolute top-0 bg-orange-600"
+        />
+        <ToggleGroup.Root
+          ref={scrollContainerRef}
+          type="single"
+          value={selectedCard}
+          onValueChange={setSelectedCard}
+          className="simple-deck scrollbar-none relative flex w-full snap-x snap-mandatory items-end gap-3 overflow-x-auto md:gap-4"
+          orientation="horizontal"
+          disabled={room.status === 'checking'}
+        >
+          {deck.cards.map((card) => (
+            <Card
+              key={`simple-deck-${card.name}`}
+              card={card}
+              progressX={scrollX}
+            />
+          ))}
+        </ToggleGroup.Root>
+      </div>
     </div>
   )
 }

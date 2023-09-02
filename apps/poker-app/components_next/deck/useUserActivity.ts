@@ -14,7 +14,7 @@ export const useUserActivity = () => {
     timer.current = setTimeout(() => {
       console.log('user is inactive')
       socket.emit('user:inactive', { room: room.code })
-    }, 7000)
+    }, 3000)
   }
 
   function resetUserActivity() {

@@ -33,7 +33,7 @@ export const UserStatus = ({ user }: { user: AllUsersResponse[number] }) => {
   }
 
   return (
-    <div className="flex w-5 flex-shrink-0 items-center justify-center">
+    <div className="flex w-8 flex-shrink-0 items-center justify-center">
       {node}
     </div>
   )
@@ -56,5 +56,6 @@ function checkIfUserIsActuallyVoting(user: AllUsersResponse[number]) {
   let lastUpdate = new Date(user.vote?.lastUpdate ?? user.lastUpdate)
   let diff = now.getTime() - lastUpdate.getTime()
   let seconds = Math.floor(diff / 1000)
-  return seconds <= 7
+  // TODO: make this configurable
+  return seconds < 0
 }
