@@ -2,11 +2,12 @@ import React from 'react'
 import { Metadata } from 'next'
 
 import { api } from '@/lib/api'
+import { CheckButton } from '@/app/(app)/room/[room]/_components/check-button'
 import { MockUsers } from '@/app/(app)/room/[room]/_components/mobile-result'
 import { NewDeck } from '@/app/(app)/room/[room]/_components/new-deck'
 import { OnlineProvider } from '@/app/(app)/room/[room]/_components/online-provider'
 import { RoomTitle } from '@/app/(app)/room/[room]/_components/room-title'
-import { Users } from '@/app/(app)/room/[room]/_components/users'
+import { UsersBoard } from '@/app/(app)/room/[room]/_components/users-board'
 
 interface PlayRoomPageProps {
   params: { room: string }
@@ -50,12 +51,16 @@ export default async function PlayRoomPage({ params }: PlayRoomPageProps) {
         </div>
 
         <div className="mx-auto w-full max-w-xl">
-          <Users user={user} />
-          <MockUsers visible={true} />
+          <UsersBoard user={user} />
+          <MockUsers visible={false} />
         </div>
 
-        <div className="min-w-xl fixed inset-x-0 bottom-0 border-t-2 bg-background md:pt-6">
-          <NewDeck user={user} />
+        <div className="flex justify-center">
+          <CheckButton />
+        </div>
+
+        <div className="min-w-xl fixed inset-x-0 bottom-0">
+          <NewDeck />
         </div>
       </OnlineProvider>
     </main>

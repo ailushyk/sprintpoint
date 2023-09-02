@@ -8,7 +8,7 @@ export const getRoom = (roomId: string): RoomValue => {
     name: '',
     deck: 'standard',
     users: [],
-    status: 'voting',
+    status: 'idle',
     lastUpdate: new Date().toISOString(),
   }
 

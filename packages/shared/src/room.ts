@@ -1,8 +1,8 @@
 import { z } from 'zod'
 
 export const roomStatusSchema = z
-  .union([z.literal('voting'), z.literal('checking')])
-  .default('voting')
+  .union([z.literal('idle'), z.literal('voting'), z.literal('checking')])
+  .default('idle')
 
 export const roomSchema = z.object({
   // id: z.string().nonempty().uuid(),

@@ -105,7 +105,7 @@ export const OnlineProvider = ({
   const initialState: OnlineStateValue = {
     user,
     room,
-    status: 'voting',
+    status: 'idle',
     users: [],
     deck,
     form,
@@ -113,7 +113,7 @@ export const OnlineProvider = ({
   }
   const [state, dispatch] = useReducer(reducer, {}, () => initialState)
 
-  const afterSuccess = ({ username }: { username: string }) => {
+  const afterSuccess = () => {
     setOpenUserDialog(false)
   }
 
@@ -167,7 +167,7 @@ export const OnlineProvider = ({
   return (
     <OnlineContext.Provider value={{ state, dispatch }}>
       {children}
-      <Dialog defaultOpen open={openUserDialog} onOpenChange={(open) => null}>
+      <Dialog defaultOpen open={openUserDialog} onOpenChange={() => null}>
         <DialogContent className="abc sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Please set your username</DialogTitle>
