@@ -6,7 +6,7 @@ import { cn } from '@easypoker/ui'
 
 import { useOnlineContext } from '@/app/(app)/room/[room]/_components/online-provider'
 
-export function RoomHeader() {
+export function SummaryResult() {
   const {
     state: { room, users },
   } = useOnlineContext()
