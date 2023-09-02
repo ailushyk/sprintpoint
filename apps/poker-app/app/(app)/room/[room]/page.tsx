@@ -1,11 +1,14 @@
 import React from 'react'
 import { Metadata } from 'next'
 
+import { Separator } from '@easypoker/ui'
+
 import { api } from '@/lib/api'
 import { CheckButton } from '@/app/(app)/room/[room]/_components/check-button'
 import { MockUsers } from '@/app/(app)/room/[room]/_components/mobile-result'
 import { NewDeck } from '@/app/(app)/room/[room]/_components/new-deck'
 import { OnlineProvider } from '@/app/(app)/room/[room]/_components/online-provider'
+import { RoomHeader } from '@/app/(app)/room/[room]/_components/room-header'
 import { RoomTitle } from '@/app/(app)/room/[room]/_components/room-title'
 import { UsersBoard } from '@/app/(app)/room/[room]/_components/users-board'
 
@@ -44,24 +47,25 @@ export default async function PlayRoomPage({ params }: PlayRoomPageProps) {
   const deck = await api().deck.getAdvanced(room.deck)
 
   return (
-    <main className="container flex-1 space-y-2 pb-28 md:pb-36">
+    <main className="flex w-full flex-1 flex-col space-y-8 pb-40">
       <OnlineProvider user={user} room={room} deck={deck.data}>
-        <div className="flex justify-center">
-          <RoomTitle room={room} />
+        <div className="sticky top-0 bg-background">
+          <div className="mx-auto flex max-w-xl items-center justify-between gap-6 py-6">
+            <RoomHeader />
+            <div>
+              <RoomTitle room={room} />
+            </div>
+            <CheckButton className="h-16 w-16" />
+          </div>
+          <Separator />
         </div>
 
-        <div className="mx-auto w-full max-w-xl">
+        <div className="mx-auto w-full max-w-xl flex-1">
           <UsersBoard user={user} />
           <MockUsers visible={false} />
         </div>
 
-        <div className="flex justify-center">
-          <CheckButton />
-        </div>
-
-        <div className="min-w-xl fixed inset-x-0 bottom-0">
-          <NewDeck />
-        </div>
+        <NewDeck />
       </OnlineProvider>
     </main>
   )

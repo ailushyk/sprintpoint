@@ -49,37 +49,39 @@ export const NewDeck = () => {
 
   return (
     <motion.div
+      className="min-w-xl fixed inset-x-0 bottom-0"
       initial="close"
       animate={room.status === 'voting' ? 'open' : 'close'}
       variants={slideToBottomVariants}
-      className="border-t-2 bg-background"
     >
-      <div className="my-2 text-center text-xs font-semibold text-muted-foreground">
-        {selectedCard || 'Select a card'}
-      </div>
+      <div className="border-t-2 bg-background">
+        <div className="my-2 text-center text-xs font-semibold text-muted-foreground">
+          {selectedCard || 'Select a card'}
+        </div>
 
-      <div className="relative flex flex-col items-center py-4 md:pt-6">
-        <Separator
-          orientation="vertical"
-          className="absolute top-0 bg-orange-600"
-        />
-        <ToggleGroup.Root
-          ref={scrollContainerRef}
-          type="single"
-          value={selectedCard}
-          onValueChange={setSelectedCard}
-          className="simple-deck scrollbar-none relative flex w-full snap-x snap-mandatory items-end gap-3 overflow-x-auto md:gap-4"
-          orientation="horizontal"
-          disabled={room.status === 'checking'}
-        >
-          {deck.cards.map((card) => (
-            <Card
-              key={`simple-deck-${card.name}`}
-              card={card}
-              progressX={scrollX}
-            />
-          ))}
-        </ToggleGroup.Root>
+        <div className="relative flex flex-col items-center py-4 md:pt-6">
+          <Separator
+            orientation="vertical"
+            className="absolute top-0 bg-orange-600"
+          />
+          <ToggleGroup.Root
+            ref={scrollContainerRef}
+            type="single"
+            value={selectedCard}
+            onValueChange={setSelectedCard}
+            className="simple-deck scrollbar-none relative flex w-full snap-x snap-mandatory items-end gap-3 overflow-x-auto md:gap-4"
+            orientation="horizontal"
+            disabled={room.status === 'checking'}
+          >
+            {deck.cards.map((card) => (
+              <Card
+                key={`simple-deck-${card.name}`}
+                card={card}
+                progressX={scrollX}
+              />
+            ))}
+          </ToggleGroup.Root>
+        </div>
       </div>
     </motion.div>
   )
