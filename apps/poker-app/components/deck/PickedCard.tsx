@@ -3,12 +3,19 @@ import { AnimatePresence, motion } from 'framer-motion'
 
 import { cn } from '@easypoker/ui'
 
-const PickedCard = ({ sp }: { sp: number | null }) => {
+const PickedCard = ({
+  sp,
+  className,
+}: {
+  sp: number | null
+  className?: string
+}) => {
   return (
     <div
       className={cn(
-        'flex h-20 w-20 flex-col items-center justify-center overflow-hidden rounded-xl border-2 bg-popover p-4 text-4xl transition lg:rounded-md',
-        sp === null ? 'border-muted text-muted' : 'border-primary text-primary'
+        'flex h-20 w-20 shrink-0 items-center justify-center rounded-lg border-2 bg-card text-2xl text-muted-foreground transition',
+        sp !== null && 'border-primary bg-accent-card text-primary',
+        className
       )}
     >
       <AnimatePresence mode="wait">
