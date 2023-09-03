@@ -1,29 +1,11 @@
 'use client'
 
-import React, { forwardRef } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import React from 'react'
+import { AnimatePresence } from 'framer-motion'
 
-import { Button, ButtonProps } from '@easypoker/ui'
-
-import { flipVariants } from '@/lib/animation-variants'
 import { socket } from '@/lib/socket-client'
+import { PressButton } from '@/components/buttons/press-button'
 import { useOnlineContext } from '@/app/(app)/room/[room]/_components/online-provider'
-
-const FlipButton = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, ...props }, ref) => (
-    <motion.div
-      initial="close"
-      animate="open"
-      exit="close"
-      variants={flipVariants}
-    >
-      <Button ref={ref} {...props}>
-        {children}
-      </Button>
-    </motion.div>
-  )
-)
-FlipButton.displayName = 'FlipButton'
 
 export function CheckButton({ className }: { className?: string }) {
   const {
@@ -40,9 +22,9 @@ export function CheckButton({ className }: { className?: string }) {
 
   return (
     <div className="relative">
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence mode="wait">
         {room.status === 'voting' ? (
-          <FlipButton
+          <PressButton
             key="voting"
             onClick={handleCheck}
             size="lg"
@@ -50,9 +32,9 @@ export function CheckButton({ className }: { className?: string }) {
             className={className}
           >
             Check
-          </FlipButton>
+          </PressButton>
         ) : (
-          <FlipButton
+          <PressButton
             key="checking"
             onClick={handleNext}
             size="lg"
@@ -60,7 +42,7 @@ export function CheckButton({ className }: { className?: string }) {
             className={className}
           >
             Next
-          </FlipButton>
+          </PressButton>
         )}
       </AnimatePresence>
     </div>
