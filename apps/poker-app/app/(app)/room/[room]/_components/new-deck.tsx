@@ -111,7 +111,7 @@ function Card(props: { card: CardValue; progressX: MotionValue<number> }) {
     <div ref={ref} className="shrink-0 snap-center">
       <motion.div style={{ opacity: size }}>
         <ToggleGroup.Item
-          className="flex h-16 w-16 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-muted bg-card p-4 text-xl transition data-[state=on]:border-primary data-[state=on]:bg-accent md:h-20 md:w-20"
+          className="data-[state=on]:bg-accent-card flex h-16 w-16 cursor-pointer flex-col items-center justify-center rounded-xl border-2 bg-card p-4 text-xl transition data-[state=on]:border-primary md:h-20 md:w-20"
           value={card.name}
           onClick={handleItemFocus}
         >

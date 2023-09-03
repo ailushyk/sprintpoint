@@ -27,7 +27,7 @@ export default function AppPage() {
 
         <Link
           href="/room/join"
-          className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}
+          className={cn(buttonVariants({ variant: 'secondary', size: 'lg' }))}
         >
           Join
         </Link>
