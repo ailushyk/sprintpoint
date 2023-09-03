@@ -1,5 +1,4 @@
 import { Config } from 'tailwindcss'
-// @ts-ignore
 import animatePlugin from 'tailwindcss-animate'
 import plugin from 'tailwindcss/plugin'
 
@@ -64,8 +63,6 @@ const easyPlugin = plugin(
         'font-feature-settings': '"rlig" 1, "calt" 1',
       },
     })
-    // extend the tailwind theme
-    // ...
   },
   {
     theme: {

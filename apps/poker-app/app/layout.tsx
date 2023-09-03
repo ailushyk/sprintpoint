@@ -3,10 +3,11 @@ import './globals.css'
 import React from 'react'
 import { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { Analytics } from '@/components_next/analytics'
-import { GlobalKeyboardEvents } from '@/components_next/GlobalKeyboardEvents'
 
 import { TailwindIndicator, Toaster, UIProvider } from '@easypoker/ui'
+
+import { Analytics } from '@/components/analytics'
+import { GlobalKeyboardEvents } from '@/components/GlobalKeyboardEvents'
 
 const inter = Inter({ subsets: ['latin'] })
 

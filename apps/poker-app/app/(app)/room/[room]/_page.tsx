@@ -1,10 +1,10 @@
 import React from 'react'
 import { Metadata } from 'next'
-import { Deck } from '@/components_next/deck/Deck'
 
 import { Separator } from '@easypoker/ui'
 
 import { api } from '@/lib/api'
+import { Deck } from '@/components/deck/Deck'
 import { MockUsers } from '@/app/(app)/room/[room]/_components/mobile-result'
 import { OnlineProvider } from '@/app/(app)/room/[room]/_components/online-provider'
 import { RoomTitle } from '@/app/(app)/room/[room]/_components/room-title'

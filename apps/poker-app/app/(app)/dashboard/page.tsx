@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import { PlayGameButton } from '@/components_next/play-game-button'
 
 import { buttonVariants, cn } from '@easypoker/ui'
+
+import { PlayGameButton } from '@/components/play-game-button'
 
 export const metadata = {
   title: 'Efficient Agile Estimation with Sprint Point: Plan Your Success',

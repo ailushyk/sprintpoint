@@ -1,5 +1,6 @@
 import React from 'react'
-import { AppHeader } from '@/components_next/app-header/app-header'
+
+import { AppHeader } from '@/components/app-header/app-header'
 
 export default function HomeLayout({
   children,
