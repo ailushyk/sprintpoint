@@ -207,6 +207,7 @@ function handleRoomReset({ room }: { room: string }) {
       ? {
           ...r,
           status: 'voting',
+          value: null,
           lastUpdate: new Date().toISOString(),
         }
       : r
