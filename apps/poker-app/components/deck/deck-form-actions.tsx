@@ -1,11 +1,11 @@
 import React from 'react'
-import { OfflineMessage } from '@/components_next/deck/offline-message'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { RoomStatusValue } from '@easypoker/shared'
 import { Button } from '@easypoker/ui'
 
 import { socket } from '@/lib/socket-client'
+import { OfflineMessage } from '@/components/deck/offline-message'
 
 export function DeckFormActions(props: {
   status: RoomStatusValue

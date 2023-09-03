@@ -1,10 +1,10 @@
 import Link from 'next/link'
-import { GradientText } from '@/components_next/gradient-text'
-import { PlayGameButton } from '@/components_next/play-game-button'
 
 import { buttonVariants, cn, ShineBorder } from '@easypoker/ui'
 
 import { api } from '@/lib/api'
+import { GradientText } from '@/components/gradient-text'
+import { PlayGameButton } from '@/components/play-game-button'
 
 export const revalidate = 30
 

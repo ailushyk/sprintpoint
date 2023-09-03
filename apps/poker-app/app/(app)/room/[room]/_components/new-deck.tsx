@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect, useRef } from 'react'
-import { useUserActivity } from '@/components_next/deck/useUserActivity'
 import { motion, MotionValue, useScroll, useTransform } from 'framer-motion'
 
 import { CardValue } from '@easypoker/shared'
@@ -11,6 +10,7 @@ import { slideToBottomVariants } from '@/lib/animation-variants'
 import { getCardValueByName } from '@/lib/deck-utils'
 import { socket } from '@/lib/socket-client'
 import { useWindowWidth } from '@/lib/window-width'
+import { useUserActivity } from '@/components/deck/useUserActivity'
 import { useOnlineContext } from '@/app/(app)/room/[room]/_components/online-provider'
 
 export const NewDeck = () => {

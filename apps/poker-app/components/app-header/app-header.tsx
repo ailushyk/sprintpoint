@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import { UserNav } from '@/components_next/app-header/user-nav'
 
 import { buttonVariants, cn } from '@easypoker/ui'
+
+import { UserNav } from '@/components/app-header/user-nav'
 
 export function AppHeader({
   links,

@@ -1,9 +1,6 @@
 'use client'
 
 import React, { useMemo, useState } from 'react'
-import { DeckFormActions } from '@/components_next/deck/deck-form-actions'
-import { PickedCard } from '@/components_next/deck/PickedCard'
-import { useUserActivity } from '@/components_next/deck/useUserActivity'
 
 import {
   cn,
@@ -21,6 +18,9 @@ import { getAverageCardValue, getStatusByValues } from '@/lib/deck-utils'
 import { getClosest } from '@/lib/math'
 import { socket } from '@/lib/socket-client'
 import { UserProfileValues } from '@/lib/user/user'
+import { DeckFormActions } from '@/components/deck/deck-form-actions'
+import { PickedCard } from '@/components/deck/PickedCard'
+import { useUserActivity } from '@/components/deck/useUserActivity'
 import { MobileResult } from '@/app/(app)/room/[room]/_components/mobile-result'
 import {
   FormDeckValues,
