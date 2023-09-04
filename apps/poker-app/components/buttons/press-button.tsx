@@ -29,6 +29,8 @@ export const PressButton = forwardRef<HTMLButtonElement, ButtonProps>(
             onMouseDownCapture={handlePressDown}
             onMouseUp={handlePressUp}
             onMouseLeave={handlePressUp}
+            onTouchStart={handlePressDown}
+            onTouchEnd={handlePressUp}
             {...props}
           >
             {children}

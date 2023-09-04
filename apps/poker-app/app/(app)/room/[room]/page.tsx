@@ -49,8 +49,8 @@ export default async function PlayRoomPage({ params }: PlayRoomPageProps) {
   return (
     <main className="flex w-full flex-1 flex-col space-y-8 pb-40">
       <OnlineProvider user={user} room={room} deck={deck.data}>
-        <div className="sticky top-0 bg-popover">
-          <div className="container mx-auto flex max-w-xl items-center justify-between gap-6 py-6">
+        <div className="sticky top-0 bg-background">
+          <div className="container mx-auto flex max-w-xl items-center justify-between gap-6 py-3">
             <SummaryResult />
             <div>
               <RoomTitle room={room} />
@@ -60,7 +60,7 @@ export default async function PlayRoomPage({ params }: PlayRoomPageProps) {
           <Separator />
         </div>
 
-        <div className="mx-auto w-full max-w-xl flex-1">
+        <div className="container mx-auto w-full max-w-xl flex-1">
           <UsersBoard user={user} />
           <MockUsers visible={false} />
         </div>

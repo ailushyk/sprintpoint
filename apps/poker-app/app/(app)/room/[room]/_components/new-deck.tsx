@@ -10,6 +10,7 @@ import { slideToBottomVariants } from '@/lib/animation-variants'
 import { getCardValueByName } from '@/lib/deck-utils'
 import { socket } from '@/lib/socket-client'
 import { useWindowWidth } from '@/lib/window-width'
+import { PressButton } from '@/components/buttons/press-button'
 import { useUserActivity } from '@/components/deck/useUserActivity'
 import { useOnlineContext } from '@/app/(app)/room/[room]/_components/online-provider'
 
@@ -50,7 +51,7 @@ export const NewDeck = () => {
     <motion.div
       className="min-w-xl fixed inset-x-0 bottom-0"
       initial="close"
-      animate={room.status === 'voting' ? 'open' : 'close'}
+      animate={room.status === 'checking' ? 'close' : 'open'}
       variants={slideToBottomVariants}
     >
       <div className="border-t-2 bg-background">
@@ -58,7 +59,7 @@ export const NewDeck = () => {
           {selectedCard || 'Select a card'}
         </div>
 
-        <div className="relative flex flex-col items-center py-4 md:pt-6">
+        <div className="relative flex flex-col items-center">
           <Separator
             orientation="vertical"
             className="absolute top-0 bg-orange-600"
@@ -68,7 +69,7 @@ export const NewDeck = () => {
             type="single"
             value={selectedCard}
             onValueChange={setSelectedCard}
-            className="simple-deck scrollbar-none relative flex w-full snap-x snap-mandatory items-end gap-3 overflow-x-auto hover:overscroll-contain md:gap-4"
+            className="simple-deck scrollbar-none relative flex w-full snap-x snap-mandatory items-end gap-4 overflow-x-auto pb-6 pt-4 hover:overscroll-contain md:gap-4"
             orientation="horizontal"
             disabled={room.status === 'checking'}
           >
@@ -98,7 +99,12 @@ function Card(props: { card: CardValue; progressX: MotionValue<number> }) {
     return w / 2 - bounce.width / 2 - bounce.x
   })
 
-  const size = useTransform(distance, [-w / 2, 0, w / 2], [0.2, 1, 0.2])
+  const opacity = useTransform(distance, [-w / 2, 0, w / 2], [0.2, 1, 0.2])
+  const scale = useTransform(
+    distance,
+    [-w, -w / 3, 0, w / 3, w],
+    [0.2, 0.9, 1, 0.9, 0.2]
+  )
   const handleItemFocus = (event) => {
     ref.current?.scrollIntoView({
       behavior: 'smooth',
@@ -109,13 +115,15 @@ function Card(props: { card: CardValue; progressX: MotionValue<number> }) {
 
   return (
     <div ref={ref} className="shrink-0 snap-center">
-      <motion.div style={{ opacity: size }}>
-        <ToggleGroup.Item
-          className="data-[state=on]:bg-accent-card flex h-16 w-16 cursor-pointer flex-col items-center justify-center rounded-xl border-2 bg-card p-4 text-xl transition data-[state=on]:border-primary md:h-20 md:w-20"
-          value={card.name}
-          onClick={handleItemFocus}
-        >
-          {card.name}
+      <motion.div style={{ opacity: opacity, scaleX: scale }}>
+        <ToggleGroup.Item value={card.name} asChild>
+          <PressButton
+            className="flex h-[4.5rem] w-16 select-none rounded-xl border-2 bg-card p-4 text-xl transition data-[state=on]:border-primary data-[state=on]:bg-accent-card md:h-20 md:w-20"
+            onClick={handleItemFocus}
+            variant="ghost"
+          >
+            {card.name}
+          </PressButton>
         </ToggleGroup.Item>
       </motion.div>
     </div>
