@@ -291,7 +291,7 @@ function handleUserInactive(socket: ClientSocket) {
       if (v.roomId === room && v.userId === socket.data.id) {
         return {
           ...v,
-          status: v.value ? 'voted' : 'idle',
+          status: v.value === null ? 'idle' : 'voted',
           lastUpdate: new Date().toISOString(),
         }
       }
