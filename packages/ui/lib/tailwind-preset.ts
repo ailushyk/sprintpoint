@@ -39,6 +39,7 @@ const easyPlugin = plugin(
         '--primary': '0 0% 98%',
         '--primary-foreground': '220.9 39.3% 11%',
         '--secondary': '215 27.9% 16.9%',
+        // '--secondary': '240 3.7% 15.9%',
         '--secondary-foreground': '210 20% 98%',
         '--muted': '240 3.7% 15.9%',
         '--muted-foreground': '240 5% 64.9%',

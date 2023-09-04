@@ -17,7 +17,7 @@ export function SummaryResult() {
 
   return (
     <>
-      <PickedCard sp={_sp} className="h-16 w-16" />
+      <PickedCard sp={_sp} className="h-16 w-16 bg-background" />
     </>
   )
 }

@@ -38,7 +38,7 @@ export const pressVariants = {
     scale: 0.98,
     y: 1,
     opacity: 0.6,
-    transition: { duration: 0.1, ease: easyAnimation },
+    transition: { duration: 0.2, ease: easyAnimation },
   },
   in: {
     opacity: 1,

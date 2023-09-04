@@ -23,17 +23,7 @@ export function CheckButton({ className }: { className?: string }) {
   return (
     <div className="relative">
       <AnimatePresence mode="wait">
-        {room.status === 'voting' ? (
-          <PressButton
-            key="voting"
-            onClick={handleCheck}
-            size="lg"
-            variant="default"
-            className={className}
-          >
-            Check
-          </PressButton>
-        ) : (
+        {room.status === 'checking' ? (
           <PressButton
             key="checking"
             onClick={handleNext}
@@ -42,6 +32,16 @@ export function CheckButton({ className }: { className?: string }) {
             className={className}
           >
             Next
+          </PressButton>
+        ) : (
+          <PressButton
+            key="voting"
+            onClick={handleCheck}
+            size="lg"
+            variant="secondary"
+            className={className}
+          >
+            Check
           </PressButton>
         )}
       </AnimatePresence>
