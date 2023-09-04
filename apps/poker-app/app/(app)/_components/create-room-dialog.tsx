@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@easypoker/ui'
 
-import { CreateRoomForm } from '@/app/(app)/_components/create-room-form'
+import { RoomForm } from '@/app/(app)/_components/room-form'
 
 export const CreateRoomDialog = () => {
   const router = useRouter()
@@ -20,7 +20,7 @@ export const CreateRoomDialog = () => {
         <DialogHeader>
           <DialogTitle>Create Room</DialogTitle>
         </DialogHeader>
-        <CreateRoomForm />
+        <RoomForm />
       </DialogContent>
     </Dialog>
   )
