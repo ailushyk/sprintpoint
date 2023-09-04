@@ -12,7 +12,7 @@ import { RoomTitle } from '@/app/(app)/room/[room]/_components/room-title'
 import { SummaryResult } from '@/app/(app)/room/[room]/_components/summary-result'
 import { UsersBoard } from '@/app/(app)/room/[room]/_components/users-board'
 
-interface PlayRoomPageProps {
+export interface PlayRoomPageProps {
   params: { room: string }
 }
 

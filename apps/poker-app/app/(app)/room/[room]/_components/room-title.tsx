@@ -1,10 +1,11 @@
 'use client'
 
 import React, { useTransition } from 'react'
+import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { RoomValue } from '@easypoker/shared'
-import { Button, cn, Icons } from '@easypoker/ui'
+import { Button, buttonVariants, cn, Icons } from '@easypoker/ui'
 
 import { useClipboard } from '@/hooks/use-clipboard'
 
@@ -25,10 +26,9 @@ export const RoomTitle = ({
     <div
       className={cn('flex items-center gap-2 text-muted-foreground', className)}
     >
-      <h1>Room: {room.name || room.code}</h1>
       <Button
-        size="sm"
         variant="ghost"
+        size="icon"
         className="relative disabled:opacity-100"
         onClick={() => handleClipboardCopy(room.code)}
         disabled={isPending}
@@ -57,6 +57,18 @@ export const RoomTitle = ({
           )}
         </AnimatePresence>
       </Button>
+      <h1>{room.name || room.code}</h1>
+      <Link
+        href={`/room/${room.code}/settings`}
+        className={cn(
+          buttonVariants({
+            variant: 'ghost',
+            size: 'icon',
+          })
+        )}
+      >
+        <Icons.mix />
+      </Link>
     </div>
   )
 }

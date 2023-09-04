@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { RoomValue } from '@easypoker/shared'
 import {
   Button,
   Form,
@@ -24,35 +25,36 @@ import {
   toast,
 } from '@easypoker/ui'
 
-import { createRoomAction } from '@/app/(app)/_components/room-actions'
+import { saveRoomAction } from '@/app/(app)/_components/room-actions'
 
-const createRoomFormSchema = z.object({
-  name: z.string().nonempty(),
+const roomFormSchema = z.object({
+  code: z.string().nonempty(),
   deck: z.string().nonempty(),
 })
 
-export type CreateRoomFormValues = z.infer<typeof createRoomFormSchema>
+export type RoomFormValues = z.infer<typeof roomFormSchema>
 
 const defaultValues = {
-  name: '',
+  code: '',
   deck: 'standard',
 }
 
-export const CreateRoomForm = () => {
+export const RoomForm = ({ room }: { room?: RoomValue }) => {
   let [isPending, startTransition] = useTransition()
-  const form = useForm<CreateRoomFormValues>({
-    resolver: zodResolver(createRoomFormSchema),
-    defaultValues,
+  const form = useForm<RoomFormValues>({
+    resolver: zodResolver(roomFormSchema),
+    defaultValues: room || defaultValues,
   })
 
-  const onSubmit = (data: CreateRoomFormValues) => {
+  const onSubmit = (data: RoomFormValues) => {
     startTransition(() => {
-      createRoomAction(data)
+      saveRoomAction(data)
         .then(() => {
           form.reset()
           toast({
-            title: 'Room created!',
-            description: 'You can now share the link with your friends.',
+            // title: 'Room saved',
+            title: 'Coming soon!',
+            description: 'Editing rooms is not available yet.',
           })
         })
         .catch(() => {
@@ -71,13 +73,13 @@ export const CreateRoomForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField
-          name="name"
+          name="code"
           control={form.control}
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Room&apos;s name</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} disabled />
               </FormControl>
               <FormDescription>
                 The name of the room is used to identify it. It can be anything
@@ -106,8 +108,8 @@ export const CreateRoomForm = () => {
                 </FormControl>
                 <SelectContent>
                   <SelectItem value="standard">Standard</SelectItem>
-                  {/*<SelectItem value="fibonacci">Fibonacci</SelectItem>*/}
-                  {/*<SelectItem value="tshirt">T-Shirt</SelectItem>*/}
+                  <SelectItem value="fibonacci">Fibonacci</SelectItem>
+                  <SelectItem value="tshirt">T-Shirt</SelectItem>
                 </SelectContent>
               </Select>
               <FormDescription>
@@ -130,7 +132,7 @@ export const CreateRoomForm = () => {
                 <span>Creating...</span>
               </span>
             ) : (
-              'Create'
+              'Save'
             )}
           </Button>
         </div>

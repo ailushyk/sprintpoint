@@ -3,7 +3,8 @@ import Link from 'next/link'
 
 import { buttonVariants, cn } from '@easypoker/ui'
 
-import { CreateRoomForm } from '@/app/(app)/_components/create-room-form'
+import { api } from '@/lib/api'
+import { RoomForm } from '@/app/(app)/_components/room-form'
 
 interface PlayRoomPageProps {
   params: { room: string }
@@ -26,25 +27,28 @@ export async function generateMetadata({
   }
 }
 
-export default function CreateRoomPage({
+export default async function CreateRoomPage({
   params,
 }: {
   params: {
     room: string
   }
 }) {
+  const room = await api().room.get(params.room)
   return (
-    <main className="container max-w-2xl flex-1 space-y-8">
+    <main className="container max-w-2xl flex-1 space-y-8 pt-8">
       <header>
-        <h1 className="text-4xl font-bold">Room Settings</h1>
         <Link
           href={`/room/${params.room}`}
-          className={cn(buttonVariants({ variant: 'link' }), 'p-0')}
+          className="leading- text-sm underline-offset-2 hover:underline"
         >
           Back to room
         </Link>
+        <h1 className="text-4xl font-bold">Room Settings</h1>
+        <h2>Coming Soon!</h2>
       </header>
-      <CreateRoomForm />
+
+      <RoomForm room={room} />
     </main>
   )
 }

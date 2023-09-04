@@ -4,6 +4,7 @@ import {
   Cross2Icon,
   GitHubLogoIcon,
   LaptopIcon,
+  MixIcon,
   MoonIcon,
   SunIcon,
 } from '@radix-ui/react-icons'
@@ -33,6 +34,7 @@ export const Icons = {
   clipboardCheck: ClipboardCheck,
   clipboardCopy: ClipboardCopy,
   close: Cross2Icon,
+  mix: MixIcon,
   // gitHub: (props: LucideProps) => (
   //   <svg viewBox="0 0 438.549 438.549" {...props}>
   //     <path
