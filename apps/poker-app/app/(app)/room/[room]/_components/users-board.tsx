@@ -1,6 +1,7 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { AnimatePresence, motion, Reorder } from 'framer-motion'
 
 import { UserResponse } from '@easypoker/shared/src'
 import { cn } from '@easypoker/ui'
@@ -10,33 +11,73 @@ import { useOnlineContext } from '@/app/(app)/room/[room]/_components/online-pro
 import { UserList } from '@/app/(app)/room/[room]/_components/user-list'
 import { UserStatus } from '@/app/(app)/room/[room]/_components/user-status'
 
+function compareStatus(a, b) {
+  // If the status is the same, compare by "lastUpdate" timestamp (converted to timestamps)
+  const timestampA = new Date(a.vote.lastUpdate).getTime()
+  const timestampB = new Date(b.vote.lastUpdate).getTime()
+  const diff = timestampB - timestampA
+
+  if (a.vote.status !== 'voted' && b.vote.status !== 'voted') {
+    return a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1
+  }
+  if (a.vote.status !== 'voted' && b.vote.status === 'voted') {
+    return -1
+  }
+  if (a.vote.status === 'voted' && b.vote.status !== 'voted') {
+    return 1
+  }
+  return diff
+}
+
+function compareValue(a, b) {
+  if (a.vote.value === b.vote.value) {
+    return a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1
+  }
+  return a.vote.value - b.vote.value
+}
+
 export const UsersBoard = (props: { user: UserProfileValues }) => {
   const {
     state: { users, room },
   } = useOnlineContext()
+  const isChecking = room.status === 'checking'
   const self = (user: UserResponse) => user.id === props.user.id
 
-  return (
-    <UserList>
-      {users.map((user) => (
-        <UserList.Item key={user.id}>
-          <div
-            className={cn(
-              'truncate',
-              self(user) && 'underline underline-offset-2'
-            )}
-          >
-            {user.username}
-          </div>
+  const [sortedItems, setSortedItems] = useState(users)
 
-          {room.status === 'voting' ? (
-            <UserStatus user={user} />
-          ) : (
-            <UserResult user={user} />
-          )}
-        </UserList.Item>
+  useEffect(() => {
+    let _users = [...users].sort(isChecking ? compareValue : compareStatus)
+    setSortedItems(_users)
+  }, [users])
+
+  return (
+    <Reorder.Group
+      drag={false}
+      values={sortedItems}
+      onReorder={() => {}}
+      className="flex flex-col divide-y rounded-lg bg-background px-3"
+    >
+      {sortedItems.map((user, index) => (
+        <Reorder.Item key={`${user.username}-sortable-list`} value={user}>
+          <div className={cn('flex items-center justify-between gap-3 py-2')}>
+            <div
+              className={cn(
+                'truncate',
+                self(user) && 'underline underline-offset-2'
+              )}
+            >
+              {user.username}
+            </div>
+
+            {room.status === 'voting' ? (
+              <UserStatus user={user} />
+            ) : (
+              <UserResult user={user} />
+            )}
+          </div>
+        </Reorder.Item>
       ))}
-    </UserList>
+    </Reorder.Group>
   )
 }
 
