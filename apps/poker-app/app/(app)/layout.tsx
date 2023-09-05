@@ -12,10 +12,6 @@ export const metadata = {
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col items-center">
-      <AppHeader />
-
-      {children}
-    </div>
+    <div className="flex min-h-screen flex-col items-center">{children}</div>
   )
 }

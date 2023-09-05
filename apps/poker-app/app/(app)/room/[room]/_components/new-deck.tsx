@@ -69,7 +69,7 @@ export const NewDeck = () => {
             type="single"
             value={selectedCard}
             onValueChange={setSelectedCard}
-            className="simple-deck scrollbar-none relative flex w-full snap-x snap-mandatory items-end gap-4 overflow-x-auto pb-6 pt-4 hover:overscroll-contain md:gap-4"
+            className="simple-deck scrollbar-none relative flex w-full snap-x snap-mandatory items-end gap-[.8rem] overflow-x-auto pb-6 pt-4 hover:overscroll-contain md:gap-4"
             orientation="horizontal"
             disabled={room.status === 'checking'}
           >

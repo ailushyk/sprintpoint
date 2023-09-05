@@ -1,7 +1,4 @@
 import { Metadata } from 'next'
-import Link from 'next/link'
-
-import { buttonVariants, cn } from '@easypoker/ui'
 
 import { api } from '@/lib/api'
 import { RoomForm } from '@/app/(app)/_components/room-form'
@@ -38,14 +35,8 @@ export default async function CreateRoomPage({
   return (
     <main className="container max-w-2xl flex-1 space-y-8 pt-8">
       <header>
-        <Link
-          href={`/room/${params.room}`}
-          className="leading- text-sm underline-offset-2 hover:underline"
-        >
-          Back to room
-        </Link>
         <h1 className="text-4xl font-bold">Room Settings</h1>
-        <h2>Coming Soon!</h2>
+        <p>Coming Soon!</p>
       </header>
 
       <RoomForm room={room} />

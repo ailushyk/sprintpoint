@@ -1,4 +1,5 @@
 import {
+  CaretLeftIcon,
   CheckIcon,
   ChevronDownIcon,
   Cross2Icon,
@@ -20,6 +21,7 @@ import {
 
 // @ts-ignore
 export const Icons = {
+  arrowLeft: CaretLeftIcon,
   moon: MoonIcon,
   sun: SunIcon,
   twitter: Twitter,

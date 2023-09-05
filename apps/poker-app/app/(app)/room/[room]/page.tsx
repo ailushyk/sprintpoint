@@ -1,14 +1,14 @@
 import React from 'react'
 import { Metadata } from 'next'
+import Link from 'next/link'
 
-import { Separator } from '@easypoker/ui'
+import { buttonVariants, cn, Icons, Separator } from '@easypoker/ui'
 
 import { api } from '@/lib/api'
 import { CheckButton } from '@/app/(app)/room/[room]/_components/check-button'
 import { MockUsers } from '@/app/(app)/room/[room]/_components/mobile-result'
 import { NewDeck } from '@/app/(app)/room/[room]/_components/new-deck'
 import { OnlineProvider } from '@/app/(app)/room/[room]/_components/online-provider'
-import { RoomTitle } from '@/app/(app)/room/[room]/_components/room-title'
 import { SummaryResult } from '@/app/(app)/room/[room]/_components/summary-result'
 import { UsersBoard } from '@/app/(app)/room/[room]/_components/users-board'
 
@@ -53,7 +53,18 @@ export default async function PlayRoomPage({ params }: PlayRoomPageProps) {
           <div className="container mx-auto flex max-w-xl items-center justify-between gap-6 py-3">
             <SummaryResult />
             <div>
-              <RoomTitle room={room} />
+              <Link
+                href={`/room/${room.code}/settings`}
+                className={cn(
+                  buttonVariants({
+                    variant: 'ghost',
+                    size: 'icon',
+                  }),
+                  'row-[2/3]'
+                )}
+              >
+                <Icons.mix />
+              </Link>
             </div>
             <CheckButton className="h-16 w-16" />
           </div>

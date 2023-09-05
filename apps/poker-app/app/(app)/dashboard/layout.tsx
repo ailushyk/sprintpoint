@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { AppHeader } from '@/components/app-header/app-header'
+
 export default function DashboardLayout({
   children,
   modal,
@@ -9,6 +11,8 @@ export default function DashboardLayout({
 }) {
   return (
     <>
+      <AppHeader />
+
       {children}
 
       {modal}
