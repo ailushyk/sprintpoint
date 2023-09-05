@@ -24,12 +24,15 @@ export const RoomTitle = ({
 
   return (
     <div
-      className={cn('flex items-center gap-2 text-muted-foreground', className)}
+      className={cn(
+        'grid place-items-center items-center gap-2 text-muted-foreground sm:flex',
+        className
+      )}
     >
       <Button
         variant="ghost"
         size="icon"
-        className="relative disabled:opacity-100"
+        className="relative row-[2/3] disabled:opacity-100"
         onClick={() => handleClipboardCopy(room.code)}
         disabled={isPending}
       >
@@ -57,14 +60,17 @@ export const RoomTitle = ({
           )}
         </AnimatePresence>
       </Button>
-      <h1>{room.name || room.code}</h1>
+      <h1 className="col-span-2 row-[1/2] text-base">
+        {room.name || room.code}
+      </h1>
       <Link
         href={`/room/${room.code}/settings`}
         className={cn(
           buttonVariants({
             variant: 'ghost',
             size: 'icon',
-          })
+          }),
+          'row-[2/3]'
         )}
       >
         <Icons.mix />
