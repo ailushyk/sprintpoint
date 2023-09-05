@@ -17,8 +17,14 @@ function compareStatus(a, b) {
   const timestampB = new Date(b.vote.lastUpdate).getTime()
   const diff = timestampB - timestampA
 
-  if (a.vote.status !== 'voted' && b.vote.status !== 'voted') {
-    return a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1
+  // if (a.vote.status === b.vote.status) {
+  //   return a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1
+  // }
+  if (a.vote.status !== 'voting' && b.vote.status === 'voting') {
+    return 1
+  }
+  if (a.vote.status === 'voting' && b.vote.status !== 'voting') {
+    return -1
   }
   if (a.vote.status !== 'voted' && b.vote.status === 'voted') {
     return -1
