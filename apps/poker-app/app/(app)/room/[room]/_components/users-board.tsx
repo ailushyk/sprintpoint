@@ -1,14 +1,13 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { AnimatePresence, motion, Reorder } from 'framer-motion'
+import { Reorder } from 'framer-motion'
 
 import { UserResponse } from '@easypoker/shared/src'
 import { cn } from '@easypoker/ui'
 
 import { UserProfileValues } from '@/lib/user/user'
 import { useOnlineContext } from '@/app/(app)/room/[room]/_components/online-provider'
-import { UserList } from '@/app/(app)/room/[room]/_components/user-list'
 import { UserStatus } from '@/app/(app)/room/[room]/_components/user-status'
 
 function compareStatus(a, b) {
@@ -64,7 +63,7 @@ export const UsersBoard = (props: { user: UserProfileValues }) => {
       className="flex flex-col divide-y rounded-lg bg-background px-3"
     >
       {sortedItems.map((user, index) => (
-        <Reorder.Item key={`${user.username}-sortable-list`} value={user}>
+        <Reorder.Item key={`${user.id}-sortable-list`} value={user}>
           <div className={cn('flex items-center justify-between gap-3 py-2')}>
             <div
               className={cn(
