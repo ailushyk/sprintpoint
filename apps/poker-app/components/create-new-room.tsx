@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation'
 
 import { Button, Icons } from '@easypoker/ui'
 
-import { createRoom } from '@/app/playActions'
+import { createRoom } from '@/app/room-actions'
 
-export const PlayGameButton = ({ children }: { children: string }) => {
+export const CreateNewRoom = ({ children }: { children: string }) => {
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
 
