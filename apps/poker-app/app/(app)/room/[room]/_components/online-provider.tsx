@@ -11,8 +11,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, UseFormReturn } from 'react-hook-form'
 import { z } from 'zod'
 
-import { DeckValue, roomSchema, RoomValue } from '@easypoker/shared'
+import { DeckValue, roomSchema } from '@easypoker/shared'
 import { AllUsersResponse, RoomStatusValue } from '@easypoker/shared/src'
+import { Room } from '@easypoker/shared/src/refactor-types'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@easypoker/ui'
 
 import { socket, usersSchema } from '@/lib/socket-client'
@@ -29,7 +30,7 @@ export type FormDeckValues = z.infer<typeof formSchema>
 
 type OnlineStateValue = {
   user: UserProfileValues
-  room: RoomValue
+  room: Room
   status: RoomStatusValue
   users: AllUsersResponse
   deck: DeckValue
@@ -42,14 +43,14 @@ type Action =
       type: 'init'
       payload: OnlineStateValue
     }
-  | { type: 'setRoom'; payload: RoomValue }
+  | { type: 'setRoom'; payload: Room }
   | {
       type: 'setUsers'
       payload: AllUsersResponse
     }
   | {
       type: 'check'
-      payload: { users: AllUsersResponse; room: RoomValue }
+      payload: { users: AllUsersResponse; room: Room }
     }
 
 const reducer = (state: OnlineStateValue, action: Action): OnlineStateValue => {
@@ -92,7 +93,7 @@ export const OnlineProvider = ({
   children,
 }: {
   user: UserProfileValues
-  room: RoomValue
+  room: Room
   deck: DeckValue
   children: React.ReactNode
 }) => {

@@ -8,8 +8,11 @@ interface RoomLayoutProps extends PlayRoomPageProps {
   children: React.ReactNode
 }
 
-export default function RoomLayout({ children, params }: RoomLayoutProps) {
-  const room = api().room.get(params.room)
+export default async function RoomLayout({
+  children,
+  params,
+}: RoomLayoutProps) {
+  const room = await api().room.get(params.room)
 
   return (
     <>

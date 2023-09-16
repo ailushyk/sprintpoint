@@ -1,27 +1,31 @@
 'use client'
 
-import React, { useTransition } from 'react'
-import { useRouter } from 'next/navigation'
+import React, { useState } from 'react'
 
-import { Button, Icons } from '@easypoker/ui'
+import { Button, Icons, toast } from '@easypoker/ui'
 
 import { createRoom } from '@/app/room-actions'
 
 export const CreateNewRoom = ({ children }: { children: string }) => {
-  const [isPending, startTransition] = useTransition()
-  const router = useRouter()
+  const [pending, setPending] = useState(false)
 
-  const handlePlayAction = () => {
-    startTransition(() => {
-      createRoom().then((room) => {
-        router.push(`/room/${room}`)
+  const handleClick = async () => {
+    try {
+      setPending(true)
+      await createRoom()
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Something went wrong',
       })
-    })
+    } finally {
+      setPending(false)
+    }
   }
 
   return (
-    <Button size="lg" onClick={handlePlayAction}>
-      {isPending && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
+    <Button size="lg" onClick={handleClick}>
+      {pending && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
       {children}
     </Button>
   )

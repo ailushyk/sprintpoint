@@ -3,7 +3,7 @@
 import React from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
-import { RoomValue } from '@easypoker/shared'
+import { Room } from '@easypoker/shared/src/refactor-types'
 import { Button, cn, Icons } from '@easypoker/ui'
 
 import { useClipboard } from '@/hooks/use-clipboard'
@@ -12,7 +12,7 @@ export const RoomTitle = ({
   room,
   className,
 }: {
-  room: RoomValue
+  room: Room
   className?: string
 }) => {
   const { isPending, copy } = useClipboard()

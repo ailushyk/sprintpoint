@@ -22,12 +22,6 @@ export async function generateMetadata({
   // read route params
   const room = params.room
 
-  // fetch data
-  // const product = await fetch(`https://.../${room}`).then((res) => res.json())
-
-  // optionally access and extend (rather than replace) parent metadata
-  // const previousImages = (await parent)?.openGraph?.images || []
-
   return {
     title: `Play in ${room}`,
     // openGraph: {
@@ -44,7 +38,7 @@ export default async function PlayRoomPage({ params }: PlayRoomPageProps) {
     api().user.get(),
     api().room.get(params.room),
   ])
-  const deck = await api().deck.getAdvanced(room.deck)
+  const deck = await api().deck.getAdvanced(room.deckType)
 
   return (
     <main className="flex w-full flex-1 flex-col space-y-8 pb-40">
