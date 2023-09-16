@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import { Redis } from '@upstash/redis'
 
 import { Room, roomSchema } from '@easypoker/shared/src/refactor-types'
@@ -21,7 +22,10 @@ export async function addToAllChecks() {
 export async function createRoom(room: Room) {
   await redis.hset(room.code, room)
 }
+
+// TODO: check if call to redis is correct and not multiple calls
 export async function getRoom(hash: string): Promise<Room> {
   const room = await redis.hgetall(hash)
+  if (!room) notFound()
   return roomSchema.parse(room)
 }
