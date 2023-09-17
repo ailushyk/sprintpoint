@@ -18,3 +18,13 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
 }
+
+model Room {
+    id            String    @id @default(cuid())
+    name          String?
+    description   String?
+    owner         User      @relation(fields: [ownerId], references: [id])
+    ownerId       String
+    members       User[]    @relation("RoomMembers")
+    messages      Message[]
+}

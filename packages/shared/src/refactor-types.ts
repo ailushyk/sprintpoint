@@ -5,7 +5,7 @@ import { userSchema } from './user'
 export const roomStatusSchema = z
   .union([
     z.literal('idle'),
-    z.literal('voting'),
+    z.literal('voting'), // set voting status after first vote
     z.literal('checking'),
     z.literal('finished'),
   ])
