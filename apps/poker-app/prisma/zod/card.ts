@@ -4,7 +4,7 @@ import { CompleteDeck, RelatedDeckModel } from "./index"
 export const CardModel = z.object({
   id: z.string(),
   name: z.string(),
-  value: z.number(),
+  value: z.number().nullish(),
   deckId: z.string(),
   order: z.number().int(),
   createdAt: z.date(),
