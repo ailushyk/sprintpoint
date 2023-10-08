@@ -19,7 +19,7 @@ export default async function RoomLayout({
     api().user.get(),
     api().room.get(params.room),
   ])
-  const deck = await api().deck.getAdvanced(room.deckType)
+  const deck = await api().deck.getAdvanced('standard')
 
   return (
     <OnlineProvider user={user} room={room} deck={deck.data}>
