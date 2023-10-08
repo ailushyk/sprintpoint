@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 
 import { api } from '@/lib/api'
 import prisma from '@/lib/prisma'
+import { UserProfileValues } from '@/lib/user/user'
 import { createUser } from '@/lib/user/user.api'
 import { generateUniqueHash } from '@/lib/utils'
 
@@ -24,4 +25,11 @@ export const createRoom = async () => {
   }
   const room = await api().room.create(generateRoom(), user.id)
   redirect(`/room/${room.code}`, RedirectType.push)
+}
+
+export const updateUserInfoAction = async (user: UserProfileValues) => {
+  return api().user.set(user)
+}
+export const updateThemeAction = async (user: UserProfileValues) => {
+  return api().user.set(user)
 }

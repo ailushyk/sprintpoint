@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { SubmitButton } from '@/components/submit-button'
-import { createRoom } from '@/app/room-actions'
+import { createRoom } from '@/app/actions'
 
 export const StartSession = ({ children }: { children: string }) => {
   return (
