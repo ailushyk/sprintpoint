@@ -15,8 +15,8 @@ import {
   toast,
 } from '@easypoker/ui'
 
-import { updateUserInfoAction } from '@/lib/actions'
 import { profileFormSchema, UserProfileValues } from '@/lib/user/user'
+import { updateUserInfoAction } from '@/app/actions'
 
 export const SetUsernameForm = ({
   defaultValues,
