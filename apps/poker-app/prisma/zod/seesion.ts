@@ -3,14 +3,14 @@ import { CompleteRoom, RelatedRoomModel, CompleteDeck, RelatedDeckModel, Complet
 
 export const SeesionModel = z.object({
   id: z.string(),
-  roomId: z.string().nullish(),
+  roomId: z.string(),
   deckId: z.string().nullish(),
   createdAt: z.date(),
   updatedAt: z.date(),
 })
 
 export interface CompleteSeesion extends z.infer<typeof SeesionModel> {
-  room?: CompleteRoom | null
+  room: CompleteRoom
   deck?: CompleteDeck | null
   rounds: CompleteRound[]
 }
@@ -21,7 +21,7 @@ export interface CompleteSeesion extends z.infer<typeof SeesionModel> {
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
 export const RelatedSeesionModel: z.ZodSchema<CompleteSeesion> = z.lazy(() => SeesionModel.extend({
-  room: RelatedRoomModel.nullish(),
+  room: RelatedRoomModel,
   deck: RelatedDeckModel.nullish(),
   rounds: RelatedRoundModel.array(),
 }))

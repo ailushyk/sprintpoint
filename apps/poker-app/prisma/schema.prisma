@@ -41,7 +41,7 @@ model Deck {
 model Card {
   id        String   @id @default(uuid())
   name      String
-  value     Float
+  value     Float?
   deck      Deck     @relation(fields: [deckId], references: [id])
   deckId    String
   order     Int
