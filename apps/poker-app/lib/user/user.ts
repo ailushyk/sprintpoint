@@ -8,7 +8,6 @@ export const profileFormSchema = z.object({
   }),
   fullName: z.string().optional(),
   avatar: z.string().optional(),
-  lastRoom: z.string().optional(),
   theme: z
     .union([z.literal('light'), z.literal('dark')])
     .optional()

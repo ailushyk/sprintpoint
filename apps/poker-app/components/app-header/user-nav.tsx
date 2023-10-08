@@ -22,6 +22,10 @@ import { ThemeToggle } from '@/components/app-header/ThemeToggle'
 export async function UserNav() {
   const user = await api().user.get()
 
+  if (!user) {
+    return null
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
