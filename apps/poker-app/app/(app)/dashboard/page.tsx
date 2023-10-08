@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import { buttonVariants, cn } from '@easypoker/ui'
 
-import { PlayGameButton } from '@/components/play-game-button'
+import { CreateNewRoom } from '@/components/create-new-room'
 
 export const metadata = {
   title: 'Efficient Agile Estimation with Sprint Point: Plan Your Success',
@@ -23,7 +23,7 @@ export default function AppPage() {
       </header>
 
       <div className="flex flex-col items-center justify-center gap-3 pb-8 md:flex-row-reverse">
-        <PlayGameButton>Play</PlayGameButton>
+        <CreateNewRoom>Play</CreateNewRoom>
 
         <Link
           href="/room/join"

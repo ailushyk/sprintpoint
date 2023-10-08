@@ -41,12 +41,12 @@ function compareValue(a, b) {
   return a.vote.value - b.vote.value
 }
 
-export const UsersBoard = (props: { user: UserProfileValues }) => {
+export const UsersBoard = () => {
   const {
-    state: { users, room },
+    state: { user, users, room },
   } = useOnlineContext()
   const isChecking = room.status === 'checking'
-  const self = (user: UserResponse) => user.id === props.user.id
+  const self = (u: UserResponse) => u.id === user.id
 
   const [sortedItems, setSortedItems] = useState(users)
 
