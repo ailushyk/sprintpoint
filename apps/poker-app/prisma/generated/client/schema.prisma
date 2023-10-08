@@ -1,0 +1,42 @@
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String?  @unique
+  username  String?
+  avatar    String?
+  type      String
+  theme     String?
+  rooms     Room[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Deck {
+  id        String   @id @default(uuid())
+  name      String
+  //    cards     Card[]
+  rooms     Room[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Room {
+  id        String   @id @default(uuid())
+  name      String
+  code      String   @unique
+  users     User[]
+  deck      Deck?    @relation(fields: [deckId], references: [id])
+  deckId    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
