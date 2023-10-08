@@ -6,7 +6,12 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/client"
+}
+
+generator zod {
+  provider    = "zod-prisma"
+  modelCase   = "PascalCase" // (default) Output models using pascal case (ex. UserModel, PostModel)
+  modelSuffix = "Model" // (default) Suffix to apply to your prisma models when naming Zod schemas
 }
 
 model User {
@@ -17,26 +22,75 @@ model User {
   type      String
   theme     String?
   rooms     Room[]
+  votes     Vote[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Deck {
+  id        String    @id @default(uuid())
+  name      String
+  slug      String    @unique @default(uuid())
+  rooms     Room[]
+  cards     Card[]
+  seesions  Seesion[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Card {
   id        String   @id @default(uuid())
   name      String
-  //    cards     Card[]
-  rooms     Room[]
+  value     Float
+  deck      Deck     @relation(fields: [deckId], references: [id])
+  deckId    String
+  order     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Vote {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  username  String
+  cardName  String
+  cardValue Float
+  round     Round?   @relation(fields: [roundId], references: [id])
+  roundId   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Round {
+  id        String   @id @default(uuid())
+  order     Int
+  seesion   Seesion? @relation(fields: [seesionId], references: [id])
+  seesionId String?
+  votes     Vote[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Seesion {
+  id        String   @id @default(uuid())
+  room      Room     @relation(fields: [roomId], references: [id])
+  roomId    String
+  deck      Deck?    @relation(fields: [deckId], references: [id])
+  deckId    String?
+  rounds    Round[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Room {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   name      String
-  code      String   @unique
+  code      String    @unique
   users     User[]
-  deck      Deck?    @relation(fields: [deckId], references: [id])
+  deck      Deck?     @relation(fields: [deckId], references: [id])
   deckId    String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  sessions  Seesion[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }

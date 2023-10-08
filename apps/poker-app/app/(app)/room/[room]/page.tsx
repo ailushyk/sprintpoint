@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { buttonVariants, cn, Icons, Separator } from '@easypoker/ui'
 
 import { CheckButton } from '@/app/(app)/room/[room]/_components/check-button'
-import { MockUsers } from '@/app/(app)/room/[room]/_components/mobile-result'
 import { NewDeck } from '@/app/(app)/room/[room]/_components/new-deck'
 import { SummaryResult } from '@/app/(app)/room/[room]/_components/summary-result'
 import { UsersBoard } from '@/app/(app)/room/[room]/_components/users-board'
@@ -58,7 +57,6 @@ export default async function PlayRoomPage({ params }: PlayRoomPageProps) {
 
       <div className="container mx-auto w-full max-w-xl flex-1">
         <UsersBoard />
-        <MockUsers visible={false} />
       </div>
 
       <NewDeck />

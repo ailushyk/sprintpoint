@@ -14,9 +14,5 @@ export function SummaryResult() {
   // @ts-ignore
   const _sp = room.status === 'checking' && votesCount ? room.value! : null
 
-  return (
-    <>
-      <PickedCard sp={_sp} className="h-16 w-16 bg-background" />
-    </>
-  )
+  return <PickedCard sp={_sp} className="h-16 w-16 bg-background" />
 }
