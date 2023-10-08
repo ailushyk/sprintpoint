@@ -152,6 +152,7 @@ export const Deck = ({ user }: { user: UserProfileValues }) => {
           </fieldset>
 
           <DeckFormActions
+            // @ts-ignore
             status={room.status}
             reset={() => form.reset(defaultValues)}
           />

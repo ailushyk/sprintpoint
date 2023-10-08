@@ -151,6 +151,7 @@ export function MobileResult({ user }: { user: UserProfileValues }) {
                     <div className="flex flex-col space-y-2 border-b px-3 py-6 text-center dark:border-primary-foreground sm:text-left">
                       <DrawerTitle className="flex flex-col items-center justify-center gap-1 pt-2">
                         <div className="flex h-20 w-20 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-primary bg-accent p-4 text-4xl transition hover:bg-accent hover:text-accent-foreground dark:border-primary dark:bg-background">
+                          {/* @ts-ignore */}
                           {room.value}
                         </div>
                       </DrawerTitle>

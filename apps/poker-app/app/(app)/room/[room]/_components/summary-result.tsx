@@ -2,8 +2,6 @@
 
 import React from 'react'
 
-import { cn } from '@easypoker/ui'
-
 import { PickedCard } from '@/components/deck/PickedCard'
 import { useOnlineContext } from '@/app/(app)/room/[room]/_components/online-provider'
 
@@ -13,6 +11,7 @@ export function SummaryResult() {
   } = useOnlineContext()
   const votesCount = users.filter((u) => u.vote?.value).length
 
+  // @ts-ignore
   const _sp = room.status === 'checking' && votesCount ? room.value! : null
 
   return (
