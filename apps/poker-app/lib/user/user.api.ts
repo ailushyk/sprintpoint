@@ -1,6 +1,5 @@
 import 'server-only'
 
-import { randomUUID } from 'crypto'
 import { cookies } from 'next/headers'
 
 import { profileFormSchema, UserProfileValues } from '@/lib/user/user'
@@ -20,14 +19,12 @@ export async function setUserInfo(user: UserProfileValues) {
 }
 
 export function createUser() {
-  const newUser: Partial<UserProfileValues> = {
+  return {
     username: '',
-    fullName: '',
     avatar: '',
     theme: 'dark',
     type: 'incognito',
   }
-  return newUser
 }
 
 export async function getUserInfo() {

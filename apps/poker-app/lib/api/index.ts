@@ -21,11 +21,27 @@ export const api = () => ({
   },
   room: {
     // create: createRoom,
-    create: (data: Partial<Room>) => {
-      // const room = await
-      console.log('createRoom')
+    create: (data: Partial<Room>, userId: string) => {
+      return prisma.room.create({
+        data: {
+          ...data,
+          users: {
+            connect: [
+              {
+                id: userId,
+              },
+            ],
+          },
+        },
+      })
     },
-    get: getRoom,
+    get: (code: string) => {
+      return prisma.room.findUnique({
+        where: {
+          code,
+        },
+      })
+    },
   },
   redis: {
     getAllChecks,
