@@ -1,4 +1,5 @@
 import { getDeck, getDeckWithoutNonValueCards } from '@easypoker/shared'
+import { Room } from '@easypoker/shared/src/refactor-types'
 
 import {
   addToAllChecks,
@@ -6,6 +7,7 @@ import {
   getAllChecks,
   getRoom,
 } from '@/lib/api/redis'
+import prisma from '@/lib/prisma'
 import { getUserInfo, setUserInfo } from '@/lib/user/user.api'
 
 export const api = () => ({
@@ -18,7 +20,11 @@ export const api = () => ({
     getAdvanced: getDeckWithoutNonValueCards,
   },
   room: {
-    create: createRoom,
+    // create: createRoom,
+    create: (data: Partial<Room>) => {
+      // const room = await
+      console.log('createRoom')
+    },
     get: getRoom,
   },
   redis: {

@@ -10,7 +10,7 @@ export const useTable = (enable = false): TableType => {
   const [checkout, setCheckout] = useState<boolean>(false)
 
   const join = (username: string) => {
-    provider.emit('multiplayer:join', username)
+    provider.emit('multiplayer:create', username)
   }
 
   const onVote = (player: PlayerType) => {

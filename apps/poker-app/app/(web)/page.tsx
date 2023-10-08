@@ -1,10 +1,8 @@
-import Link from 'next/link'
-
-import { buttonVariants, cn, ShineBorder } from '@easypoker/ui'
+import { ShineBorder } from '@easypoker/ui'
 
 import { api } from '@/lib/api'
-import { CreateNewRoom } from '@/components/create-new-room'
 import { GradientText } from '@/components/gradient-text'
+import { StartSession } from '@/components/start-session'
 
 export const revalidate = 30
 
@@ -31,7 +29,7 @@ export default async function Home() {
 
       <div className="container flex-1 space-y-8">
         <div className="flex items-center justify-center gap-4 py-8">
-          <CreateNewRoom>Start Play</CreateNewRoom>
+          <StartSession>Start Play</StartSession>
         </div>
 
         <section>

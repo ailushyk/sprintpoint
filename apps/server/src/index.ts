@@ -132,7 +132,7 @@ function handleRoomJoin(socket: ClientSocket) {
       })
     }
 
-    // join room
+    // create room
     socket.join(room)
 
     // return room state to user

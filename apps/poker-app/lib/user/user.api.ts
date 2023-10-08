@@ -7,6 +7,7 @@ import { profileFormSchema, UserProfileValues } from '@/lib/user/user'
 
 const USER_COOKIE = 'user'
 export async function setUserInfo(user: UserProfileValues) {
+  console.log('setUserInfo', user)
   cookies().set({
     name: USER_COOKIE,
     value: JSON.stringify(user),
@@ -18,13 +19,11 @@ export async function setUserInfo(user: UserProfileValues) {
   })
 }
 
-function createUser() {
-  const newUser: UserProfileValues = {
-    id: randomUUID(),
+export function createUser() {
+  const newUser: Partial<UserProfileValues> = {
     username: '',
     fullName: '',
     avatar: '',
-    lastRoom: '',
     theme: 'dark',
     type: 'incognito',
   }
@@ -36,7 +35,7 @@ export async function getUserInfo() {
   const user = cookie ? JSON.parse(cookie?.value) : null
   const parsedUser = profileFormSchema.safeParse(user)
 
-  const data = parsedUser.success ? parsedUser.data : createUser()
+  const data = parsedUser.success ? parsedUser.data : user
 
   return Promise.resolve(data)
 }
