@@ -24,7 +24,7 @@ export const JoinRoomDialog = () => {
           <DialogTitle>Join Room</DialogTitle>
         </DialogHeader>
 
-        <JoinRoomForm />
+        <JoinRoomForm onSuccess={() => setOpen(false)} />
       </DialogContent>
     </Dialog>
   )

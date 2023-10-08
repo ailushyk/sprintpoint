@@ -7,7 +7,6 @@ import { Button, Icons } from '@easypoker/ui'
 
 export const BackButton = () => {
   const segments = useSelectedLayoutSegments()
-  console.log(segments.length)
   const router = useRouter()
 
   const handleClick = () => {

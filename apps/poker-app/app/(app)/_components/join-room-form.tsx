@@ -17,7 +17,6 @@ import {
   FormMessage,
   Icons,
   Input,
-  toast,
 } from '@easypoker/ui'
 
 const joinRoomFormSchema = z.object({
@@ -30,7 +29,7 @@ const defaultValues: JoinRoomFormValues = {
   code: '',
 }
 
-export const JoinRoomForm = () => {
+export const JoinRoomForm = ({ onSuccess }: { onSuccess?: () => void }) => {
   const router = useRouter()
   let [isPending, startTransition] = useTransition()
   const form = useForm<JoinRoomFormValues>({
@@ -40,11 +39,8 @@ export const JoinRoomForm = () => {
 
   const onSubmit = (data: JoinRoomFormValues) => {
     startTransition(() => {
+      onSuccess?.()
       router.replace(`/room/${data.code}`)
-      toast({
-        title: 'You have joined the room!',
-        description: 'You can now start playing.',
-      })
     })
   }
 

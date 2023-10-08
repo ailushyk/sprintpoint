@@ -1,6 +1,5 @@
 import { io, Socket } from 'socket.io-client'
 
-import { ClientToServerEvents, ServerToClientEvents } from '@easypoker/shared'
 import { socketDataSchema } from '@easypoker/shared/dist'
 import { toast } from '@easypoker/ui'
 

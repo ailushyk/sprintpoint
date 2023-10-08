@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { AppHeader } from '@/components/app-header/app-header'
-
 export const metadata = {
   title: {
     default: 'Planing Poker - Sprint Point',

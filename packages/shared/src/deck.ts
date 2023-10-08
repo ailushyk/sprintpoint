@@ -98,24 +98,19 @@ const standardDeck: DeckValue = {
   ],
 }
 
-function getDeck(name: string): { data: DeckValue } {
-  let deck
-
+function getDeck(name: string): DeckValue {
   switch (name) {
     case 'standard':
-      deck = standardDeck
-      break
+      return standardDeck
     default:
-      deck = standardDeck
+      throw new Error(`Deck ${name} not found`)
   }
-
-  return { data: deck }
 }
 
 async function getDeckWithoutNonValueCards(
   name: string
 ): Promise<{ data: DeckValue }> {
-  const { data: deck } = getDeck(name)
+  const deck = getDeck(name)
   const cards = deck.cards.filter((card) => card.type !== 'non-value')
   return Promise.resolve({ data: { ...deck, cards } })
 }
