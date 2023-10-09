@@ -7,16 +7,18 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Label,
+} from '@easypoker/ui'
+
+import { api } from '@/lib/api'
+import { Label } from '@/components/ui/label'
+import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@easypoker/ui'
-
-import { api } from '@/lib/api'
+} from '@/components/ui/select'
 import { SubmitButton } from '@/components/submit-button'
 import { createRoom } from '@/app/actions'
 

@@ -1,4 +1,6 @@
 import crypto from 'crypto'
+import { ClassValue, clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
 
 export function generateUniqueHash() {
   const timestamp = Date.now().toString()
@@ -17,4 +19,8 @@ export function getInitials(name: string | undefined) {
   } else {
     return firstInitial
   }
+}
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
 }
