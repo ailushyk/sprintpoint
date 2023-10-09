@@ -2,7 +2,7 @@ import { ShineBorder } from '@easypoker/ui'
 
 import { api } from '@/lib/api'
 import { GradientText } from '@/components/gradient-text'
-import { StartSession } from '@/components/start-session/start-session'
+import { StartSession } from '@/components/start-session'
 
 export const revalidate = 30
 

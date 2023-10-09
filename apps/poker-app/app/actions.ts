@@ -1,13 +1,13 @@
 'use server'
 
 import { RedirectType } from 'next/dist/client/components/redirect'
-import { notFound, redirect } from 'next/navigation'
+import { redirect } from 'next/navigation'
 
 import { api } from '@/lib/api'
 import prisma from '@/lib/prisma'
 import { UserProfileValues } from '@/lib/user/user'
 import { createUser } from '@/lib/user/user.api'
-import { generateUniqueHash } from '@/lib/utils'
+import { generateUniqueHash, sleep } from '@/lib/utils'
 
 const generateRoom = () => ({
   code: generateUniqueHash(),
@@ -15,12 +15,18 @@ const generateRoom = () => ({
 })
 
 export const createRoom = async (data: FormData) => {
-  let userId: string | null = data.get('user') as string
+  let userId
+  const user = await api().user.get()
   const deckId = data.get('deck') as string
 
-  if (userId) {
-    const user = await api().user.getById(userId)
-    if (!user) {
+  /**
+   * if user doesn't exist in db, clear local storage
+   */
+  if (user) {
+    const userDb = await api().user.getById(user.id)
+    if (userDb) {
+      userId = userDb.id
+    } else {
       await api().user.clear()
       userId = null
     }
@@ -34,7 +40,7 @@ export const createRoom = async (data: FormData) => {
     userId = newUser.id
   }
 
-  const room = await api().room.create(generateRoom(), userId!, deckId)
+  const room = await api().room.create(generateRoom(), userId, deckId)
   redirect(`/room/${room.code}`, RedirectType.push)
 }
 
