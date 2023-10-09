@@ -33,7 +33,7 @@ model Deck {
   slug      String    @unique @default(uuid())
   rooms     Room[]
   cards     Card[]
-  seesions  Seesion[]
+  seesions  Session[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
@@ -65,14 +65,14 @@ model Vote {
 model Round {
   id        String   @id @default(uuid())
   order     Int
-  seesion   Seesion? @relation(fields: [seesionId], references: [id])
+  seesion   Session? @relation(fields: [seesionId], references: [id])
   seesionId String?
   votes     Vote[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Seesion {
+model Session {
   id        String   @id @default(uuid())
   room      Room     @relation(fields: [roomId], references: [id])
   roomId    String
@@ -90,7 +90,7 @@ model Room {
   users     User[]
   deck      Deck?     @relation(fields: [deckId], references: [id])
   deckId    String?
-  sessions  Seesion[]
+  sessions  Session[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }

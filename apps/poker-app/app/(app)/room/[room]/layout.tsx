@@ -15,15 +15,12 @@ export default async function RoomLayout({
   children,
   params,
 }: RoomLayoutProps) {
-  const [user, room] = await Promise.all([
-    api().user.get(),
-    api().room.get(params.room),
-  ])
-  const deck = await api().deck.getAdvanced('standard')
+  const user = await api().user.get()
+  const lastSession = await api().room.session.getByRoom(params.room)
 
   return (
-    <OnlineProvider user={user} room={room} deck={deck.data}>
-      <RoomHeader room={room} />
+    <OnlineProvider user={user} room={lastSession.room} deck={lastSession.deck}>
+      <RoomHeader room={lastSession.room} />
       {children}
     </OnlineProvider>
   )

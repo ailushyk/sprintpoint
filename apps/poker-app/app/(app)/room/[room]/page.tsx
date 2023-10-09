@@ -30,7 +30,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function PlayRoomPage({ params }: PlayRoomPageProps) {
+export default async function RoomPage({ params }: PlayRoomPageProps) {
   return (
     <main className="flex w-full flex-1 flex-col space-y-8 pb-40">
       <div className="sticky top-0 bg-background">

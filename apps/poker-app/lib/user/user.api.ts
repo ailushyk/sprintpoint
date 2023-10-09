@@ -6,7 +6,6 @@ import { profileFormSchema, UserProfileValues } from '@/lib/user/user'
 
 const USER_COOKIE = 'user'
 export async function setUserInfo(user: UserProfileValues) {
-  console.log('setUserInfo', user)
   cookies().set({
     name: USER_COOKIE,
     value: JSON.stringify(user),
@@ -35,4 +34,8 @@ export async function getUserInfo() {
   const data = parsedUser.success ? parsedUser.data : user
 
   return Promise.resolve(data)
+}
+
+export async function clearUserCookies() {
+  cookies().delete(USER_COOKIE)
 }

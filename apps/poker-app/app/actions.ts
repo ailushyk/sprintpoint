@@ -1,7 +1,7 @@
 'use server'
 
 import { RedirectType } from 'next/dist/client/components/redirect'
-import { redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
 import { api } from '@/lib/api'
 import prisma from '@/lib/prisma'
@@ -14,16 +14,27 @@ const generateRoom = () => ({
   name: '',
 })
 
-export const createRoom = async () => {
-  let user = await api().user.get()
-  if (!user) {
+export const createRoom = async (data: FormData) => {
+  let userId: string | null = data.get('user') as string
+  const deckId = data.get('deck') as string
+
+  if (userId) {
+    const user = await api().user.getById(userId)
+    if (!user) {
+      await api().user.clear()
+      userId = null
+    }
+  }
+
+  if (!userId) {
     const newUser = await prisma.user.create({
       data: createUser(),
     })
     await api().user.set(newUser)
-    user = newUser
+    userId = newUser.id
   }
-  const room = await api().room.create(generateRoom(), user.id)
+
+  const room = await api().room.create(generateRoom(), userId!, deckId)
   redirect(`/room/${room.code}`, RedirectType.push)
 }
 
