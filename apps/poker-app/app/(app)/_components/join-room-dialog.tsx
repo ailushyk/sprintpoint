@@ -19,7 +19,7 @@ export const JoinRoomDialog = () => {
         else router.back()
       }}
     >
-      <DialogContent className="abc sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Join Room</DialogTitle>
         </DialogHeader>

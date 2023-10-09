@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import { buttonVariants, cn } from '@easypoker/ui'
 
-import { StartSession } from '@/components/start-session/start-session'
+import { StartSession } from '@/components/start-session'
 
 export const metadata = {
   title: 'Efficient Agile Estimation with Sprint Point: Plan Your Success',
