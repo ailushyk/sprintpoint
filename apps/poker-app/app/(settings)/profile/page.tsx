@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Separator } from '@easypoker/ui'
 
-import { api } from '@/lib/api'
+import { api } from '@/lib/api/api'
 import { AppearanceForm } from '@/app/(settings)/profile/_components/appearance-form'
 import { ProfileForm } from '@/app/(settings)/profile/_components/profile-form'
 

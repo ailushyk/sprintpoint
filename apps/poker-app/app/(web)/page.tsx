@@ -1,6 +1,6 @@
 import { ShineBorder } from '@easypoker/ui'
 
-import { api } from '@/lib/api'
+import { api } from '@/lib/api/api'
 import { GradientText } from '@/components/gradient-text'
 import { StartSession } from '@/components/start-session'
 

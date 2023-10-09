@@ -3,11 +3,16 @@ import { getDeck, getDeckWithoutNonValueCards } from '@easypoker/shared'
 import { apiRoom } from '@/lib/api/api-room'
 import { addToAllChecks, getAllChecks } from '@/lib/api/redis'
 import prisma from '@/lib/prisma'
-import { clearUserCookies, getUserInfo, setUserInfo } from '@/lib/user/user.api'
+import { UserProfileValues } from '@/lib/user/user'
+import {
+  clearUserCookies,
+  getUserFromCookies,
+  setUserCookies,
+} from '@/lib/user/user.api'
 
 export const api = () => ({
   user: {
-    get: getUserInfo,
+    get: getUserFromCookies,
     getById: (userId: string) => {
       return prisma.user.findUnique({
         where: {
@@ -15,7 +20,17 @@ export const api = () => ({
         },
       })
     },
-    set: setUserInfo,
+    set: async (user: UserProfileValues) => {
+      const updateData = await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          ...user,
+        },
+      })
+      setUserCookies(updateData)
+    },
     clear: clearUserCookies,
   },
   deck: {

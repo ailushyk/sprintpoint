@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from '@easypoker/ui'
 
-import { api } from '@/lib/api'
+import { api } from '@/lib/api/api'
 import { getInitials } from '@/lib/utils'
 import { ThemeToggle } from '@/components/app-header/ThemeToggle'
 

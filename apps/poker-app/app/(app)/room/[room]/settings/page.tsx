@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import { api } from '@/lib/api'
+import { api } from '@/lib/api/api'
 import { RoomForm } from '@/app/(app)/_components/room-form'
 
 interface PlayRoomPageProps {
