@@ -3,10 +3,10 @@ import { z } from 'zod'
 
 export const profileFormSchema = z.object({
   id: z.string().uuid().nonempty().default(randomUUID),
+  email: z.string().email().nullable().optional(),
   username: z.string().min(2, {
     message: 'Full name must be at least 2 characters.',
   }),
-  fullName: z.string().optional(),
   avatar: z.string().optional(),
   theme: z
     .union([z.literal('light'), z.literal('dark')])

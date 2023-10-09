@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from '@easypoker/ui'
 
-import { api } from '@/lib/api'
+import { api } from '@/lib/api/api'
 import {
   Form,
   FormControl,

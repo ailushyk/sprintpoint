@@ -3,7 +3,7 @@
 import { RedirectType } from 'next/dist/client/components/redirect'
 import { redirect } from 'next/navigation'
 
-import { api } from '@/lib/api'
+import { api } from '@/lib/api/api'
 import prisma from '@/lib/prisma'
 import { UserProfileValues } from '@/lib/user/user'
 import { createUser } from '@/lib/user/user.api'
@@ -15,7 +15,7 @@ const generateRoom = () => ({
 })
 
 export const createRoom = async (data: FormData) => {
-  let userId
+  let userId: string | null = null
   const user = await api().user.get()
   const deckId = data.get('deck') as string
 
@@ -27,7 +27,7 @@ export const createRoom = async (data: FormData) => {
     if (userDb) {
       userId = userDb.id
     } else {
-      await api().user.clear()
+      api().user.clear()
       userId = null
     }
   }
@@ -40,7 +40,7 @@ export const createRoom = async (data: FormData) => {
     userId = newUser.id
   }
 
-  const room = await api().room.create(generateRoom(), userId, deckId)
+  const room = await api().room.create(generateRoom(), userId!, deckId)
   redirect(`/room/${room.code}`, RedirectType.push)
 }
 
