@@ -1,48 +1,31 @@
 import { getDeck, getDeckWithoutNonValueCards } from '@easypoker/shared'
-import { Room } from '@easypoker/shared/src/refactor-types'
 
-import {
-  addToAllChecks,
-  createRoom,
-  getAllChecks,
-  getRoom,
-} from '@/lib/api/redis'
+import { apiRoom } from '@/lib/api/api-room'
+import { addToAllChecks, getAllChecks } from '@/lib/api/redis'
 import prisma from '@/lib/prisma'
-import { getUserInfo, setUserInfo } from '@/lib/user/user.api'
+import { clearUserCookies, getUserInfo, setUserInfo } from '@/lib/user/user.api'
 
 export const api = () => ({
   user: {
     get: getUserInfo,
+    getById: (userId: string) => {
+      return prisma.user.findUnique({
+        where: {
+          id: userId,
+        },
+      })
+    },
     set: setUserInfo,
+    clear: clearUserCookies,
   },
   deck: {
+    all: () => {
+      return prisma.deck.findMany()
+    },
     get: getDeck,
     getAdvanced: getDeckWithoutNonValueCards,
   },
-  room: {
-    // create: createRoom,
-    create: (data: Partial<Room>, userId: string) => {
-      return prisma.room.create({
-        data: {
-          ...data,
-          users: {
-            connect: [
-              {
-                id: userId,
-              },
-            ],
-          },
-        },
-      })
-    },
-    get: (code: string) => {
-      return prisma.room.findUnique({
-        where: {
-          code,
-        },
-      })
-    },
-  },
+  room: apiRoom,
   redis: {
     getAllChecks,
     addToAllChecks,

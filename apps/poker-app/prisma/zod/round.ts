@@ -1,5 +1,5 @@
 import * as z from "zod"
-import { CompleteSeesion, RelatedSeesionModel, CompleteVote, RelatedVoteModel } from "./index"
+import { CompleteSession, RelatedSessionModel, CompleteVote, RelatedVoteModel } from "./index"
 
 export const RoundModel = z.object({
   id: z.string(),
@@ -10,7 +10,7 @@ export const RoundModel = z.object({
 })
 
 export interface CompleteRound extends z.infer<typeof RoundModel> {
-  seesion?: CompleteSeesion | null
+  seesion?: CompleteSession | null
   votes: CompleteVote[]
 }
 
@@ -20,6 +20,6 @@ export interface CompleteRound extends z.infer<typeof RoundModel> {
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
 export const RelatedRoundModel: z.ZodSchema<CompleteRound> = z.lazy(() => RoundModel.extend({
-  seesion: RelatedSeesionModel.nullish(),
+  seesion: RelatedSessionModel.nullish(),
   votes: RelatedVoteModel.array(),
 }))

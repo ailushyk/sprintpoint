@@ -1,5 +1,5 @@
 import * as z from "zod"
-import { CompleteRoom, RelatedRoomModel, CompleteCard, RelatedCardModel, CompleteSeesion, RelatedSeesionModel } from "./index"
+import { CompleteRoom, RelatedRoomModel, CompleteCard, RelatedCardModel, CompleteSession, RelatedSessionModel } from "./index"
 
 export const DeckModel = z.object({
   id: z.string(),
@@ -12,7 +12,7 @@ export const DeckModel = z.object({
 export interface CompleteDeck extends z.infer<typeof DeckModel> {
   rooms: CompleteRoom[]
   cards: CompleteCard[]
-  seesions: CompleteSeesion[]
+  seesions: CompleteSession[]
 }
 
 /**
@@ -23,5 +23,5 @@ export interface CompleteDeck extends z.infer<typeof DeckModel> {
 export const RelatedDeckModel: z.ZodSchema<CompleteDeck> = z.lazy(() => DeckModel.extend({
   rooms: RelatedRoomModel.array(),
   cards: RelatedCardModel.array(),
-  seesions: RelatedSeesionModel.array(),
+  seesions: RelatedSessionModel.array(),
 }))

@@ -11,6 +11,11 @@ async function main() {
       cards: {
         create: [
           {
+            name: '☕',
+            value: null,
+            order: 0,
+          },
+          {
             name: '0',
             value: 0,
             order: 1,
@@ -69,11 +74,6 @@ async function main() {
             name: '?',
             value: null,
             order: 12,
-          },
-          {
-            name: '☕',
-            value: null,
-            order: 13,
           },
         ],
       },
