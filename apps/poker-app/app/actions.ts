@@ -4,43 +4,53 @@ import { RedirectType } from 'next/dist/client/components/redirect'
 import { redirect } from 'next/navigation'
 
 import { api } from '@/lib/api/api'
-import prisma from '@/lib/prisma'
 import { UserProfileValues } from '@/lib/user/user'
 import { createUser } from '@/lib/user/user.api'
-import { generateUniqueHash, sleep } from '@/lib/utils'
+import { generateUniqueHash } from '@/lib/utils'
 
 const generateRoom = () => ({
   code: generateUniqueHash(),
   name: '',
 })
 
-export const createRoom = async (data: FormData) => {
-  let userId: string | null = null
+const getUser = async () => {
   const user = await api().user.get()
-  const deckId = data.get('deck') as string
-
   /**
    * if user doesn't exist in db, clear local storage
    */
   if (user) {
     const userDb = await api().user.getById(user.id)
     if (userDb) {
-      userId = userDb.id
+      return userDb
     } else {
       api().user.clear()
-      userId = null
     }
   }
 
-  if (!userId) {
-    const newUser = await prisma.user.create({
-      data: createUser(),
-    })
-    await api().user.set(newUser)
-    userId = newUser.id
-  }
+  const newUser = await api().user.create({
+    data: createUser(),
+  })
+  await api().user.set(newUser)
+  return newUser
+}
 
-  const room = await api().room.create(generateRoom(), userId!, deckId)
+export const createRoom = async (data: FormData) => {
+  const user = await getUser()
+  const deckId = data.get('deck') as string
+  const room = await api().room.create(generateRoom(), user.id, deckId)
+  redirect(`/room/${room.code}`, RedirectType.push)
+}
+
+export const joinRoom = async (code: string) => {
+  const user = await getUser()
+  const room = await api().room.get(code)
+  if (!room) {
+    throw new Error('Room not found')
+  }
+  await api().room.join({
+    roomId: room.id,
+    userId: user.id,
+  })
   redirect(`/room/${room.code}`, RedirectType.push)
 }
 

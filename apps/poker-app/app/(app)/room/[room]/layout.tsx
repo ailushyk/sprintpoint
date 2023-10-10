@@ -1,4 +1,5 @@
 import React from 'react'
+import { notFound } from 'next/navigation'
 
 import { api } from '@/lib/api/api'
 import { RoomHeader } from '@/components/app-header/room-header'
@@ -17,6 +18,9 @@ export default async function RoomLayout({
 }: RoomLayoutProps) {
   const user = await api().user.get()
   const lastSession = await api().room.session.getByRoom(params.room)
+  if (!lastSession) {
+    notFound()
+  }
 
   return (
     <OnlineProvider user={user} room={lastSession.room} deck={lastSession.deck}>
