@@ -1,4 +1,4 @@
-import { Room } from '@easypoker/shared/src/refactor-types'
+import { Room } from '@prisma/client'
 
 import prisma from '@/lib/prisma'
 
@@ -32,6 +32,22 @@ export const apiRoom = {
     return prisma.room.findUnique({
       where: {
         code,
+      },
+    })
+  },
+  join: ({ roomId, userId }: { roomId: string; userId: string }) => {
+    return prisma.room.update({
+      where: {
+        id: roomId,
+      },
+      data: {
+        users: {
+          connect: [
+            {
+              id: userId,
+            },
+          ],
+        },
       },
     })
   },

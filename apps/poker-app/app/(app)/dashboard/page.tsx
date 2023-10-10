@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { buttonVariants, cn } from '@easypoker/ui'
 
 import { StartSession } from '@/components/start-session'
+import { DashboardRooms } from '@/app/(app)/dashboard/dashboard-rooms'
 
 export const metadata = {
   title: 'Efficient Agile Estimation with Sprint Point: Plan Your Success',
@@ -13,7 +14,7 @@ export const metadata = {
   },
 }
 
-export default function AppPage() {
+export default async function DashboardPage() {
   return (
     <main className="h-full w-full space-y-8">
       <header className="container space-y-1 p-8 text-center">
@@ -35,24 +36,7 @@ export default function AppPage() {
         <hr />
       </div>
 
-      <div className="container space-y-1">
-        <h2 className="text-2xl font-bold">Your rooms</h2>
-        <p>
-          You don&apos;t have any rooms yet. Create one or join one to get.
-          Coming Soon.
-        </p>
-
-        <div className="hidden">
-          <p>Here are the rooms you&apos;ve created or joined.</p>
-
-          {/* TODO: Replace with actual rooms*/}
-          <ul>
-            <li>Room 1</li>
-            <li>Room 2</li>
-            <li>Room 3</li>
-          </ul>
-        </div>
-      </div>
+      <DashboardRooms />
     </main>
   )
 }

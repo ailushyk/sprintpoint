@@ -1,7 +1,6 @@
 'use client'
 
 import { useTransition } from 'react'
-import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -19,6 +18,8 @@ import {
   Input,
 } from '@easypoker/ui'
 
+import { joinRoom } from '@/app/actions'
+
 const joinRoomFormSchema = z.object({
   code: z.string().min(8).max(8),
 })
@@ -29,8 +30,7 @@ const defaultValues: JoinRoomFormValues = {
   code: '',
 }
 
-export const JoinRoomForm = ({ onSuccess }: { onSuccess?: () => void }) => {
-  const router = useRouter()
+export const JoinRoomForm = () => {
   let [isPending, startTransition] = useTransition()
   const form = useForm<JoinRoomFormValues>({
     resolver: zodResolver(joinRoomFormSchema),
@@ -39,8 +39,7 @@ export const JoinRoomForm = ({ onSuccess }: { onSuccess?: () => void }) => {
 
   const onSubmit = (data: JoinRoomFormValues) => {
     startTransition(() => {
-      onSuccess?.()
-      router.replace(`/room/${data.code}`)
+      joinRoom(data.code)
     })
   }
 

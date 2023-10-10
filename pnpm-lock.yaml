@@ -28,7 +28,7 @@ importers:
         version: 0.4.1(@ianvs/prettier-plugin-sort-imports@4.1.0)(prettier@3.0.1)
       turbo:
         specifier: latest
-        version: 1.10.7
+        version: 1.10.15
 
   apps/poker-app:
     dependencies:
@@ -59,6 +59,9 @@ importers:
       '@radix-ui/react-label':
         specifier: ^2.0.2
         version: 2.0.2(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.3.0-canary-b9be4537c-20230905)(react@18.3.0-canary-b9be4537c-20230905)
+      '@radix-ui/react-scroll-area':
+        specifier: ^1.0.5
+        version: 1.0.5(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.3.0-canary-b9be4537c-20230905)(react@18.3.0-canary-b9be4537c-20230905)
       '@radix-ui/react-select':
         specifier: ^1.2.2
         version: 1.2.2(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.3.0-canary-b9be4537c-20230905)(react@18.3.0-canary-b9be4537c-20230905)
@@ -290,10 +293,10 @@ importers:
         version: 2.0.0
       framer-motion:
         specifier: latest
-        version: 10.16.1(react-dom@18.2.0)(react@18.2.0)
+        version: 10.16.4(react-dom@18.2.0)(react@18.2.0)
       lucide-react:
         specifier: latest
-        version: 0.269.0(react@18.2.0)
+        version: 0.284.0(react@18.2.0)
       next-themes:
         specifier: ^0.2.1
         version: 0.2.1(next@13.5.4)(react-dom@18.2.0)(react@18.2.0)
@@ -1906,6 +1909,28 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
+  /@radix-ui/react-presence@1.0.1(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.3.0-canary-b9be4537c-20230905)(react@18.3.0-canary-b9be4537c-20230905):
+    resolution: {integrity: sha512-UXLW4UAbIY5ZjcvzjfRFo5gxva8QirC9hF7wRE4U5gz+TP0DbRk+//qyuAQ1McDxBt1xNMBTaciFGvEmJvAZCg==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.22.6
+      '@radix-ui/react-compose-refs': 1.0.1(@types/react@18.2.21)(react@18.3.0-canary-b9be4537c-20230905)
+      '@radix-ui/react-use-layout-effect': 1.0.1(@types/react@18.2.21)(react@18.3.0-canary-b9be4537c-20230905)
+      '@types/react': 18.2.21
+      '@types/react-dom': 18.2.7
+      react: 18.3.0-canary-b9be4537c-20230905
+      react-dom: 18.3.0-canary-b9be4537c-20230905(react@18.3.0-canary-b9be4537c-20230905)
+    dev: false
+
   /@radix-ui/react-primitive@1.0.3(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-yi58uVyoAcK/Nq1inRY56ZSjKypBNKTa/1mcL8qdl6oJeEaDbOldlzrGn7P6Q3Id5d+SYNGc5AJgc4vGhjs5+g==}
     peerDependencies:
@@ -2005,6 +2030,35 @@ packages:
       '@types/react-dom': 18.2.7
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@radix-ui/react-scroll-area@1.0.5(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.3.0-canary-b9be4537c-20230905)(react@18.3.0-canary-b9be4537c-20230905):
+    resolution: {integrity: sha512-b6PAgH4GQf9QEn8zbT2XUHpW5z8BzqEc7Kl11TwDrvuTrxlkcjTD5qa/bxgKr+nmuXKu4L/W5UZ4mlP/VG/5Gw==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.22.6
+      '@radix-ui/number': 1.0.1
+      '@radix-ui/primitive': 1.0.1
+      '@radix-ui/react-compose-refs': 1.0.1(@types/react@18.2.21)(react@18.3.0-canary-b9be4537c-20230905)
+      '@radix-ui/react-context': 1.0.1(@types/react@18.2.21)(react@18.3.0-canary-b9be4537c-20230905)
+      '@radix-ui/react-direction': 1.0.1(@types/react@18.2.21)(react@18.3.0-canary-b9be4537c-20230905)
+      '@radix-ui/react-presence': 1.0.1(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.3.0-canary-b9be4537c-20230905)(react@18.3.0-canary-b9be4537c-20230905)
+      '@radix-ui/react-primitive': 1.0.3(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.3.0-canary-b9be4537c-20230905)(react@18.3.0-canary-b9be4537c-20230905)
+      '@radix-ui/react-use-callback-ref': 1.0.1(@types/react@18.2.21)(react@18.3.0-canary-b9be4537c-20230905)
+      '@radix-ui/react-use-layout-effect': 1.0.1(@types/react@18.2.21)(react@18.3.0-canary-b9be4537c-20230905)
+      '@types/react': 18.2.21
+      '@types/react-dom': 18.2.7
+      react: 18.3.0-canary-b9be4537c-20230905
+      react-dom: 18.3.0-canary-b9be4537c-20230905(react@18.3.0-canary-b9be4537c-20230905)
     dev: false
 
   /@radix-ui/react-select@1.2.2(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0):
@@ -4535,8 +4589,8 @@ packages:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: false
 
-  /framer-motion@10.16.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-K6TXr5mZtitC/dxQCBdg7xzdN0d5IAIrlaqCPKtIQVdzVPGC0qBuJKXggHX1vjnP5gPOFwB1KbCCTWcnFc3kWg==}
+  /framer-motion@10.16.4(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-p9V9nGomS3m6/CALXqv6nFGMuFOxbWsmaOrdmhyQimMIlLl3LC7h7l86wge/Js/8cRu5ktutS/zlzgR7eBOtFA==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -5463,8 +5517,8 @@ packages:
     resolution: {integrity: sha512-Pn9cox5CsMYngeDbmChANltQl+5pi6XmTrraMSzhPmMBbmgcxmqWry0U3PGapCU1yB4/LqCcom7qhHZiF/jGfQ==}
     dev: false
 
-  /lucide-react@0.269.0(react@18.2.0):
-    resolution: {integrity: sha512-+ViEb/2eJJt43/CtxpTfvqu/8gzK49cSUdeuqRuFYiZmX9AvwfumtETM4plhXHymfHb6/mVbHg9uIlc13y+uew==}
+  /lucide-react@0.284.0(react@18.2.0):
+    resolution: {integrity: sha512-dVSMHYAya/TeY3+vsk+VQJEKNQN2AhIo0+Dp09B2qpzvcBuu93H98YZykFcjIAfmanFiDd8nqfXFR38L757cyQ==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
@@ -7194,65 +7248,64 @@ packages:
       typescript: 5.2.2
     dev: false
 
-  /turbo-darwin-64@1.10.7:
-    resolution: {integrity: sha512-N2MNuhwrl6g7vGuz4y3fFG2aR1oCs0UZ5HKl8KSTn/VC2y2YIuLGedQ3OVbo0TfEvygAlF3QGAAKKtOCmGPNKA==}
+  /turbo-darwin-64@1.10.15:
+    resolution: {integrity: sha512-Sik5uogjkRTe1XVP9TC2GryEMOJCaKE2pM/O9uLn4koQDnWKGcLQv+mDU+H+9DXvKLnJnKCD18OVRkwK5tdpoA==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-darwin-arm64@1.10.7:
-    resolution: {integrity: sha512-WbJkvjU+6qkngp7K4EsswOriO3xrNQag7YEGRtfLoDdMTk4O4QTeU6sfg2dKfDsBpTidTvEDwgIYJhYVGzrz9Q==}
+  /turbo-darwin-arm64@1.10.15:
+    resolution: {integrity: sha512-xwqyFDYUcl2xwXyGPmHkmgnNm4Cy0oNzMpMOBGRr5x64SErS7QQLR4VHb0ubiR+VAb8M+ECPklU6vD1Gm+wekg==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-64@1.10.7:
-    resolution: {integrity: sha512-x1CF2CDP1pDz/J8/B2T0hnmmOQI2+y11JGIzNP0KtwxDM7rmeg3DDTtDM/9PwGqfPotN9iVGgMiMvBuMFbsLhg==}
+  /turbo-linux-64@1.10.15:
+    resolution: {integrity: sha512-dM07SiO3RMAJ09Z+uB2LNUSkPp3I1IMF8goH5eLj+d8Kkwoxd/+qbUZOj9RvInyxU/IhlnO9w3PGd3Hp14m/nA==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-arm64@1.10.7:
-    resolution: {integrity: sha512-JtnBmaBSYbs7peJPkXzXxsRGSGBmBEIb6/kC8RRmyvPAMyqF8wIex0pttsI+9plghREiGPtRWv/lfQEPRlXnNQ==}
+  /turbo-linux-arm64@1.10.15:
+    resolution: {integrity: sha512-MkzKLkKYKyrz4lwfjNXH8aTny5+Hmiu4SFBZbx+5C0vOlyp6fV5jZANDBvLXWiDDL4DSEAuCEK/2cmN6FVH1ow==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-64@1.10.7:
-    resolution: {integrity: sha512-7A/4CByoHdolWS8dg3DPm99owfu1aY/W0V0+KxFd0o2JQMTQtoBgIMSvZesXaWM57z3OLsietFivDLQPuzE75w==}
+  /turbo-windows-64@1.10.15:
+    resolution: {integrity: sha512-3TdVU+WEH9ThvQGwV3ieX/XHebtYNHv9HARHauPwmVj3kakoALkpGxLclkHFBLdLKkqDvmHmXtcsfs6cXXRHJg==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-arm64@1.10.7:
-    resolution: {integrity: sha512-D36K/3b6+hqm9IBAymnuVgyePktwQ+F0lSXr2B9JfAdFPBktSqGmp50JNC7pahxhnuCLj0Vdpe9RqfnJw5zATA==}
+  /turbo-windows-arm64@1.10.15:
+    resolution: {integrity: sha512-l+7UOBCbfadvPMYsX08hyLD+UIoAkg6ojfH+E8aud3gcA1padpjCJTh9gMpm3QdMbKwZteT5uUM+wyi6Rbbyww==}
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo@1.10.7:
-    resolution: {integrity: sha512-xm0MPM28TWx1e6TNC3wokfE5eaDqlfi0G24kmeHupDUZt5Wd0OzHFENEHMPqEaNKJ0I+AMObL6nbSZonZBV2HA==}
+  /turbo@1.10.15:
+    resolution: {integrity: sha512-mKKkqsuDAQy1wCCIjCdG+jOCwUflhckDMSRoeBPcIL/CnCl7c5yRDFe7SyaXloUUkt4tUR0rvNIhVCcT7YeQpg==}
     hasBin: true
-    requiresBuild: true
     optionalDependencies:
-      turbo-darwin-64: 1.10.7
-      turbo-darwin-arm64: 1.10.7
-      turbo-linux-64: 1.10.7
-      turbo-linux-arm64: 1.10.7
-      turbo-windows-64: 1.10.7
-      turbo-windows-arm64: 1.10.7
+      turbo-darwin-64: 1.10.15
+      turbo-darwin-arm64: 1.10.15
+      turbo-linux-64: 1.10.15
+      turbo-linux-arm64: 1.10.15
+      turbo-windows-64: 1.10.15
+      turbo-windows-arm64: 1.10.15
     dev: true
 
   /type-check@0.4.0:
