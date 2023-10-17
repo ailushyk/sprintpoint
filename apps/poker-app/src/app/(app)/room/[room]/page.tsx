@@ -1,7 +1,7 @@
 import React from 'react'
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 
 import { buttonVariants, cn, Icons, Separator } from '@easypoker/ui'
 
@@ -41,11 +41,6 @@ export default async function RoomPage({ params }: PlayRoomPageProps) {
     notFound()
   }
   const user = session.user.get()
-  if (!user) {
-    const _user = await session.user.getOrCreateIncognito()
-    console.log(_user)
-    redirect('/login')
-  }
 
   return (
     <OnlineProvider user={user} room={lastSession.room} deck={lastSession.deck}>

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Separator } from '@easypoker/ui'
 
-import { api } from '@/lib/api/api'
+import { session } from '@/lib/api/session'
 import { AppearanceForm } from '@/app/(settings)/profile/_components/appearance-form'
 import { ProfileForm } from '@/app/(settings)/profile/_components/profile-form'
 
@@ -13,7 +13,8 @@ export const metadata = {
 }
 
 export default async function ProfilePage() {
-  const user = await api().user.me()
+  const user = await session.user.get()
+
   return (
     <main className="container flex-1 space-y-16 pb-24">
       <div className="space-y-6">
@@ -25,7 +26,7 @@ export default async function ProfilePage() {
         </div>
         <Separator />
 
-        <ProfileForm defaultValues={user} />
+        <ProfileForm user={user} />
       </div>
 
       <div className="space-y-6">
