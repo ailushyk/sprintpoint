@@ -23,8 +23,8 @@ import {
   Icons,
 } from '@easypoker/ui'
 
+import { UserProfileValues } from '@/lib/api/api-types'
 import { socket } from '@/lib/socket-client'
-import { UserProfileValues } from '@/lib/user/user'
 import { useOnlineContext } from '@/app/(app)/room/[room]/_components/online-provider'
 import { Results } from '@/app/(app)/room/[room]/_components/results'
 import { UserList } from '@/app/(app)/room/[room]/_components/user-list'

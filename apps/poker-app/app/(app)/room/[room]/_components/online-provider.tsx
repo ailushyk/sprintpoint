@@ -16,8 +16,8 @@ import { AllUsersResponse, RoomStatusValue } from '@easypoker/shared/src'
 import { Room } from '@easypoker/shared/src/refactor-types'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@easypoker/ui'
 
+import { UserProfileValues } from '@/lib/api/api-types'
 import { socket, usersSchema } from '@/lib/socket-client'
-import { UserProfileValues } from '@/lib/user/user'
 import { SetUsernameForm } from '@/app/(app)/room/[room]/_components/set-username-form'
 
 export const formSchema = z.object({
@@ -29,7 +29,7 @@ export const formSchema = z.object({
 export type FormDeckValues = z.infer<typeof formSchema>
 
 type OnlineStateValue = {
-  user: UserProfileValues
+  user: UserProfileValues | null
   room: Room
   status: RoomStatusValue
   users: AllUsersResponse
@@ -92,7 +92,7 @@ export const OnlineProvider = ({
   deck,
   children,
 }: {
-  user: UserProfileValues
+  user: UserProfileValues | null
   room: Room
   deck: DeckValue
   children: React.ReactNode
@@ -133,7 +133,7 @@ export const OnlineProvider = ({
     return () => {
       socket.disconnect()
     }
-  }, [room.code, user.id, user.username])
+  }, [room.code, user?.id, user?.username])
 
   useEffect(() => {
     socket.io.on('reconnect', () => {
@@ -174,7 +174,15 @@ export const OnlineProvider = ({
             <DialogTitle>Please set your username</DialogTitle>
           </DialogHeader>
 
-          <SetUsernameForm defaultValues={user} afterSuccess={afterSuccess} />
+          <SetUsernameForm
+            defaultValues={{
+              username: '',
+              avatar: '',
+              theme: 'dark',
+              type: 'incognito',
+            }}
+            afterSuccess={afterSuccess}
+          />
         </DialogContent>
       </Dialog>
     </OnlineContext.Provider>

@@ -3,18 +3,15 @@ import { User } from '@prisma/client'
 import { getDeck, getDeckWithoutNonValueCards } from '@easypoker/shared'
 
 import { apiRoom } from '@/lib/api/api-room'
+import { UserProfileValues } from '@/lib/api/api-types'
 import { addToAllChecks, getAllChecks } from '@/lib/api/redis'
+import { session } from '@/lib/api/session'
 import prisma from '@/lib/prisma'
-import { UserProfileValues } from '@/lib/user/user'
-import {
-  clearUserCookies,
-  getUserFromCookies,
-  setUserCookies,
-} from '@/lib/user/user.api'
 
 export const api = () => ({
   user: {
-    get: getUserFromCookies,
+    /** @deprecated use session.user.get() */
+    me: session.user.get,
     set: async (user: UserProfileValues) => {
       const updateData = await prisma.user.update({
         where: {
@@ -24,10 +21,9 @@ export const api = () => ({
           ...user,
         },
       })
-      setUserCookies(updateData)
+      session.user.set(updateData)
     },
-    clear: clearUserCookies,
-    getById: (userId: string) => {
+    get: (userId: string) => {
       return prisma.user.findUnique({
         where: {
           id: userId,
@@ -38,24 +34,18 @@ export const api = () => ({
       data,
     }: {
       data: Pick<User, 'username' | 'avatar' | 'theme' | 'type'>
-    }) => {
-      return prisma.user.create({
-        data,
-      })
-    },
-    rooms: {
-      all: async () => {
-        const user = await getUserFromCookies()
-        return prisma.room.findMany({
-          where: {
-            users: {
-              some: {
-                id: user.id,
-              },
+    }) => prisma.user.create({ data }),
+    rooms: async () => {
+      const user = await session.user.get()
+      return prisma.room.findMany({
+        where: {
+          users: {
+            some: {
+              id: user.id,
             },
           },
-        })
-      },
+        },
+      })
     },
   },
   deck: {

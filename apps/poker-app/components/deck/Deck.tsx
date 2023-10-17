@@ -14,10 +14,10 @@ import {
   RadioGroup,
 } from '@easypoker/ui'
 
+import { UserProfileValues } from '@/lib/api/api-types'
 import { getAverageCardValue, getStatusByValues } from '@/lib/deck-utils'
 import { getClosest } from '@/lib/math'
 import { socket } from '@/lib/socket-client'
-import { UserProfileValues } from '@/lib/user/user'
 import { DeckFormActions } from '@/components/deck/deck-form-actions'
 import { PickedCard } from '@/components/deck/PickedCard'
 import { useUserActivity } from '@/components/deck/useUserActivity'
