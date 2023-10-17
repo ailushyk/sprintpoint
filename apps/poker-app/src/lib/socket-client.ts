@@ -1,6 +1,6 @@
 import { io, Socket } from 'socket.io-client'
 
-import { socketDataSchema } from '@easypoker/shared/dist'
+import { socketDataSchema } from '@easypoker/shared'
 import { toast } from '@easypoker/ui'
 
 const URL =
