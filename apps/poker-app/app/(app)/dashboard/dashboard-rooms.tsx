@@ -4,8 +4,8 @@ import { api } from '@/lib/api/api'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 
 export async function DashboardRooms() {
-  const user = await api().user.get()
-  const rooms = user ? await api().user.rooms.all() : []
+  const user = await api().user.me()
+  const rooms = user ? await api().user.rooms() : []
 
   return (
     <div className="container space-y-1">

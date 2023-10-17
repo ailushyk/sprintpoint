@@ -5,7 +5,7 @@ import React from 'react'
 import { UserResponse } from '@easypoker/shared/src'
 import { cn } from '@easypoker/ui'
 
-import { UserProfileValues } from '@/lib/user/user'
+import { UserProfileValues } from '@/lib/api/api-types'
 import { useOnlineContext } from '@/app/(app)/room/[room]/_components/online-provider'
 import { UserList } from '@/app/(app)/room/[room]/_components/user-list'
 import { UserStatus } from '@/app/(app)/room/[room]/_components/user-status'

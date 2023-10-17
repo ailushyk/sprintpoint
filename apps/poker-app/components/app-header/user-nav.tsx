@@ -20,7 +20,7 @@ import { getInitials } from '@/lib/utils'
 import { ThemeToggle } from '@/components/app-header/ThemeToggle'
 
 export async function UserNav() {
-  const user = await api().user.get()
+  const user = await api().user.me()
 
   if (!user) {
     return null

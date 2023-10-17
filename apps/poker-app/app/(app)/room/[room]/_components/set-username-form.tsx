@@ -15,19 +15,19 @@ import {
   toast,
 } from '@easypoker/ui'
 
-import { profileFormSchema, UserProfileValues } from '@/lib/user/user'
+import { UserProfileValues, UserSchema } from '@/lib/api/api-types'
 import { updateUserInfoAction } from '@/app/actions'
 
 export const SetUsernameForm = ({
   defaultValues,
   afterSuccess,
 }: {
-  defaultValues: UserProfileValues
+  defaultValues: Partial<UserProfileValues>
   afterSuccess: (data: UserProfileValues) => void
 }) => {
   let [isPending, startTransition] = useTransition()
   const form = useForm<UserProfileValues>({
-    resolver: zodResolver(profileFormSchema),
+    resolver: zodResolver(UserSchema),
     defaultValues,
   })
 

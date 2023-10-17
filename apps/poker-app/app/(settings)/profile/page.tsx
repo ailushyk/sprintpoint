@@ -13,7 +13,7 @@ export const metadata = {
 }
 
 export default async function ProfilePage() {
-  const user = await api().user.get()
+  const user = await api().user.me()
   return (
     <main className="container flex-1 space-y-16 pb-24">
       <div className="space-y-6">

@@ -18,7 +18,7 @@ import {
   toast,
 } from '@easypoker/ui'
 
-import { profileFormSchema, UserProfileValues } from '@/lib/user/user'
+import { UserProfileValues, UserSchema } from '@/lib/api/api-types'
 import { updateUserInfoAction } from '@/app/actions'
 
 export function ProfileForm({
@@ -28,7 +28,7 @@ export function ProfileForm({
 }) {
   const [isPending, startTransition] = useTransition()
   const form = useForm<UserProfileValues>({
-    resolver: zodResolver(profileFormSchema),
+    resolver: zodResolver(UserSchema),
     defaultValues,
     mode: 'onChange',
     resetOptions: {
