@@ -1,102 +1,73 @@
 'use client'
 
-import { useTransition } from 'react'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import React from 'react'
+import { useFormState } from 'react-dom'
 
+import { UserProfileValues } from '@/lib/api/api-types'
+import { Input } from '@/components/ui/input'
 import {
-  Button,
   Form,
   FormControl,
   FormDescription,
   FormField,
-  FormItem,
   FormLabel,
   FormMessage,
-  Icons,
-  Input,
-  toast,
-} from '@easypoker/ui'
+  FormSubmit,
+} from '@/components/form'
+import { updateUserProfileAction } from '@/app/actions'
 
-import { UserProfileValues, UserSchema } from '@/lib/api/api-types'
-import { updateUserInfoAction } from '@/app/actions'
+/**
+ * find first error by name
+ */
+export function getFormErrorByName(
+  name: string,
+  errors: { issues: Array<any> }
+): { message: string } | null {
+  if (!errors) return null
+  return errors.issues.find((e) => e.path.join('.') === name)
+}
 
-export function ProfileForm({
-  defaultValues,
-}: {
-  defaultValues: UserProfileValues
-}) {
-  const [isPending, startTransition] = useTransition()
-  const form = useForm<UserProfileValues>({
-    resolver: zodResolver(UserSchema),
-    defaultValues,
-    mode: 'onChange',
-    resetOptions: {
-      keepDirty: true,
-    },
-  })
-
-  function onSubmit(data: UserProfileValues) {
-    // if (!form.formState.isDirty) {
-    //   toast({
-    //     title: 'No changes',
-    //     description: 'You have not made any changes to your profile.',
-    //   })
-    //   return
-    // }
-    startTransition(() => {
-      updateUserInfoAction(data).then(() => {
-        toast({
-          title: 'Profile updated',
-          description: 'Your profile has been updated.',
-        })
-      })
-    })
+export function ProfileForm({ user }: { user: UserProfileValues }) {
+  const [state, formAction] = useFormState(updateUserProfileAction, user)
+  let errors: any = null
+  if (state.errors) {
+    errors = JSON.parse(state.errors)
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="fullName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Full Name</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    <Form action={formAction}>
+      {/*<FormField name="email">*/}
+      {/*  <FormLabel>Email</FormLabel>*/}
+      {/*  <FormControl asChild>*/}
+      {/*    <Input defaultValue={user.email || ''} />*/}
+      {/*  </FormControl>*/}
+      {/*  {getErrors('email', errors) && (*/}
+      {/*    <FormMessage>{getErrors('email', errors)?.message}</FormMessage>*/}
+      {/*  )}*/}
+      {/*  <FormDescription>*/}
+      {/*    The username is used to identify you in the room.*/}
+      {/*  </FormDescription>*/}
+      {/*</FormField>*/}
 
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name. It can be your real name or a
-                pseudonym.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <FormField name="username">
+        <FormLabel>Username</FormLabel>
+        <FormControl asChild>
+          <Input defaultValue={user.username || ''} />
+        </FormControl>
+        {getFormErrorByName('username', errors) && (
+          <FormMessage>
+            {getFormErrorByName('username', errors)?.message}
+          </FormMessage>
+        )}
+        <FormDescription>
+          This is your public display name. It can be your real name or a
+          pseudonym.
+        </FormDescription>
+      </FormField>
 
-        <Button type="submit" disabled={isPending} className="w-40">
-          {isPending ? (
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-          ) : (
-            'Update profile'
-          )}
-        </Button>
-      </form>
+      <div className="flex justify-end">
+        <FormSubmit asChild>Update profile</FormSubmit>
+      </div>
     </Form>
   )
 }

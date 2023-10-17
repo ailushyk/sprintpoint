@@ -114,15 +114,12 @@ export const OnlineProvider = ({
   }
   const [state, dispatch] = useReducer(reducer, {}, () => initialState)
 
-  const afterSuccess = () => {
-    setOpenUserDialog(false)
-  }
-
   /**
    * Check if user has username. Open form in modal if not
    */
   useEffect(() => {
     if (user?.username) {
+      if (openUserDialog) setOpenUserDialog(false)
       socket.auth = { id: user.id, username: user.username }
       socket.connect()
       socket.emit('room:join', { room: room.code })
@@ -174,15 +171,7 @@ export const OnlineProvider = ({
             <DialogTitle>Please set your username</DialogTitle>
           </DialogHeader>
 
-          <SetUsernameForm
-            defaultValues={{
-              username: '',
-              avatar: '',
-              theme: 'dark',
-              type: 'incognito',
-            }}
-            afterSuccess={afterSuccess}
-          />
+          <SetUsernameForm />
         </DialogContent>
       </Dialog>
     </OnlineContext.Provider>

@@ -1,92 +1,47 @@
-import { useTransition } from 'react'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+'use client'
 
+import React from 'react'
+import { useFormState } from 'react-dom'
+
+import { Input } from '@/components/ui/input'
 import {
-  Button,
   Form,
   FormControl,
   FormDescription,
   FormField,
-  FormItem,
+  FormLabel,
   FormMessage,
-  Icons,
-  Input,
-  toast,
-} from '@easypoker/ui'
+  FormSubmit,
+} from '@/components/form'
+import { getFormErrorByName } from '@/app/(settings)/profile/_components/profile-form'
+import { updateUserProfileAction } from '@/app/actions'
 
-import { UserProfileValues, UserSchema } from '@/lib/api/api-types'
-import { updateUserInfoAction } from '@/app/actions'
-
-export const SetUsernameForm = ({
-  defaultValues,
-  afterSuccess,
-}: {
-  defaultValues: Partial<UserProfileValues>
-  afterSuccess: (data: UserProfileValues) => void
-}) => {
-  let [isPending, startTransition] = useTransition()
-  const form = useForm<UserProfileValues>({
-    resolver: zodResolver(UserSchema),
-    defaultValues,
-  })
-
-  const onSubmit = (data: UserProfileValues) => {
-    startTransition(() => {
-      updateUserInfoAction(data)
-        .then(() => {
-          afterSuccess?.(data)
-
-          toast({
-            title: 'Username saved!',
-            description: 'You can change it anytime in the settings.',
-          })
-        })
-        .catch((err) => {
-          console.error(err)
-          toast({
-            title: 'Ups!',
-            description: 'Something went wrong. Please try again later.',
-          })
-        })
-    })
+export const SetUsernameForm = () => {
+  const [state, formAction] = useFormState(updateUserProfileAction, {})
+  let errors: any = null
+  if (state.errors) {
+    errors = JSON.parse(state.errors)
   }
-
   return (
-    <Form {...form}>
-      <form
-        className="flex flex-col gap-6"
-        onSubmit={form.handleSubmit(onSubmit)}
-      >
-        <FormField
-          name="username"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormDescription>
-                The username is used to identify you in the room.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    <Form action={formAction}>
+      <FormField name="username">
+        <FormLabel>Username</FormLabel>
+        <FormControl asChild>
+          <Input />
+        </FormControl>
+        {getFormErrorByName('username', errors) && (
+          <FormMessage>
+            {getFormErrorByName('username', errors)?.message}
+          </FormMessage>
+        )}
+        <FormDescription>
+          The username is used to identify you in the room.
+        </FormDescription>
+      </FormField>
 
-        <div className="text-right">
-          <Button type="submit" className="w-40">
-            {isPending ? (
-              <span className="flex items-center text-muted">
-                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                <span>Saving...</span>
-              </span>
-            ) : (
-              'Save'
-            )}
-          </Button>
-        </div>
-      </form>
+      <div className="flex justify-end">
+        <FormSubmit asChild>Save</FormSubmit>
+      </div>
     </Form>
   )
 }

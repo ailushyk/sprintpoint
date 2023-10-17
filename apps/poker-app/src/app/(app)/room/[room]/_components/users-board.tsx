@@ -46,14 +46,14 @@ export const UsersBoard = () => {
     state: { user, users, room },
   } = useOnlineContext()
   const isChecking = room.status === 'checking'
-  const self = (u: UserResponse) => u.id === user.id
+  const self = (u: UserResponse) => u.id === user?.id
 
   const [sortedItems, setSortedItems] = useState(users)
 
   useEffect(() => {
     let _users = [...users].sort(isChecking ? compareValue : compareStatus)
     setSortedItems(_users)
-  }, [users])
+  }, [isChecking, users])
 
   return (
     <Reorder.Group

@@ -52,7 +52,19 @@ const FormLabel = forwardRef<
 FormLabel.displayName = 'FormLabel'
 
 const FormControl = RadixForm.Control
-const FormMessage = RadixForm.Message
+const FormMessage = forwardRef<
+  React.ElementRef<typeof RadixForm.Message>,
+  React.ComponentPropsWithoutRef<typeof RadixForm.Message>
+>(({ className, ...props }, ref) => {
+  return (
+    <RadixForm.Message
+      className={cn('text-sm text-red-400', className)}
+      {...props}
+    />
+  )
+})
+FormMessage.displayName = 'FormMessage'
+
 const FormSubmit = forwardRef<
   React.ElementRef<typeof RadixForm.Submit>,
   React.ComponentPropsWithoutRef<typeof RadixForm.Submit>
@@ -65,4 +77,26 @@ const FormSubmit = forwardRef<
 })
 FormSubmit.displayName = 'FormSubmit'
 
-export { Form, FormField, FormLabel, FormControl, FormMessage, FormSubmit }
+const FormDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => {
+  return (
+    <p
+      ref={ref}
+      className={cn('text-[0.8rem] text-muted-foreground', className)}
+      {...props}
+    />
+  )
+})
+FormDescription.displayName = 'FormDescription'
+
+export {
+  Form,
+  FormField,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+  FormSubmit,
+}

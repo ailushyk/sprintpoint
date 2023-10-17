@@ -22,6 +22,7 @@ export const api = () => ({
         },
       })
       session.user.set(updateData)
+      return session.user.get()
     },
     get: (userId: string) => {
       return prisma.user.findUnique({
