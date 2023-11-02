@@ -35,8 +35,8 @@
     "framer-motion": "^10.16.4",
     "next": "14.0.1",
     "postcss": "8.4.31",
-    "react": "18.3.0-canary-b9be4537c-20230905",
-    "react-dom": "18.3.0-canary-b9be4537c-20230905",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-hook-form": "^7.47.0",
     "socket.io-client": "^4.7.2",
     "tailwind-merge": "2.0.0",
@@ -48,8 +48,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "prisma": "^5.5.2",
-    "zod-prisma": "^0.5.4"
+    "prisma": "^5.5.2"
   },
   "prisma": {
     "seed": "node ./prisma/seed.js"
