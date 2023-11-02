@@ -8,12 +8,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator zod {
-  provider    = "zod-prisma"
-  modelCase   = "PascalCase" // (default) Output models using pascal case (ex. UserModel, PostModel)
-  modelSuffix = "Model" // (default) Suffix to apply to your prisma models when naming Zod schemas
-}
-
 model User {
   id        String   @id @default(uuid())
   email     String?  @unique
