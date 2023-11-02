@@ -10,7 +10,7 @@
     "generate:component": "turbo gen react-component"
   },
   "devDependencies": {
-    "eslint": "8.48.0",
+    "eslint": "8.52.0",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
     "tsup": "^7.2.0",
