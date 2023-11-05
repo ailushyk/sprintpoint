@@ -46,6 +46,9 @@ export const api = () => ({
             },
           },
         },
+        orderBy: {
+          updatedAt: 'desc',
+        },
       })
     },
   },

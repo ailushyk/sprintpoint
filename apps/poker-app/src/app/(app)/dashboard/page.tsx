@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { buttonVariants, cn } from '@easypoker/ui'
 
 import { StartSession } from '@/components/start-session'
-import { DashboardRooms } from '@/app/(app)/dashboard/dashboard-rooms'
+import { DashboardRooms } from '@/app/(app)/dashboard/_components/dashboard-rooms'
 
 export const metadata = {
   title: 'Efficient Agile Estimation with Sprint Point: Plan Your Success',
