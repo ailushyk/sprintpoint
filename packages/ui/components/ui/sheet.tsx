@@ -13,9 +13,9 @@ const SheetTrigger = SheetPrimitive.Trigger
 
 const SheetClose = SheetPrimitive.Close
 
-const SheetPortal = (
-  { className, ...props }: SheetPrimitive.DialogPortalProps
-) => <SheetPrimitive.Portal className={cn(className)} {...props} />
+const SheetPortal = ({ ...props }: SheetPrimitive.DialogPortalProps) => (
+  <SheetPrimitive.Portal {...props} />
+)
 SheetPortal.displayName = SheetPrimitive.Portal.displayName
 
 const SheetOverlay = React.forwardRef<
@@ -77,9 +77,10 @@ const SheetContent = React.forwardRef<
 ))
 SheetContent.displayName = SheetPrimitive.Content.displayName
 
-const SheetHeader = (
-  { className, ...props }: React.HTMLAttributes<HTMLDivElement>
-) => (
+const SheetHeader = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
       'flex flex-col space-y-2 text-center sm:text-left',
@@ -90,9 +91,10 @@ const SheetHeader = (
 )
 SheetHeader.displayName = 'SheetHeader'
 
-const SheetFooter = (
-  { className, ...props }: React.HTMLAttributes<HTMLDivElement>
-) => (
+const SheetFooter = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
       'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2',

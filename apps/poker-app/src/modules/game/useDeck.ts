@@ -1,8 +1,13 @@
 import { useMemo, useState } from 'react'
-import { AllResultsValue } from '@/types'
 
 import { DeckScaleType, getDeck } from './deck'
 import { DeckHook, TypeValue } from './types'
+
+type AllResultsValue = {
+  risk: number | null
+  complexity: number | null
+  unfamiliar: number | null
+}
 
 const defaultState = {
   risk: null,
