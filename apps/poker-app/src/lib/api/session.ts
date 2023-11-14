@@ -6,7 +6,7 @@ import { cookies } from 'next/headers'
 import { api } from '@/lib/api/api'
 import { UserProfileValues, UserSchema } from '@/lib/api/api-types'
 
-export const USER_COOKIE = 'user'
+export const USER_COOKIE = 'user_v1'
 
 export const session = {
   user: {
