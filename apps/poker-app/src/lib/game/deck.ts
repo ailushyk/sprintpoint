@@ -9,13 +9,6 @@ export type DeckScaleType =
 
 export type DeckCardType = number // | { title: string; value: number }
 
-export interface DeckType {
-  slug: DeckScaleType
-  name: string
-  desc: string
-  deck: DeckScaleType
-}
-
 const standard = {
   slug: 'standard',
   name: 'Standard',

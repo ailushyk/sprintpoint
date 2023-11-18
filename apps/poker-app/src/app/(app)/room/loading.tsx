@@ -1,6 +1,4 @@
-import { Icons } from '@easypoker/ui'
-
-import { Loading } from '@/components/Loading'
+import { Loading } from '@/components/loading'
 
 export default function RoomLoadingPage() {
   return <Loading />
