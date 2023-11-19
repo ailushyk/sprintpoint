@@ -35,7 +35,9 @@ export const api = () => ({
       data,
     }: {
       data: Pick<User, 'username' | 'avatar' | 'theme' | 'type'>
-    }) => prisma.user.create({ data }),
+    }) => {
+      return prisma.user.create({ data })
+    },
     rooms: async () => {
       const user = await session.user.get()
       return prisma.room.findMany({
@@ -58,6 +60,19 @@ export const api = () => ({
     },
     get: getDeck,
     getAdvanced: getDeckWithoutNonValueCards,
+  },
+  session: {
+    create: async (deckId: string) => {
+      return prisma.session.create({
+        data: {
+          deck: {
+            connect: {
+              id: deckId,
+            },
+          },
+        },
+      })
+    },
   },
   room: apiRoom,
   redis: {

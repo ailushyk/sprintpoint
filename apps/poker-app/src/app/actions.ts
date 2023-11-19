@@ -14,6 +14,13 @@ const generateRoom = () => ({
   name: '',
 })
 
+export const startIncognitoSession = async (data: FormData) => {
+  await session.user.getOrCreateIncognito()
+  const deckId = data.get('deck') as string
+  const newSession = await api().session.create(deckId)
+  redirect(`/s/${newSession.id}`)
+}
+
 export const createRoom = async (data: FormData) => {
   const user = await session.user.getOrCreateIncognito()
   const deckId = data.get('deck') as string

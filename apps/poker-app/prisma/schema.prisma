@@ -68,8 +68,8 @@ model Round {
 
 model Session {
   id        String   @id @default(uuid())
-  room      Room     @relation(fields: [roomId], references: [id])
-  roomId    String
+  room      Room?    @relation(fields: [roomId], references: [id])
+  roomId    String?
   deck      Deck?    @relation(fields: [deckId], references: [id])
   deckId    String?
   rounds    Round[]
