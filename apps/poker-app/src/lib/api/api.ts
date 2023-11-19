@@ -70,6 +70,56 @@ export const api = () => ({
               id: deckId,
             },
           },
+          rounds: {
+            create: [
+              {
+                order: 1,
+                status: 'idle',
+              },
+            ],
+          },
+        },
+      })
+    },
+    get(sessionId: string) {
+      return prisma.session.findUnique({
+        where: {
+          id: sessionId,
+        },
+        include: {
+          rounds: true,
+        },
+      })
+    },
+    nextRound: async (
+      sessionId: string,
+      data: {
+        order: number
+      }
+    ) => {
+      // finish current round
+      await prisma.round.updateMany({
+        where: {
+          sessionId: {
+            contains: sessionId,
+          },
+          status: {
+            not: 'finished',
+          },
+        },
+        data: {
+          status: 'finished',
+        },
+      })
+      // create new round
+      return prisma.round.create({
+        data: {
+          ...data,
+          session: {
+            connect: {
+              id: sessionId,
+            },
+          },
         },
       })
     },

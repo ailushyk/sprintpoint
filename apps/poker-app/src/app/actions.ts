@@ -1,5 +1,6 @@
 'use server'
 
+import { revalidatePath } from 'next/cache'
 import { RedirectType } from 'next/dist/client/components/redirect'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
@@ -8,6 +9,7 @@ import { api } from '@/lib/api/api'
 import { UserProfileValues, UserSchema } from '@/lib/api/api-types'
 import { session } from '@/lib/api/session'
 import { generateUniqueHash } from '@/lib/utils'
+import { revalidate } from '@/app/page'
 
 const generateRoom = () => ({
   code: generateUniqueHash(),
@@ -19,6 +21,17 @@ export const startIncognitoSession = async (data: FormData) => {
   const deckId = data.get('deck') as string
   const newSession = await api().session.create(deckId)
   redirect(`/s/${newSession.id}`)
+}
+
+export const nextRound = async (
+  sessionId: string,
+  data: {
+    order: number
+  }
+) => {
+  const result = await api().session.nextRound(sessionId, data)
+  revalidatePath(`/s/${sessionId}`)
+  return result
 }
 
 export const createRoom = async (data: FormData) => {
