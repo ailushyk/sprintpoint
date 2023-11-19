@@ -17,17 +17,15 @@ import {
   FormLabel,
   FormSubmit,
 } from '@/components/form'
-import { createRoom } from '@/app/actions'
+import { createRoom, startIncognitoSession } from '@/app/actions'
 
-export const StartSession = async ({ children }: { children: string }) => {
+export const StartFastSession = async ({ children }: { children: string }) => {
   const decks = await api().deck.all()
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="secondary" size="lg" disabled>
-          {children}
-        </Button>
+        <Button size="lg">{children}</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
@@ -35,7 +33,7 @@ export const StartSession = async ({ children }: { children: string }) => {
           <DialogTitle>Start Session</DialogTitle>
         </DialogHeader>
 
-        <Form action={createRoom}>
+        <Form action={startIncognitoSession}>
           <FormField name="deck">
             <FormLabel>Deck</FormLabel>
             <FormControl asChild>

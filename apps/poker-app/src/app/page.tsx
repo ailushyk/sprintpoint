@@ -5,6 +5,7 @@ import { ShineBorder } from '@easypoker/ui'
 import { api } from '@/lib/api/api'
 import { AppHeader } from '@/components/app-header/app-header'
 import { GradientText } from '@/components/gradient-text'
+import { StartFastSession } from '@/components/start-fast-session'
 import { StartSession } from '@/components/start-session'
 
 export const revalidate = 30
@@ -35,6 +36,7 @@ export default async function Home() {
 
         <div className="container flex-1 space-y-8">
           <div className="flex items-center justify-center gap-4 py-8">
+            <StartFastSession>Fast Start</StartFastSession>
             <StartSession>Start Play</StartSession>
           </div>
 
