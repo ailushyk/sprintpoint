@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Providers } from '@/app/(app)/_components/providers'
+
 export const metadata = {
   title: {
     default: 'Planing Poker - Sprint Point',
@@ -10,6 +12,8 @@ export const metadata = {
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col items-center">{children}</div>
+    <Providers>
+      <div className="flex min-h-screen flex-col items-center">{children}</div>
+    </Providers>
   )
 }

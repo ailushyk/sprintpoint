@@ -8,6 +8,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+//generator zod {
+//  provider = "zod-prisma-types"
+//  output   = "../src/types/prisma"
+//}
+
 model User {
   id        String   @id @default(uuid())
   email     String?  @unique
@@ -62,9 +67,16 @@ model Round {
   session   Session? @relation(fields: [sessionId], references: [id])
   sessionId String?
   votes     Vote[]
-  status    String @default("idle")
+  status    Status // String @default("idle")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum Status {
+  idle
+  voting
+  checking
+  finished
 }
 
 model Session {

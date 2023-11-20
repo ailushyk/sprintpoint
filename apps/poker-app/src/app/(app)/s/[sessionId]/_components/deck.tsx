@@ -3,13 +3,13 @@
 import React, { useEffect, useRef } from 'react'
 import { motion, MotionValue, useScroll, useTransform } from 'framer-motion'
 
-import { CardValue, DeckValue } from '@easypoker/shared'
 import { RoomStatus } from '@easypoker/shared/src/refactor-types'
 import { Separator, ToggleGroup } from '@easypoker/ui'
 
 import { slideToBottomVariants } from '@/lib/animation-variants'
 import { useWindowWidth } from '@/lib/window-width'
 import { PressButton } from '@/components/buttons/press-button'
+import { Deck as DeckType, Card } from '@prisma/client'
 
 export const Deck = ({
   status,
@@ -17,7 +17,7 @@ export const Deck = ({
   round,
 }: {
   status: RoomStatus
-  deck: DeckValue
+  deck: DeckType & { cards: Array<Card> }
   round: number
 }) => {
   const [selectedCard, setSelectedCard] = React.useState<string>('')
@@ -70,7 +70,7 @@ export const Deck = ({
   )
 }
 
-function Card(props: { card: CardValue; progressX: MotionValue<number> }) {
+function Card(props: { card: Card; progressX: MotionValue<number> }) {
   let { card, progressX } = props
   const w = useWindowWidth()
   const ref = useRef<HTMLDivElement>(null)
