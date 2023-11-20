@@ -33,7 +33,7 @@ export default async function SessionPage({ params }) {
             <PickedCard sp={value} className="h-16 w-16 bg-background" />
             <div>
               <Link
-                href={`/room/${params.room}/settings`}
+                href={`/s/${params.sessionId}/settings`}
                 className={cn(
                   buttonVariants({
                     variant: 'ghost',
