@@ -6,7 +6,9 @@ import { Inter } from 'next/font/google'
 
 import { TailwindIndicator, Toaster, UIProvider } from '@easypoker/ui'
 
+import { session } from '@/lib/api/session'
 import { Analytics } from '@/components/analytics'
+import { AuthProvider } from '@/components/auth-provider'
 import { GlobalKeyboardEvents } from '@/components/GlobalKeyboardEvents'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -50,18 +52,22 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const user = session.user.get()
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <UIProvider>
-          {children}
+        <AuthProvider user={user}>
+          <UIProvider>
+            {children}
 
-          <Toaster />
-          <GlobalKeyboardEvents />
+            <Toaster />
+            <GlobalKeyboardEvents />
 
-          <TailwindIndicator />
-        </UIProvider>
-        <Analytics />
+            <TailwindIndicator />
+          </UIProvider>
+          <Analytics />
+        </AuthProvider>
       </body>
     </html>
   )

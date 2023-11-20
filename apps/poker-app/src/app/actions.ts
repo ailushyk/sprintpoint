@@ -23,13 +23,13 @@ export const startIncognitoSession = async (data: FormData) => {
   redirect(`/s/${newSession.id}`)
 }
 
-export const nextRound = async (
-  sessionId: string,
-  data: {
-    order: number
-  }
-) => {
-  const result = await api().session.nextRound(sessionId, data)
+export const nextRound = async (formData: FormData) => {
+  const sessionId = formData.get('session-id') as string
+  const nextRoundOrder = formData.get('next-round') as string
+
+  const result = await api().session.nextRound(sessionId, {
+    order: Number(nextRoundOrder),
+  })
   revalidatePath(`/s/${sessionId}`)
   return result
 }

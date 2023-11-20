@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -7,7 +9,7 @@ const PickedCard = ({
   sp,
   className,
 }: {
-  sp: number | null
+  sp: string | number | null
   className?: string
 }) => {
   return (

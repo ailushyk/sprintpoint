@@ -87,7 +87,20 @@ export const api = () => ({
           id: sessionId,
         },
         include: {
-          rounds: true,
+          rounds: {
+            orderBy: {
+              order: 'desc',
+            },
+          },
+          deck: {
+            include: {
+              cards: {
+                orderBy: {
+                  order: 'asc',
+                },
+              },
+            },
+          },
         },
       })
     },
