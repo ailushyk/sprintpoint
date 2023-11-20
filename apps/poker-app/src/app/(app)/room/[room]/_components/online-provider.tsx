@@ -181,7 +181,7 @@ export const OnlineProvider = ({
 export const useOnlineContext = () => {
   const context = useContext(OnlineContext)
   if (!context) {
-    throw new Error('usePlayArea must be used within a OnlineProvider')
+    throw new Error('useOnlineContext must be used within a OnlineProvider')
   }
   return context
 }
