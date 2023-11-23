@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Providers } from '@/app/(app)/_components/providers'
+import { AppProviders } from '@/app/(app)/_components/app-providers'
 
 export const metadata = {
   title: {
@@ -12,8 +12,8 @@ export const metadata = {
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <Providers>
+    <AppProviders>
       <div className="flex min-h-screen flex-col items-center">{children}</div>
-    </Providers>
+    </AppProviders>
   )
 }
