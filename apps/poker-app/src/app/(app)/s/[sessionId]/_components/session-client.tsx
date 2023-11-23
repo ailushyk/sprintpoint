@@ -8,6 +8,7 @@ import { Card, Deck as DeckType, Round, Session } from '@prisma/client'
 import { buttonVariants, cn, Icons, Separator } from '@easypoker/ui'
 
 import { PickedCard } from '@/components/deck/PickedCard'
+import { useSocket } from '@/app/(app)/_components/socket-provider'
 import { CheckButton } from '@/app/(app)/s/[sessionId]/_components/check-button'
 import { Deck } from '@/app/(app)/s/[sessionId]/_components/deck'
 import { UsersBoard } from '@/app/(app)/s/[sessionId]/_components/users-board'
@@ -24,6 +25,7 @@ export function SessionClient({
   }
 }) {
   const params = useParams()
+  const socket = useSocket()
   const value = null // 'SP'
   const users = []
   const lastRound = session.rounds?.[0]
