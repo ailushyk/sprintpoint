@@ -7,11 +7,6 @@ const nextConfig = {
     '@easypoker/ui/src/lib',
     '@easypoker/utils',
   ],
-  experimental: {
-    serverActions: true,
-    typedRoutes: false,
-  },
-  ignoreDuringBuilds: true,
 }
 
 
