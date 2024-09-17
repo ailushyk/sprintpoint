@@ -1,3 +1,4 @@
+import { env } from '@/env'
 import { getAccessToken } from '@/lib/auth/user.server'
 
 const AUTHORIZATION_HEADER = 'Authorization'
@@ -23,11 +24,14 @@ const handleResponse = async <T>(response: Response): Promise<{ data: T }> => {
   return response.json()
 }
 
-export const fetcher = async <T = any>(
+export const fetcher = async <T = unknown>(
   url: string,
   init?: RequestInit,
 ): Promise<{ data: T }> => {
   const headers = await createHeaders(init?.headers)
+  if (!(url.startsWith('http') || url.startsWith('//'))) {
+    url = `${env.API_URL}${url}`
+  }
   const response = await fetch(url, {
     ...init,
     headers,
