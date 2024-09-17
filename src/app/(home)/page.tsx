@@ -9,7 +9,7 @@ const estimatesCounter = 10
 export default function HomePage() {
   return (
     <div>
-      <AppHeader links={[{ href: '/dashboard', label: 'Dashboard' }]} />
+      <AppHeader />
 
       <main>
         <header className="container space-y-1 p-8 text-center">

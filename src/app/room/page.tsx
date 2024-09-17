@@ -1,3 +1,3 @@
 export default function RoomPage() {
-  return null
+  return <div>Room</div>
 }
