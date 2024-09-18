@@ -1,4 +1,5 @@
-import { DashboardLink } from '@/app/(home)/_components/dashboard-link'
+import { DashboardLink } from '@/app/(public)/_components/dashboard-link'
+import { FadeInPageWrapper } from '@/components/fade-in-page-wrapper'
 import { GradientText } from '@/components/gradient-text'
 import { ShineBorder } from '@/components/shine-border'
 import { TopBar } from '@/components/top-bar/top-bar'
@@ -9,7 +10,7 @@ const estimatesCounter = 10
 
 export default function HomePage() {
   return (
-    <div>
+    <FadeInPageWrapper duration="slow">
       <TopBar>
         <Button variant="outline" size="sm" asChild>
           <Link href="/contact">Contact</Link>
@@ -74,6 +75,6 @@ export default function HomePage() {
           </section>
         </div>
       </main>
-    </div>
+    </FadeInPageWrapper>
   )
 }

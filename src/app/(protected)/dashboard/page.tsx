@@ -1,3 +1,4 @@
+import { FadeInPageWrapper } from '@/components/fade-in-page-wrapper'
 import { PageHeader } from '@/components/page-header'
 import { TopBar } from '@/components/top-bar/top-bar'
 import { UserNav } from '@/components/top-bar/user-nav'
@@ -10,7 +11,7 @@ export default async function DashboardPage() {
   const { data } = await fetchUserSessions()
 
   return (
-    <div>
+    <FadeInPageWrapper duration="slow">
       <TopBar>
         <UserNav />
       </TopBar>
@@ -19,12 +20,17 @@ export default async function DashboardPage() {
         <PageHeader>Dashboard</PageHeader>
       </div>
 
-      <div className="flex flex-col items-center justify-center gap-3 pb-8 md:flex-row-reverse">
-        <Button asChild variant="default" size="lg" className="w-32">
-          <Link href="/s">Create</Link>
+      <div className="container flex flex-col items-center justify-center gap-3 pb-8 sm:flex-row-reverse">
+        <Button asChild variant="default" size="lg" className="w-full sm:w-32">
+          <Link href="/s">Start</Link>
         </Button>
 
-        <Button asChild variant="secondary" size="lg" className="w-32">
+        <Button
+          asChild
+          variant="secondary"
+          size="lg"
+          className="w-full sm:w-32"
+        >
           <Link href="/s/join">Join</Link>
         </Button>
 
@@ -43,12 +49,12 @@ export default async function DashboardPage() {
             <p>Click on a session to view details</p>
             <div className="relative">
               <ScrollArea>
-                <div className="grid grid-cols-3 gap-4 pb-4">
+                <div className="grid gap-4 pb-4 sm:grid-cols-3 lg:grid-cols-4">
                   {data.map((session) => (
                     <Link
                       key={session.id}
                       className="flex flex-col items-center justify-center rounded-lg border px-3 py-6"
-                      href={`/s/${session.id}`}
+                      href={`/src/app/(protected)/s/${session.id}`}
                     >
                       <div>{new Date(session.createdAt).toDateString()}</div>
                       <div className="text-sm">{session.deck} deck</div>
@@ -61,6 +67,6 @@ export default async function DashboardPage() {
           </div>
         )}
       </div>
-    </div>
+    </FadeInPageWrapper>
   )
 }

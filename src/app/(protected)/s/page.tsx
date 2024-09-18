@@ -1,4 +1,5 @@
 import { startSessionAction } from '@/app/actions'
+import { FadeInPageWrapper } from '@/components/fade-in-page-wrapper'
 import { PageHeader } from '@/components/page-header'
 import { TopBar } from '@/components/top-bar/top-bar'
 import { UserNav } from '@/components/top-bar/user-nav'
@@ -15,7 +16,7 @@ import { fetchAllDecks } from '@/data/deck/deck-api'
 export default async function RoomPage() {
   const decks = await fetchAllDecks()
   return (
-    <div>
+    <FadeInPageWrapper duration="mid">
       <TopBar>
         <UserNav />
       </TopBar>
@@ -49,6 +50,6 @@ export default async function RoomPage() {
           </div>
         </Form>
       </main>
-    </div>
+    </FadeInPageWrapper>
   )
 }
