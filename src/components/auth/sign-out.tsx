@@ -1,8 +1,7 @@
-import { Button } from '@/components/ui/button'
-import React from 'react'
 import { signOut } from '@/lib/auth/auth'
+import React from 'react'
 
-export function SignOut({ children }: { children: React.ReactNode }) {
+export function SignOut({ children, ...props }: { children: React.ReactNode }) {
   return (
     <form
       action={async () => {
@@ -13,13 +12,7 @@ export function SignOut({ children }: { children: React.ReactNode }) {
       }}
       className="w-full"
     >
-      <Button
-        variant="ghost"
-        size="sm"
-        className="flex w-full justify-start gap-1"
-      >
-        {children}
-      </Button>
+      <button {...props}>{children}</button>
     </form>
   )
 }
