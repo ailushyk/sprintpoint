@@ -1,3 +1,4 @@
+import { SignOut } from '@/components/auth/sign-out'
 import { FadeInPageWrapper } from '@/components/fade-in-page-wrapper'
 import { GradientText } from '@/components/gradient-text'
 import { PageHeader } from '@/components/page-header'
@@ -9,12 +10,23 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { fetchUserSessions } from '@/data/session-api'
 import Link from 'next/link'
 
+export const metadata = {
+  title: 'Dashboard',
+  description: 'Create or join a session to start estimating smartly',
+  alternates: {
+    canonical: '/dashboard',
+  },
+}
+
 export default async function DashboardPage() {
   const { data } = await fetchUserSessions()
 
   return (
     <FadeInPageWrapper duration="slow">
       <TopBar>
+        <Button variant="outline" size="sm" asChild>
+          <SignOut>Sign Out</SignOut>
+        </Button>
         <UserNav />
       </TopBar>
 
@@ -53,7 +65,7 @@ export default async function DashboardPage() {
                     <Link
                       key={session.id}
                       className="flex flex-col items-center justify-center rounded-lg border px-3 py-6"
-                      href={`/src/app/(protected)/s/${session.id}`}
+                      href={`/s/${session.id}`}
                     >
                       <div>{new Date(session.createdAt).toDateString()}</div>
                       <div className="text-sm">{session.deck} deck</div>
