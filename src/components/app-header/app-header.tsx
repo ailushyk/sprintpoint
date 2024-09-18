@@ -1,14 +1,8 @@
 import Link from 'next/link'
 
-import { UserNav } from '@/components/app-header/user-nav'
-import { buttonVariants } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import React from 'react'
 
-export function AppHeader({
-  links,
-}: {
-  links?: { href: string; label: string }[]
-}) {
+export function AppHeader({ children }: { children?: React.ReactNode }) {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center justify-between">
@@ -17,19 +11,7 @@ export function AppHeader({
             Sprint Point
           </Link>
         </div>
-        <div className="flex items-center space-x-3">
-          {links?.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(buttonVariants({ variant: 'outline', size: 'sm' }))}
-            >
-              {link.label}
-            </Link>
-          ))}
-
-          <UserNav />
-        </div>
+        <div className="flex items-center space-x-3">{children}</div>
       </div>
     </header>
   )

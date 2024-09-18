@@ -1,8 +1,16 @@
-import { deckSchema } from '@/data/deck/deck-schema'
 import { fetcher } from '@/lib/fetcher'
 import { z } from 'zod'
 
+const deckSchema = z.object({
+  name: z.string(),
+  slug: z.string(),
+})
+
 export const fetchAllDecks = async () => {
-  const { data } = await fetcher('/api/sprintpoint/decks')
-  return z.array(deckSchema).parse(data)
+  const result = await fetcher('/api/sprintpoint/decks')
+  const data = z.array(deckSchema).parse(result.data)
+  return {
+    ...result,
+    data,
+  }
 }

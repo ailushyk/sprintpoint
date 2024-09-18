@@ -1,17 +1,16 @@
-import { SignOut } from '@/components/auth/sign-out'
+import { AppHeader } from '@/components/app-header/app-header'
+import { UserNav } from '@/components/app-header/user-nav'
 import { auth } from '@/lib/auth/auth'
-import Link from 'next/link'
 
 export default async function DashboardPage() {
   const session = await auth()
 
   return (
     <div>
+      <AppHeader>
+        <UserNav />
+      </AppHeader>
       <h1>Dashboard</h1>
-      <nav>
-        <Link href="/">home</Link>
-        <SignOut>Log Out</SignOut>
-      </nav>
       <div>
         {session ? (
           <p>Logged in as {session.user?.name}</p>

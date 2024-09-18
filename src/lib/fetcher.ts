@@ -19,6 +19,7 @@ const createHeaders = async (initHeaders?: HeadersInit): Promise<Headers> => {
 
 const handleResponse = async <T>(response: Response): Promise<{ data: T }> => {
   if (!response.ok) {
+    console.error(response.status, response.statusText)
     throw new Error(ERROR_MESSAGE)
   }
   return response.json()
@@ -28,6 +29,7 @@ export const fetcher = async <T = unknown>(
   url: string,
   init?: RequestInit,
 ): Promise<{ data: T }> => {
+  console.log('fetcher', url)
   const headers = await createHeaders(init?.headers)
   if (!(url.startsWith('http') || url.startsWith('//'))) {
     url = `${env.API_URL}${url}`

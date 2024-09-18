@@ -1,3 +1,4 @@
+import { DashboardLink } from '@/app/(home)/_components/dashboard-link'
 import { AppHeader } from '@/components/app-header/app-header'
 import { GradientText } from '@/components/gradient-text'
 import { ShineBorder } from '@/components/shine-border'
@@ -9,7 +10,12 @@ const estimatesCounter = 10
 export default function HomePage() {
   return (
     <div>
-      <AppHeader />
+      <AppHeader>
+        <Button variant="outline" size="sm" asChild>
+          <Link href="/contact">Contact</Link>
+        </Button>
+        <DashboardLink />
+      </AppHeader>
 
       <main>
         <header className="container space-y-1 p-8 text-center">
