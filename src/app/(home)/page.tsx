@@ -1,7 +1,7 @@
 import { DashboardLink } from '@/app/(home)/_components/dashboard-link'
-import { AppHeader } from '@/components/app-header/app-header'
 import { GradientText } from '@/components/gradient-text'
 import { ShineBorder } from '@/components/shine-border'
+import { TopBar } from '@/components/top-bar/top-bar'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
@@ -10,12 +10,12 @@ const estimatesCounter = 10
 export default function HomePage() {
   return (
     <div>
-      <AppHeader>
+      <TopBar>
         <Button variant="outline" size="sm" asChild>
           <Link href="/contact">Contact</Link>
         </Button>
         <DashboardLink />
-      </AppHeader>
+      </TopBar>
 
       <main>
         <header className="container space-y-1 p-8 text-center">
@@ -30,10 +30,10 @@ export default function HomePage() {
         <div className="container flex-1 space-y-8">
           <div className="flex items-center justify-center gap-4 py-8">
             <Button asChild size="lg" className="w-32">
-              <Link href="/room">Start</Link>
+              <Link href="/s">Start</Link>
             </Button>
             <Button asChild size="lg" variant="secondary" className="w-32">
-              <Link href="/room">Join</Link>
+              <Link href="/s">Join</Link>
             </Button>
           </div>
 

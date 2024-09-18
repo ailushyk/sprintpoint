@@ -8,6 +8,6 @@ const cardSchema = z.object({
 })
 
 export const fetchCardsByDeckSlug = async (deckSlug: string) => {
-  const { data } = await fetcher(`/api/sprintpoint/decks/${deckSlug}/cards`)
+  const { data } = await fetcher(`/decks/${deckSlug}/cards`)
   return z.array(cardSchema).parse(data)
 }
