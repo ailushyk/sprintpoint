@@ -1,9 +1,9 @@
-import { AppHeader } from '@/components/app-header/app-header'
+import { TopBar } from '@/components/top-bar/top-bar'
 
 export default function ContactPage() {
   return (
     <div>
-      <AppHeader />
+      <TopBar />
       <div className="container">
         <h1>Contact Page</h1>
       </div>

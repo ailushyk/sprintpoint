@@ -3,7 +3,8 @@
 import * as RadixForm from '@radix-ui/react-form'
 import React, { forwardRef } from 'react'
 
-import { SubmitButton } from '@/components/ui/submit-button'
+import { Button } from '@/components/ui/button'
+import { FormButton } from '@/components/ui/form-button'
 import { cn } from '@/lib/utils'
 
 const Form = forwardRef<
@@ -65,17 +66,19 @@ const FormMessage = forwardRef<
 })
 FormMessage.displayName = 'FormMessage'
 
-const FormSubmit = forwardRef<
-  React.ElementRef<typeof RadixForm.Submit>,
-  React.ComponentPropsWithoutRef<typeof RadixForm.Submit>
->(({ className, children, ...props }, ref) => {
+const FormSubmit = ({
+  className,
+  children,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof RadixForm.Submit>) => {
   return (
     <RadixForm.Submit asChild className={cn('', className)}>
-      <SubmitButton>{children}</SubmitButton>
+      <Button size="lg" asChild {...props}>
+        <FormButton>{children}</FormButton>
+      </Button>
     </RadixForm.Submit>
   )
-})
-FormSubmit.displayName = 'FormSubmit'
+}
 
 const FormDescription = React.forwardRef<
   HTMLParagraphElement,

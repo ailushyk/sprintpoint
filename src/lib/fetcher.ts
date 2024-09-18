@@ -22,6 +22,10 @@ const handleResponse = async <T>(response: Response): Promise<{ data: T }> => {
     console.error(response.status, response.statusText)
     throw new Error(ERROR_MESSAGE)
   }
+  if (response.status === 204) {
+    return { data: undefined as unknown as T }
+  }
+
   return response.json()
 }
 

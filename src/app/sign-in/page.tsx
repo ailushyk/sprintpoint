@@ -1,6 +1,6 @@
-import { AppHeader } from '@/components/app-header/app-header'
 import { SignIn } from '@/components/auth/sign-in'
 import { GradientText } from '@/components/gradient-text'
+import { TopBar } from '@/components/top-bar/top-bar'
 import { Button } from '@/components/ui/button'
 
 export default function SignInPage({
@@ -12,7 +12,7 @@ export default function SignInPage({
 }) {
   return (
     <div>
-      <AppHeader />
+      <TopBar />
 
       <div className="container space-y-8 p-8 text-center">
         <h1 className="text-4xl font-bold">

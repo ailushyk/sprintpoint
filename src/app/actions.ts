@@ -1,12 +1,37 @@
 'use server'
 
 import { auth } from '@/lib/auth/auth'
+import { fetcher } from '@/lib/fetcher'
+import { z } from 'zod'
 
-export const startSessionAction = async () => {
+async function sleep(number: number) {
+  return new Promise((resolve) => setTimeout(resolve, number))
+}
+
+const newSessionSchema = z.object({
+  deckId: z.string(),
+})
+
+export const startSessionAction = async (formData: FormData) => {
   const session = await auth()
   if (!session) {
     throw new Error('Unauthorized')
   }
 
-  console.log('Starting new session')
+  try {
+    const bodyRequest = newSessionSchema.parse({
+      deckId: formData.get('deckId'),
+    })
+    const result = await fetcher('/sessions', {
+      method: 'POST',
+      body: JSON.stringify(bodyRequest),
+    })
+    console.log('Session created:', result)
+  } catch (error) {
+    console.error('Failed to create session:', error)
+  }
+
+  // return the session
+
+  // redirect to the new session
 }
