@@ -4,10 +4,6 @@ import { auth } from '@/lib/auth/auth'
 import { fetcher } from '@/lib/fetcher'
 import { z } from 'zod'
 
-async function sleep(number: number) {
-  return new Promise((resolve) => setTimeout(resolve, number))
-}
-
 const newSessionSchema = z.object({
   deckId: z.string(),
 })
