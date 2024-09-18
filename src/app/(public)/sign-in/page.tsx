@@ -20,11 +20,9 @@ export default function SignInPage({
         </h1>
         <p>Please sign in before continuing</p>
 
-        <SignIn redirectTo={searchParams.redirect} asChild>
-          <Button size="lg" className="w-32">
-            Sign In
-          </Button>
-        </SignIn>
+        <Button asChild size="lg" className="w-32">
+          <SignIn redirectTo={searchParams.redirect}>Sign In</SignIn>
+        </Button>
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 export const AUTH_SIGN_IN_URL = '/sign-in'
 export const AUTH_DEFAULT_REDIRECT_URL = '/dashboard'
-export const publicRoutes: string[] = ['/']
+export const publicRoutes: string[] = ['/', '/contact']
 
 /**
  * An array of routes that are used for authentication.
@@ -17,5 +17,6 @@ export const authRoutes: string[] = [AUTH_SIGN_IN_URL, '/auth/error']
 export const apiAuthPrefix: string = '/api/auth'
 export const closedRoutes: string[] = [
   `${apiAuthPrefix}/signin`,
+  // TODO: auth error
   `${apiAuthPrefix}/error`,
 ]

@@ -1,9 +1,10 @@
+import { deckSchema } from '@/data/deck-api'
 import { fetcher } from '@/lib/fetcher'
 import { z } from 'zod'
 
 const sessionSchema = z.object({
   id: z.string(),
-  deck: z.string(),
+  deck: deckSchema,
   createdBy: z.string(),
   createdAt: z.string(),
 })

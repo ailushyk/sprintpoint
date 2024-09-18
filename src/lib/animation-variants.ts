@@ -31,13 +31,11 @@ export const pressVariants = {
   idle: {
     scale: 1,
     y: 0,
-    opacity: 1,
     transition: { duration: 0.2, ease: easyAnimation },
   },
   pressed: {
     scale: 0.98,
     y: 1,
-    opacity: 0.6,
     transition: { duration: 0.2, ease: easyAnimation },
   },
   in: {
