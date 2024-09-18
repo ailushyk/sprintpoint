@@ -9,6 +9,13 @@ import Link from 'next/link'
 
 const estimatesCounter = 10
 
+export const metadata = {
+  title: 'Turn smart estimation into smooth, predictable fun at work',
+  alternates: {
+    canonical: '/',
+  },
+}
+
 export default function HomePage() {
   return (
     <FadeInPageWrapper duration="slow">
@@ -25,17 +32,16 @@ export default function HomePage() {
       <main>
         <header className="container space-y-1 p-8 text-center">
           <h1 className="text-4xl font-bold">
-            <GradientText>Sprint Point</GradientText>
+            <GradientText>
+              Turn smart estimation into smooth, predictable fun at work
+            </GradientText>
           </h1>
-          <p className="text-center">
-            Start estimating smarter with Planing Poker
-          </p>
         </header>
 
         <div className="container flex-1 space-y-8">
           <div className="flex items-center justify-center gap-4 py-8">
             <Button asChild size="lg" variant="secondary" className="w-32">
-              <Link href="/s">Join</Link>
+              <Link href="/s/join">Join</Link>
             </Button>
             <Button asChild size="lg" className="w-32">
               <Link href="/s">Start</Link>

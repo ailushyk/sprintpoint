@@ -15,3 +15,11 @@ export const fetchUserSessions = async () => {
     data: z.array(sessionSchema).parse(response.data),
   }
 }
+
+export const fetchSessionById = async (sessionId: string) => {
+  const session = await fetcher(`/sessions/${sessionId}`)
+  return {
+    ...session,
+    data: sessionSchema.parse(session.data),
+  }
+}

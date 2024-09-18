@@ -1,4 +1,3 @@
-import { startSessionAction } from '@/app/actions'
 import { FadeInPageWrapper } from '@/components/fade-in-page-wrapper'
 import { PageHeader } from '@/components/page-header'
 import { TopBar } from '@/components/top-bar/top-bar'
@@ -11,9 +10,18 @@ import {
   FormLabel,
   FormSubmit,
 } from '@/components/ui/form'
-import { fetchAllDecks } from '@/data/deck/deck-api'
+import { startSessionAction } from '@/data/actions'
+import { fetchAllDecks } from '@/data/deck-api'
 
-export default async function RoomPage() {
+export const metadata = {
+  title: 'Start new session',
+  description: 'Choose your deck and start a new session',
+  alternates: {
+    canonical: '/s',
+  },
+}
+
+export default async function StartSessionPage() {
   const decks = await fetchAllDecks()
   return (
     <FadeInPageWrapper duration="mid">

@@ -1,9 +1,8 @@
 'use client'
 
-import React from 'react'
+import { Button } from '@/components/ui/button'
+import { Icon } from '@/components/ui/Icon'
 import { useRouter, useSelectedLayoutSegments } from 'next/navigation'
-
-import { Button, Icons } from '@easypoker/ui'
 
 export const BackButton = () => {
   const segments = useSelectedLayoutSegments()
@@ -15,7 +14,7 @@ export const BackButton = () => {
 
   return (
     <Button variant="ghost" size="icon" onClick={handleClick}>
-      <Icons.arrowLeft className="h-6 w-6 text-muted-foreground" />
+      <Icon.arrowLeft className="h-6 w-6 text-muted-foreground" />
     </Button>
   )
 }
