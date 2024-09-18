@@ -1,6 +1,7 @@
 'use client'
 
-import { PressButton } from '@/components/press-button'
+import { PressButtonEffect } from '@/components/press-button-effect'
+import { Button } from '@/components/ui/button'
 import { AnimatePresence } from 'framer-motion'
 
 function useOnlineContext() {
@@ -31,25 +32,29 @@ export function CheckButton({ className }: { className?: string }) {
     <div className="relative">
       <AnimatePresence mode="wait">
         {room.status === 'checking' ? (
-          <PressButton
-            key="checking"
-            onClick={handleNext}
-            size="lg"
-            variant="destructive"
-            className={className}
-          >
-            Next
-          </PressButton>
+          <PressButtonEffect>
+            <Button
+              key="checking"
+              variant="destructive"
+              size="lg"
+              onClick={handleNext}
+              className={className}
+            >
+              Next
+            </Button>
+          </PressButtonEffect>
         ) : (
-          <PressButton
-            key="voting"
-            onClick={handleCheck}
-            size="lg"
-            variant="secondary"
-            className={className}
-          >
-            Check
-          </PressButton>
+          <PressButtonEffect>
+            <Button
+              key="voting"
+              onClick={handleCheck}
+              size="lg"
+              variant="secondary"
+              className={className}
+            >
+              Check
+            </Button>
+          </PressButtonEffect>
         )}
       </AnimatePresence>
     </div>

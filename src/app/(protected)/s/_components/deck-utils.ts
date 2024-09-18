@@ -1,3 +1,5 @@
+import { Card } from '@/data/card-api'
+
 type SimpleCard = {
   name: string
   type: 'simple'
@@ -17,12 +19,10 @@ type NoValueCard = {
   value: null
 }
 
+// TODO: add more card types
 export type CardValue = SimpleCard | ColorCard | NoValueCard
 
-const getCardValueByName = (
-  cardName: string | undefined,
-  cards: CardValue[],
-) => {
+const getCardValueByName = (cardName: string | undefined, cards: Card[]) => {
   if (!cardName) return null
   return cards.find((c) => c.name === cardName)?.value
 }

@@ -1,5 +1,5 @@
 import { CheckButton } from '@/app/(protected)/s/_components/check-button'
-import { NewDeck } from '@/app/(protected)/s/_components/new-deck'
+import { InteractiveDeck } from '@/app/(protected)/s/_components/interactive-deck'
 import { PickedCard } from '@/app/(protected)/s/_components/picked-card'
 import { RoomTitle } from '@/app/(protected)/s/_components/room-title'
 import { UsersBoard } from '@/app/(protected)/s/_components/users-board'
@@ -7,11 +7,11 @@ import { FadeInPageWrapper } from '@/components/fade-in-page-wrapper'
 import { BackButton } from '@/components/top-bar/back-button'
 import { TopBarContainer } from '@/components/top-bar/top-bar-container'
 import { UserNav } from '@/components/top-bar/user-nav'
-import { buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import { Icon } from '@/components/ui/Icon'
 import { Separator } from '@/components/ui/separator'
+import { fetchCardsByDeckSlug } from '@/data/card-api'
 import { fetchSessionById } from '@/data/session-api'
-import { cn } from '@/lib/utils'
 import { Metadata } from 'next'
 import Link from 'next/link'
 
@@ -37,8 +37,12 @@ export async function generateMetadata({
  */
 export default async function SessionPage({ params }: PageProps) {
   const { data } = await fetchSessionById(params.sessionId)
+  const cards = await fetchCardsByDeckSlug({
+    deckSlug: data.deck.slug,
+  })
+
   return (
-    <FadeInPageWrapper>
+    <FadeInPageWrapper className="h-full">
       <TopBarContainer>
         <BackButton />
         <RoomTitle id={data.id} name="#1234" />
@@ -47,24 +51,17 @@ export default async function SessionPage({ params }: PageProps) {
 
       <main className="flex w-full flex-1 flex-col space-y-8 pb-40">
         <div className="sticky top-0 bg-background">
+          {/* TOP PANEL */}
           <div className="container mx-auto flex max-w-xl items-center justify-between gap-6 py-3">
             <PickedCard sp={8} />
-            <div>
-              <Link
-                href={`/room/${data.id}/settings`}
-                className={cn(
-                  buttonVariants({
-                    variant: 'ghost',
-                    size: 'icon',
-                  }),
-                  'row-[2/3]',
-                )}
-              >
+            <Button asChild variant="ghost" size="icon">
+              <Link href={`/s/${data.id}/settings`}>
                 <Icon.mix />
               </Link>
-            </div>
+            </Button>
             <CheckButton className="h-16 w-16" />
           </div>
+          {/* TOP PANEL END */}
           <Separator />
         </div>
 
@@ -72,7 +69,7 @@ export default async function SessionPage({ params }: PageProps) {
           <UsersBoard />
         </div>
 
-        <NewDeck />
+        <InteractiveDeck cards={cards.data} />
       </main>
     </FadeInPageWrapper>
   )

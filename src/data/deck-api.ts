@@ -1,11 +1,13 @@
 import { fetcher } from '@/lib/fetcher'
 import { z } from 'zod'
 
-const deckSchema = z.object({
+export const deckSchema = z.object({
   id: z.string(),
   name: z.string(),
   slug: z.string(),
 })
+
+export type Deck = z.infer<typeof deckSchema>
 
 export const fetchAllDecks = async () => {
   const result = await fetcher('/decks')

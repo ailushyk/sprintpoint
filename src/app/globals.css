@@ -62,6 +62,9 @@
   * {
     @apply border-border;
   }
+  html, body {
+    @apply h-full;
+  }
   body {
     @apply bg-background text-foreground;
   }
@@ -107,11 +110,15 @@
     scrollbar-width: none; /* Firefox */
   }
 
-  .simple-deck:after,
-  .simple-deck:before {
+  .simple-deck:before{
     content: '';
     display: block;
-    @apply h-full w-3/4 shrink-0 border border-transparent;
+    @apply w-3/4 shrink-0;
+  }
+  .simple-deck:after {
+    content: '';
+    display: block;
+    @apply w-3/4 shrink-0;
   }
 }
 

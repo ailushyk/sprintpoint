@@ -1,13 +1,10 @@
 import { DashboardLink } from '@/app/(public)/_components/dashboard-link'
 import { FadeInPageWrapper } from '@/components/fade-in-page-wrapper'
 import { GradientText } from '@/components/gradient-text'
-import { ShineBorder } from '@/components/shine-border'
 import { TopBar } from '@/components/top-bar/top-bar'
 import { UserNav } from '@/components/top-bar/user-nav'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-
-const estimatesCounter = 10
 
 export const metadata = {
   title: 'Turn smart estimation into smooth, predictable fun at work',
@@ -23,15 +20,13 @@ export default function HomePage() {
         <Button variant="outline" size="sm" asChild>
           <Link href="/contact">Contact</Link>
         </Button>
-        <ShineBorder>
-          <DashboardLink />
-        </ShineBorder>
+        <DashboardLink />
         <UserNav />
       </TopBar>
 
       <main>
-        <header className="container space-y-1 p-8 text-center">
-          <h1 className="text-4xl font-bold">
+        <header className="container space-y-1 py-8 text-center">
+          <h1 className="mx-auto max-w-xl text-4xl font-bold">
             <GradientText>
               Turn smart estimation into smooth, predictable fun at work
             </GradientText>

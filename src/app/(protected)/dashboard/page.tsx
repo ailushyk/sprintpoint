@@ -68,7 +68,7 @@ export default async function DashboardPage() {
                       href={`/s/${session.id}`}
                     >
                       <div>{new Date(session.createdAt).toDateString()}</div>
-                      <div className="text-sm">{session.deck} deck</div>
+                      <div className="text-sm">{session.deck.name} deck</div>
                     </Link>
                   ))}
                 </div>
