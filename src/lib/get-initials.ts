@@ -1,5 +1,5 @@
 export function getInitials(name: string | null | undefined) {
-  if (!name) return
+  if (!name) return '?'
 
   const nameSplit = name.split(' ')
   const firstInitial = nameSplit[0].charAt(0).toUpperCase()
