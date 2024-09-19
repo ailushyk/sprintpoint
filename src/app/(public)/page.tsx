@@ -3,6 +3,7 @@ import { FadeInPageWrapper } from '@/components/fade-in-page-wrapper'
 import { GradientText } from '@/components/gradient-text'
 import { ShineBorder } from '@/components/shine-border'
 import { TopBar } from '@/components/top-bar/top-bar'
+import { UserNav } from '@/components/top-bar/user-nav'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
@@ -15,7 +16,10 @@ export default function HomePage() {
         <Button variant="outline" size="sm" asChild>
           <Link href="/contact">Contact</Link>
         </Button>
-        <DashboardLink />
+        <ShineBorder>
+          <DashboardLink />
+        </ShineBorder>
+        <UserNav />
       </TopBar>
 
       <main>
@@ -30,11 +34,11 @@ export default function HomePage() {
 
         <div className="container flex-1 space-y-8">
           <div className="flex items-center justify-center gap-4 py-8">
-            <Button asChild size="lg" className="w-32">
-              <Link href="/s">Start</Link>
-            </Button>
             <Button asChild size="lg" variant="secondary" className="w-32">
               <Link href="/s">Join</Link>
+            </Button>
+            <Button asChild size="lg" className="w-32">
+              <Link href="/s">Start</Link>
             </Button>
           </div>
 
@@ -56,9 +60,7 @@ export default function HomePage() {
           </section>
 
           <div className="flex items-center justify-center gap-3">
-            <ShineBorder>
-              Total estimates performed: {estimatesCounter}
-            </ShineBorder>
+            <div className="px-6 py-4">Over 1000 events!</div>
           </div>
 
           <section className="space-y-1">
