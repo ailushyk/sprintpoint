@@ -1,5 +1,7 @@
 import { FadeInPageWrapper } from '@/components/fade-in-page-wrapper'
+import { GradientText } from '@/components/gradient-text'
 import { PageHeader } from '@/components/page-header'
+import { ShineBorder } from '@/components/shine-border'
 import { TopBar } from '@/components/top-bar/top-bar'
 import { UserNav } from '@/components/top-bar/user-nav'
 import { Button } from '@/components/ui/button'
@@ -16,25 +18,22 @@ export default async function DashboardPage() {
         <UserNav />
       </TopBar>
 
-      <div className="container">
-        <PageHeader>Dashboard</PageHeader>
-      </div>
+      <div className="container mb-12 flex flex-col items-center justify-between sm:flex-row md:mb-4">
+        <PageHeader>
+          <GradientText>Dashboard</GradientText>
+        </PageHeader>
 
-      <div className="container flex flex-col items-center justify-center gap-3 pb-8 sm:flex-row-reverse">
-        <Button asChild variant="default" size="lg" className="w-full sm:w-32">
-          <Link href="/s">Start</Link>
-        </Button>
+        <div className="flex items-center gap-3">
+          <Button asChild variant="secondary" size="lg" className="w-32">
+            <Link href="/s/join">Join</Link>
+          </Button>
 
-        <Button
-          asChild
-          variant="secondary"
-          size="lg"
-          className="w-full sm:w-32"
-        >
-          <Link href="/s/join">Join</Link>
-        </Button>
-
-        <hr />
+          <ShineBorder>
+            <Button asChild variant="default" size="lg" className="w-32">
+              <Link href="/s">Start</Link>
+            </Button>
+          </ShineBorder>
+        </div>
       </div>
 
       <div className="container space-y-1">
