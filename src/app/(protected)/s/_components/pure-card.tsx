@@ -16,9 +16,10 @@ export const PureCard = forwardRef<
       className={cn(
         buttonVariants({ variant: 'ghost' }),
         'flex h-[4.5rem] w-16 md:h-20 md:w-20',
-        'select-none rounded-xl border-2 bg-card/80 p-4 text-xl transition',
-        'data-[state=on]:border-primary data-[state=on]:bg-accent',
-        'focus:border-primary',
+        'select-none rounded-xl border-2 bg-card p-4 text-xl transition',
+        'duration-300 [mask:radial-gradient(black_37%,transparent)]',
+        'hover:border-primary hover:[mask:radial-gradient(black_27%,transparent_98%)] focus:border-primary focus:bg-accent',
+        'data-[state=on]:border-primary data-[state=on]:bg-destructive data-[state=on]:text-3xl md:data-[state=on]:text-4xl',
         className,
       )}
       {...props}

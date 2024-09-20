@@ -1,6 +1,7 @@
 'use client'
 
 import { PureCard } from '@/app/(protected)/s/_components/pure-card'
+import { useInteractiveDeck } from '@/app/(protected)/s/_components/use-interactive-deck'
 import { AutoCenterOnFocus } from '@/components/auto-center-on-focus'
 import { Separator } from '@/components/ui/separator'
 import { Card } from '@/data/card-api'
@@ -8,7 +9,6 @@ import { slideToBottomVariants } from '@/lib/animation-variants'
 import { cn } from '@/lib/utils'
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
 import { motion } from 'framer-motion'
-import React, { useCallback } from 'react'
 
 const state = {
   status: 'voting',
@@ -16,12 +16,9 @@ const state = {
 }
 
 export const InteractiveDeck = ({ cards }: { cards: Card[] }) => {
-  const [selectedCard, setSelectedCard] = React.useState<Card | undefined>()
-  const onSelectCard = useCallback(
-    (cardId: string) => setSelectedCard(cards.find((c) => c.id === cardId)),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  )
+  const { containerRef, selectedCard, onSelectCard } = useInteractiveDeck({
+    cards,
+  })
 
   return (
     <motion.div
@@ -43,12 +40,11 @@ export const InteractiveDeck = ({ cards }: { cards: Card[] }) => {
         <ToggleGroup.Root
           type="single"
           aria-label="Your vote value"
-          onValueChange={(value) => {
-            onSelectCard(value)
-          }}
+          onValueChange={onSelectCard}
         >
           {/* Scroll Container */}
           <div
+            ref={containerRef}
             className={cn(
               'interactive-deck scrollbar-none relative flex min-w-0 pb-6 pt-12 md:gap-4',
               'max-w-full snap-x snap-mandatory gap-[.8rem] overflow-x-auto',
@@ -59,8 +55,8 @@ export const InteractiveDeck = ({ cards }: { cards: Card[] }) => {
                 <PureCard asChild className="shrink-0 snap-center">
                   <ToggleGroup.Item
                     aria-label={`Select ${card.title}`}
-                    className="group"
                     value={card.id}
+                    data-card-id={card.id}
                   >
                     {card.title}
                   </ToggleGroup.Item>

@@ -18,7 +18,7 @@ export const RoomTitle = ({ className, ...props }: Props) => {
   const { isPending, copy } = useClipboard()
 
   const handleClipboardCopy = async (value: string) => {
-    await copy(value, `Room URL copied to clipboard!`)
+    await copy(value, `The link URL has been copied to the clipboard!`)
   }
 
   return (
