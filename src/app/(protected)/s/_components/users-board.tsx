@@ -5,52 +5,45 @@ import { cn } from '@/lib/utils'
 import { Reorder } from 'framer-motion'
 import { useState } from 'react'
 
-function compareStatus(a, b) {
-  // If the status is the same, compare by "lastUpdate" timestamp (converted to timestamps)
-  const timestampA = new Date(a.vote.lastUpdate).getTime()
-  const timestampB = new Date(b.vote.lastUpdate).getTime()
-  const diff = timestampB - timestampA
-
-  // if (a.vote.status === b.vote.status) {
-  //   return a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1
-  // }
-  if (a.vote.status !== 'voting' && b.vote.status === 'voting') {
-    return 1
+interface TmpOnlineContextValue {
+  state: {
+    user: UserResponse
+    users: UserResponse[]
+    room: {
+      status: string
+    }
   }
-  if (a.vote.status === 'voting' && b.vote.status !== 'voting') {
-    return -1
-  }
-  if (a.vote.status !== 'voted' && b.vote.status === 'voted') {
-    return -1
-  }
-  if (a.vote.status === 'voted' && b.vote.status !== 'voted') {
-    return 1
-  }
-  return diff
 }
-
-function compareValue(a, b) {
-  if (a.vote.value === b.vote.value) {
-    return a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1
-  }
-  return a.vote.value - b.vote.value
-}
-
-function useOnlineContext() {
+function useOnlineContext(): TmpOnlineContextValue {
   return {
     state: {
       user: {
         id: '1',
         username: 'John Doe',
+        vote: {
+          lastUpdate: '2021-09-30T14:00:00',
+          status: 'voted',
+          value: '5',
+        },
       },
       users: [
         {
           id: '1',
           username: 'John Doe',
+          vote: {
+            lastUpdate: '2021-09-30T14:00:00',
+            status: 'voted',
+            value: '5',
+          },
         },
         {
           id: '2',
           username: 'Alice',
+          vote: {
+            lastUpdate: '2021-09-30T14:00:00',
+            status: 'voted',
+            value: '3',
+          },
         },
       ],
       room: {
@@ -74,15 +67,9 @@ export const UsersBoard = () => {
   const {
     state: { user, users, room },
   } = useOnlineContext()
-  const isChecking = room.status === 'checking'
   const self = (u: UserResponse) => u.id === user?.id
 
-  const [sortedItems, setSortedItems] = useState(users)
-
-  // useEffect(() => {
-  //   const _users = [...users].sort(isChecking ? compareValue : compareStatus)
-  //   setSortedItems(_users)
-  // }, [isChecking, users])
+  const [sortedItems] = useState(users)
 
   return (
     <Reorder.Group
@@ -91,7 +78,7 @@ export const UsersBoard = () => {
       onReorder={() => {}}
       className="flex flex-col divide-y rounded-lg bg-background px-3"
     >
-      {sortedItems.map((user, index) => (
+      {sortedItems.map((user) => (
         <Reorder.Item key={`${user.id}-sortable-list`} value={user}>
           <div className={cn('flex items-center justify-between gap-3 py-2')}>
             <div
