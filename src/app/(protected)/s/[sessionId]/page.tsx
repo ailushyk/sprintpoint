@@ -53,13 +53,13 @@ export default async function SessionPage({ params }: PageProps) {
         <div className="sticky top-0 bg-background">
           {/* TOP PANEL */}
           <div className="container mx-auto flex max-w-xl items-center justify-between gap-6 py-3">
-            <PickedCard sp={8} />
+            <PickedCard sp={8} className="glass-overlay" />
             <Button asChild variant="ghost" size="icon">
               <Link href={`/s/${data.id}/settings`}>
                 <Icon.mix />
               </Link>
             </Button>
-            <CheckButton className="h-16 w-16" />
+            <CheckButton className="h-16 w-16 border-2 border-red-800" />
           </div>
           {/* TOP PANEL END */}
           <Separator />

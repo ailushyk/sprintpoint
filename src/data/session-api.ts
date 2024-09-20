@@ -4,7 +4,7 @@ import { z } from 'zod'
 
 const sessionSchema = z.object({
   id: z.string(),
-  deck: deckSchema,
+  deck: z.object(deckSchema.shape),
   createdBy: z.string(),
   createdAt: z.string(),
 })
