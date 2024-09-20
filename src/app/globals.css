@@ -110,12 +110,15 @@
     scrollbar-width: none; /* Firefox */
   }
 
-  .simple-deck:before{
+  .interactive-deck {
+    mask: linear-gradient(90deg, transparent, hsl(var(--background)) 30%, hsl(var(--background)) 70%, transparent);
+  }
+  .interactive-deck:before{
     content: '';
     display: block;
     @apply w-3/4 shrink-0;
   }
-  .simple-deck:after {
+  .interactive-deck:after {
     content: '';
     display: block;
     @apply w-3/4 shrink-0;
@@ -125,6 +128,11 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .glass-overlay {
+    /*mask: linear-gradient(0deg, transparent, hsl(var(--background)) 32%, hsl(var(--background)) 71%, transparent);*/
+    /*mask: linear-gradient(7deg, transparent, hsl(var(--background)) 35%, hsl(var(--background)) 72%, transparent);*/
+    mask: linear-gradient(0deg, transparent, hsl(var(--background)) 8%, transparent 9%, hsl(var(--background)) 41%, hsl(var(--background)) 81%, transparent);
   }
 }
 

@@ -50,13 +50,13 @@ export const InteractiveDeck = ({ cards }: { cards: Card[] }) => {
           {/* Scroll Container */}
           <div
             className={cn(
-              'simple-deck scrollbar-none relative flex min-w-0 pb-6 pt-12 md:gap-4',
+              'interactive-deck scrollbar-none relative flex min-w-0 pb-6 pt-12 md:gap-4',
               'max-w-full snap-x snap-mandatory gap-[.8rem] overflow-x-auto',
             )}
           >
             {cards.map((card) => (
               <AutoCenterOnFocus asChild key={`simple-deck-${card.id}`}>
-                <PureCard className="shrink-0 snap-center" asChild>
+                <PureCard asChild className="shrink-0 snap-center">
                   <ToggleGroup.Item
                     aria-label={`Select ${card.title}`}
                     className="group"
