@@ -24,13 +24,10 @@ export type CardValue = SimpleCard | ColorCard | NoValueCard
 
 const getCardValueByName = (cardName: string | undefined, cards: Card[]) => {
   if (!cardName) return null
-  return cards.find((c) => c.name === cardName)?.value
+  return cards.find((c) => c.title === cardName)?.value
 }
 
-const getAverageCardValue = (
-  selectedCards: Array<string>,
-  deck: CardValue[],
-) => {
+const getAverageCardValue = (selectedCards: Array<string>, deck: Card[]) => {
   const sum = selectedCards.reduce((acc, cardName) => {
     const value = getCardValueByName(cardName, deck)
     return value ? acc + value : acc
