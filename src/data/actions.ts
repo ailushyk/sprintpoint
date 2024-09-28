@@ -24,3 +24,21 @@ export const startSessionAction = async (formData: FormData) => {
   })
   redirect(`/s/${result.data.id}`)
 }
+
+export const joinToSessionAction = async (formData: FormData) => {
+  const session = await auth()
+  if (!session) {
+    throw new Error('Unauthorized')
+  }
+  const sessionId = formData.get('sessionId')
+  if (!sessionId) {
+    return {
+      error: 'Session ID is required',
+    }
+  }
+
+  await fetcher(`/sessions/${sessionId}/join`, {
+    method: 'POST',
+  })
+  redirect(`/s/${sessionId}`)
+}

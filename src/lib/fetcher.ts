@@ -33,11 +33,11 @@ export const fetcher = async <T = unknown>(
   url: string,
   init?: RequestInit,
 ): Promise<{ data: T }> => {
-  console.log('fetcher', url)
   const headers = await createHeaders(init?.headers)
   if (!(url.startsWith('http') || url.startsWith('//'))) {
     url = `${env.API_URL}${url}`
   }
+  console.info('Fetching:', url)
   const response = await fetch(url, {
     ...init,
     headers,
