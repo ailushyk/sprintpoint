@@ -54,7 +54,7 @@ export default async function StartSessionPage() {
           </FormField>
 
           <div className="flex justify-end">
-            <FormSubmit asChild>Start</FormSubmit>
+            <FormSubmit asChild>Next</FormSubmit>
           </div>
         </Form>
       </main>
