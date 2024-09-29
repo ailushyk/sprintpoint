@@ -1,12 +1,21 @@
 import { Card } from '@/data/card-api'
 import React, { useCallback, useEffect } from 'react'
 
+function getFocusedCardId() {
+  const activeElement = document.activeElement
+  if (activeElement instanceof HTMLElement) {
+    return activeElement?.dataset.cardId
+  }
+}
+
 /**
  *  When the user presses the arrow button, focus on the previous or next card.
- *  If no card is selected, focus on the first card instead
+ *  If no card is selected, focus on the first card instead.
+ *  Each card should have a `data-card-id` attribute.
  */
 export const useInteractiveDeck = ({ cards }: { cards: Card[] }) => {
   const containerRef = React.useRef<HTMLDivElement>(null)
+  const lastFocusedCardId = React.useRef<string | undefined>()
 
   const handleKeyPress = useCallback(
     (event: KeyboardEvent) => {
@@ -35,6 +44,12 @@ export const useInteractiveDeck = ({ cards }: { cards: Card[] }) => {
   )
 
   useEffect(() => {
+    // focus on the first card when the component mounts
+    const firstCard = containerRef?.current?.firstElementChild
+    firstCard instanceof HTMLElement && firstCard.focus()
+  }, [])
+
+  useEffect(() => {
     // attach the event listener
     document.addEventListener('keydown', handleKeyPress)
     // remove the event listener
@@ -54,12 +69,5 @@ export const useInteractiveDeck = ({ cards }: { cards: Card[] }) => {
     containerRef,
     selectedCard,
     onSelectCard,
-  }
-}
-
-function getFocusedCardId() {
-  const activeElement = document.activeElement
-  if (activeElement instanceof HTMLElement) {
-    return activeElement?.dataset.cardId
   }
 }

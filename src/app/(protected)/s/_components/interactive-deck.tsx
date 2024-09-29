@@ -52,11 +52,14 @@ export const InteractiveDeck = ({ cards }: { cards: Card[] }) => {
           >
             {cards.map((card) => (
               <AutoCenterOnFocus asChild key={`simple-deck-${card.id}`}>
-                <PureCard asChild className="shrink-0 snap-center">
+                <PureCard
+                  asChild
+                  className="shrink-0 snap-center"
+                  data-card-id={card.id}
+                >
                   <ToggleGroup.Item
                     aria-label={`Select ${card.title}`}
                     value={card.id}
-                    data-card-id={card.id}
                   >
                     {card.title}
                   </ToggleGroup.Item>
