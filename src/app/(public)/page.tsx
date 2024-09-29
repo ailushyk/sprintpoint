@@ -78,6 +78,32 @@ export default function HomePage() {
           </section>
         </div>
       </main>
+
+      <footer>
+        <div className="container py-8 text-center">
+          <p>
+            Made with ❤️ by{' '}
+            <Link
+              href="https://github.com/ailushyk"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Alex I.
+            </Link>
+          </p>
+        </div>
+
+        <div className="container flex items-center justify-between py-8 text-center text-xs text-muted-foreground">
+          <p>© 2021 Sprint Point. All rights reserved.</p>
+          <Link
+            href="https://stats.uptimerobot.com/Mih4VWfgtR"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            System status
+          </Link>
+        </div>
+      </footer>
     </FadeInPageWrapper>
   )
 }
