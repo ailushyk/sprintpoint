@@ -35,11 +35,8 @@ export default function HomePage() {
 
         <div className="container flex-1 space-y-8">
           <div className="flex items-center justify-center gap-4 py-8">
-            <Button asChild size="lg" variant="secondary" className="w-32">
-              <Link href="/s/join">Join</Link>
-            </Button>
             <Button asChild size="lg" className="w-32">
-              <Link href="/s">Start</Link>
+              <Link href="/s">Start Now</Link>
             </Button>
           </div>
 

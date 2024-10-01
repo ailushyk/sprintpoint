@@ -52,9 +52,10 @@ export const InteractiveDeck = ({ cards }: { cards: Card[] }) => {
             {cards.map((card) => (
               <PureCard
                 key={`simple-deck-${card.id}`}
-                asChild
                 className="shrink-0 snap-center"
                 data-card-id={card.id}
+                data-testid="card"
+                asChild
               >
                 <ToggleGroup.Item
                   aria-label={`Select ${card.title}`}

@@ -1,7 +1,6 @@
-import { Card } from '@/data/card-api'
-import { debounce } from '@/lib/debounce'
-import { scrollElementIntoView } from '@/lib/scroll-element-into-view'
 import React, { useCallback, useEffect } from 'react'
+import { scrollElementIntoView } from '@/lib/scroll-element-into-view'
+import { Card } from '@/data/card-api'
 
 const getFocusedCardId = () => {
   const activeElement = document.activeElement
@@ -11,7 +10,6 @@ const getFocusedCardId = () => {
 }
 
 const scrollIntoCenterListener = (event: Event) => {
-  console.log('in')
   const target = event.target as HTMLElement
   const cardId = target?.dataset.cardId
   if (cardId) {
@@ -20,9 +18,10 @@ const scrollIntoCenterListener = (event: Event) => {
 }
 
 /**
+ *  Each card should have a `data-card-id` attribute.
+ *
  *  When the user presses the arrow button, focus on the previous or next card.
  *  If no card is selected, focus on the first card instead.
- *  Each card should have a `data-card-id` attribute.
  */
 export const useInteractiveDeck = ({ cards }: { cards: Card[] }) => {
   const containerRef = React.useRef<HTMLDivElement>(null)
@@ -54,19 +53,19 @@ export const useInteractiveDeck = ({ cards }: { cards: Card[] }) => {
     }
   }, [])
 
-  useEffect(() => {
-    containerRef?.current?.addEventListener(
-      'focusin',
-      debounce(scrollIntoCenterListener, 200),
-    )
-    return () => {
-      containerRef?.current?.removeEventListener(
-        'focusin',
-        scrollIntoCenterListener,
-        true,
-      )
-    }
-  }, [onSelectCard])
+  // useEffect(() => {
+  //   containerRef?.current?.addEventListener(
+  //     'focusin',
+  //     debounce(scrollIntoCenterListener, 200),
+  //   )
+  //   return () => {
+  //     containerRef?.current?.removeEventListener(
+  //       'focusin',
+  //       scrollIntoCenterListener,
+  //       true,
+  //     )
+  //   }
+  // }, [onSelectCard])
 
   useEffect(() => {
     // focus on the first card when the component mounts

@@ -1,39 +1,41 @@
 import { debounce } from './debounce'
 
-jest.useFakeTimers()
-
 describe('debounce', () => {
+  jest.useFakeTimers()
+
   it('should call the function after the specified wait time', () => {
-    const func = jest.fn()
-    const debouncedFunc = debounce(func, 1000)
+    const mockFunc = jest.fn()
+    const debouncedFunc = debounce(mockFunc, 1000)
 
-    debouncedFunc()
-    expect(func).not.toBeCalled()
+    debouncedFunc('test')
+    expect(mockFunc).not.toHaveBeenCalled()
 
     jest.advanceTimersByTime(1000)
-    expect(func).toBeCalled()
+    expect(mockFunc).toHaveBeenCalledWith('test')
   })
 
-  it('should call the function with the correct arguments', () => {
-    const func = jest.fn()
-    const debouncedFunc = debounce(func, 1000)
+  it('should not call the function if called again within wait time', () => {
+    const mockFunc = jest.fn()
+    const debouncedFunc = debounce(mockFunc, 1000)
 
-    debouncedFunc('arg1', 'arg2')
+    debouncedFunc('first')
+    debouncedFunc('second')
+
     jest.advanceTimersByTime(1000)
-    expect(func).toBeCalledWith('arg1', 'arg2')
+    expect(mockFunc).toHaveBeenCalledTimes(1)
+    expect(mockFunc).toHaveBeenCalledWith('second')
   })
 
-  it('should reset the timer if called again before the wait time', () => {
-    const func = jest.fn()
-    const debouncedFunc = debounce(func, 1000)
+  it('should handle multiple calls with different arguments', () => {
+    const mockFunc = jest.fn()
+    const debouncedFunc = debounce(mockFunc, 1000)
 
-    debouncedFunc()
-    jest.advanceTimersByTime(500)
-    debouncedFunc()
-    jest.advanceTimersByTime(500)
-    expect(func).not.toBeCalled()
+    debouncedFunc('a')
+    debouncedFunc('b')
+    debouncedFunc('c')
 
-    jest.advanceTimersByTime(500)
-    expect(func).toBeCalled()
+    jest.advanceTimersByTime(1000)
+    expect(mockFunc).toHaveBeenCalledTimes(1)
+    expect(mockFunc).toHaveBeenCalledWith('c')
   })
 })
