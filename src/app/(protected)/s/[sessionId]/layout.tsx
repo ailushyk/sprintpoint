@@ -1,6 +1,6 @@
 import React from 'react'
 import { RoomTitle } from '@/app/(protected)/s/_components/room-title'
-import { FadeInPageWrapper } from '@/components/fade-in-page-wrapper'
+import { PageWrapper } from '@/components/page-wrapper'
 import { BackButton } from '@/components/top-bar/back-button'
 import { TopBarContainer } from '@/components/top-bar/top-bar-container'
 import { UserNav } from '@/components/top-bar/user-nav'
@@ -14,7 +14,7 @@ interface PageProps {
 export default async function Layout({ children, params }: PageProps) {
   const { data } = await fetchSessionById(params.sessionId)
   return (
-    <FadeInPageWrapper className="h-full">
+    <PageWrapper className="h-full">
       <TopBarContainer>
         <BackButton />
         <RoomTitle id={data.id} name="#1234" />
@@ -22,6 +22,6 @@ export default async function Layout({ children, params }: PageProps) {
       </TopBarContainer>
 
       {children}
-    </FadeInPageWrapper>
+    </PageWrapper>
   )
 }

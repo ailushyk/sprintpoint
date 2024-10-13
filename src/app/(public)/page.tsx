@@ -1,10 +1,10 @@
+import Link from 'next/link'
 import { DashboardLink } from '@/app/(public)/_components/dashboard-link'
-import { FadeInPageWrapper } from '@/components/fade-in-page-wrapper'
+import { Button } from '@/components/ui/button'
 import { GradientText } from '@/components/gradient-text'
+import { PageWrapper } from '@/components/page-wrapper'
 import { TopBar } from '@/components/top-bar/top-bar'
 import { UserNav } from '@/components/top-bar/user-nav'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
 
 export const metadata = {
   title: 'Turn smart estimation into smooth, predictable fun at work',
@@ -15,7 +15,7 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <FadeInPageWrapper duration="slow">
+    <PageWrapper duration="slow">
       <TopBar>
         <Button variant="outline" size="sm" asChild>
           <Link href="/contact">Contact</Link>
@@ -101,6 +101,6 @@ export default function HomePage() {
           </Link>
         </div>
       </footer>
-    </FadeInPageWrapper>
+    </PageWrapper>
   )
 }
