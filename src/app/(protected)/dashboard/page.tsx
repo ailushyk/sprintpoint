@@ -1,14 +1,14 @@
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { SignOut } from '@/components/auth/sign-out'
-import { FadeInPageWrapper } from '@/components/fade-in-page-wrapper'
 import { GradientText } from '@/components/gradient-text'
 import { PageHeader } from '@/components/page-header'
+import { PageWrapper } from '@/components/page-wrapper'
 import { ShineBorder } from '@/components/shine-border'
 import { TopBar } from '@/components/top-bar/top-bar'
 import { UserNav } from '@/components/top-bar/user-nav'
-import { Button } from '@/components/ui/button'
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { fetchUserSessions } from '@/data/session-api'
-import Link from 'next/link'
 
 export const metadata = {
   title: 'Dashboard',
@@ -22,7 +22,7 @@ export default async function DashboardPage() {
   const { data } = await fetchUserSessions()
 
   return (
-    <FadeInPageWrapper duration="slow">
+    <PageWrapper duration="slow">
       <TopBar>
         <Button variant="outline" size="sm" asChild>
           <SignOut>Sign Out</SignOut>
@@ -78,6 +78,6 @@ export default async function DashboardPage() {
           </div>
         )}
       </div>
-    </FadeInPageWrapper>
+    </PageWrapper>
   )
 }

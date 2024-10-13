@@ -1,10 +1,10 @@
+import Link from 'next/link'
 import { DashboardLink } from '@/app/(public)/_components/dashboard-link'
-import { FadeInPageWrapper } from '@/components/fade-in-page-wrapper'
+import { Button } from '@/components/ui/button'
 import { GradientText } from '@/components/gradient-text'
+import { PageWrapper } from '@/components/page-wrapper'
 import { TopBar } from '@/components/top-bar/top-bar'
 import { UserNav } from '@/components/top-bar/user-nav'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
 
 export const metadata = {
   title: 'Turn smart estimation into smooth, predictable fun at work',
@@ -15,7 +15,7 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <FadeInPageWrapper duration="slow">
+    <PageWrapper duration="slow">
       <TopBar>
         <Button variant="outline" size="sm" asChild>
           <Link href="/contact">Contact</Link>
@@ -35,11 +35,8 @@ export default function HomePage() {
 
         <div className="container flex-1 space-y-8">
           <div className="flex items-center justify-center gap-4 py-8">
-            <Button asChild size="lg" variant="secondary" className="w-32">
-              <Link href="/s/join">Join</Link>
-            </Button>
             <Button asChild size="lg" className="w-32">
-              <Link href="/s">Start</Link>
+              <Link href="/s">Start Now</Link>
             </Button>
           </div>
 
@@ -78,6 +75,32 @@ export default function HomePage() {
           </section>
         </div>
       </main>
-    </FadeInPageWrapper>
+
+      <footer>
+        <div className="container py-8 text-center">
+          <p>
+            Made with ❤️ by{' '}
+            <Link
+              href="https://github.com/ailushyk"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Alex I.
+            </Link>
+          </p>
+        </div>
+
+        <div className="container flex items-center justify-between py-8 text-center text-xs text-muted-foreground">
+          <p>© 2021 Sprint Point. All rights reserved.</p>
+          <Link
+            href="https://stats.uptimerobot.com/Mih4VWfgtR"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            System status
+          </Link>
+        </div>
+      </footer>
+    </PageWrapper>
   )
 }

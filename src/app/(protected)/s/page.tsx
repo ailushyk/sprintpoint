@@ -1,7 +1,3 @@
-import { FadeInPageWrapper } from '@/components/fade-in-page-wrapper'
-import { PageHeader } from '@/components/page-header'
-import { TopBar } from '@/components/top-bar/top-bar'
-import { UserNav } from '@/components/top-bar/user-nav'
 import {
   Form,
   FormControl,
@@ -10,6 +6,10 @@ import {
   FormLabel,
   FormSubmit,
 } from '@/components/ui/form'
+import { PageHeader } from '@/components/page-header'
+import { PageWrapper } from '@/components/page-wrapper'
+import { TopBar } from '@/components/top-bar/top-bar'
+import { UserNav } from '@/components/top-bar/user-nav'
 import { startSessionAction } from '@/data/actions'
 import { fetchAllDecks } from '@/data/deck-api'
 
@@ -24,7 +24,7 @@ export const metadata = {
 export default async function StartSessionPage() {
   const decks = await fetchAllDecks()
   return (
-    <FadeInPageWrapper duration="mid">
+    <PageWrapper duration="mid">
       <TopBar>
         <UserNav />
       </TopBar>
@@ -54,10 +54,10 @@ export default async function StartSessionPage() {
           </FormField>
 
           <div className="flex justify-end">
-            <FormSubmit asChild>Start</FormSubmit>
+            <FormSubmit asChild>Next</FormSubmit>
           </div>
         </Form>
       </main>
-    </FadeInPageWrapper>
+    </PageWrapper>
   )
 }

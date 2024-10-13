@@ -1,7 +1,28 @@
 'use client'
 
+import { scrollElementIntoView } from '@/lib/scroll-element-into-view'
 import { Slot } from '@radix-ui/react-slot'
 import React, { useRef } from 'react'
+
+export const useAutoCenterOnFocus = () => {
+  const ref = useRef<HTMLDivElement>(null)
+  const timeoutRef = useRef<number | null>(null)
+
+  const onFocus = () => {
+    scrollElementIntoView({ element: ref?.current })
+    // timeoutRef.current = window.setTimeout(() => {
+    // }, 130) // Delay in milliseconds
+  }
+
+  const onBlur = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      timeoutRef.current = null
+    }
+  }
+
+  return { ref, onFocus, onBlur }
+}
 
 /**
  * This component will scroll to the center of the container when it receives focus.
@@ -16,26 +37,8 @@ export const AutoCenterOnFocus = ({
   children: React.ReactNode
   asChild?: boolean
 }) => {
-  const ref = useRef<HTMLDivElement>(null)
+  const { ref, onFocus, onBlur } = useAutoCenterOnFocus()
   const Comp = asChild ? Slot : 'div'
-  const timeoutRef = useRef<number | null>(null)
-
-  const onFocus = () => {
-    timeoutRef.current = window.setTimeout(() => {
-      ref?.current?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center', // Scroll to the center of the container
-        inline: 'center', // Scroll to the horizontal center of the container
-      })
-    }, 130) // Delay in milliseconds
-  }
-
-  const onBlur = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
-      timeoutRef.current = null
-    }
-  }
 
   return (
     <Comp ref={ref} onFocus={onFocus} onBlur={onBlur} {...props}>

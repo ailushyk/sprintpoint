@@ -2,7 +2,6 @@
 
 import { PureCard } from '@/app/(protected)/s/_components/pure-card'
 import { useInteractiveDeck } from '@/app/(protected)/s/_components/use-interactive-deck'
-import { AutoCenterOnFocus } from '@/components/auto-center-on-focus'
 import { Separator } from '@/components/ui/separator'
 import { Card } from '@/data/card-api'
 import { slideToBottomVariants } from '@/lib/animation-variants'
@@ -51,17 +50,20 @@ export const InteractiveDeck = ({ cards }: { cards: Card[] }) => {
             )}
           >
             {cards.map((card) => (
-              <AutoCenterOnFocus asChild key={`simple-deck-${card.id}`}>
-                <PureCard asChild className="shrink-0 snap-center">
-                  <ToggleGroup.Item
-                    aria-label={`Select ${card.title}`}
-                    value={card.id}
-                    data-card-id={card.id}
-                  >
-                    {card.title}
-                  </ToggleGroup.Item>
-                </PureCard>
-              </AutoCenterOnFocus>
+              <PureCard
+                key={`simple-deck-${card.id}`}
+                className="shrink-0 snap-center"
+                data-card-id={card.id}
+                data-testid="card"
+                asChild
+              >
+                <ToggleGroup.Item
+                  aria-label={`Select ${card.title}`}
+                  value={card.id}
+                >
+                  {card.title}
+                </ToggleGroup.Item>
+              </PureCard>
             ))}
           </div>
         </ToggleGroup.Root>
